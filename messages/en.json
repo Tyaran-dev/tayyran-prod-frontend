@@ -1,0 +1,1330 @@
+{
+  "header": {
+    "navItems": {
+      "home": "Home",
+      "milecoin": "Milecoin",
+      "aboutUs": "About Us",
+      "packages": "Packages",
+      "tayyranBusiness": "Tayyran Business",
+      "corporate": "Corporate"
+    },
+    "registerButton": "Register"
+  },
+  "Stepper": {
+    "flightSteps": {
+      "chooseFlight": "Choose your flight",
+      "enterDetails": "Enter your details",
+      "upgradeExperience": "Upgrade your experience",
+      "finalDetails": "Final details"
+    },
+    "hotelSteps": {
+      "selectHotel": "Select Hotel",
+      "selectRoom": "Select Room",
+      "enterDetails": "Enter Your Details",
+      "finalDetails": "Final Details"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "mainHeading": "Let’s book your next trip! now",
+      "subHeading": "Choose from over 1.5 million hotels & 450+ airlines",
+      "searchForm": {
+        "formTypeHotels": "Hotels",
+        "formTypeFlights": "Flights",
+        "fromFieldLabel": "From",
+        "toFieldLabel": "To",
+        "DatePicker": "Departure Date",
+        "returnDate": "Return Date",
+        "travelersLabel": "Travelers",
+        "classLabel": "Class",
+        "searchButton": "Search",
+        "searchButtonLoading": "Searching ...",
+        "loadingText": "Loading ...",
+        "hotelCountryLabel": "Select Country",
+        "hotelCityLabel": "Select City",
+        "hotelCheckInDate": "Check-In",
+        "hotelCheckOutDate": "Check-Out"
+      }
+    },
+    "flightClassOptions": {
+      "economy": "Economy",
+      "premiumEconomy": "Premium Economy",
+      "business": "Business",
+      "firstClass": "First Class"
+    },
+    "milecoin": {
+      "nav": {
+        "home": "Home",
+        "about": "About MileCoin",
+        "learnMore": "Learn More"
+      },
+      "hero": {
+        "title": "Welcome to the Future of",
+        "subtitle": "Cryptocurrency",
+        "description": "Discover innovative blockchain solutions that revolutionize how we think about digital currency and everyday activities."
+      },
+      "intro": {
+        "title": "Introducing MileCoin",
+        "description": "The world's first cryptocurrency that rewards your everyday travel and movement",
+        "tag": "Revolutionary Mining Concept",
+        "heading": "Mine Cryptocurrency with Every Mile You Travel",
+        "content": "MileCoin introduces a groundbreaking approach to cryptocurrency mining. Instead of energy-intensive computing, mine coins simply by traveling, walking, driving, or moving. Every mile you cover contributes to your MileCoin wallet.",
+        "features": {
+          "eco": "Eco-friendly mining process",
+          "rewards": "Rewards active lifestyle",
+          "accessible": "Accessible to everyone"
+        },
+        "cta": "Explore MileCoin"
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "steps": {
+          "1": "Travel or move around in your daily activities",
+          "2": "Our app tracks your distance automatically",
+          "3": "Earn MileCoins based on miles traveled",
+          "4": "Trade or use your earned MileCoins"
+        }
+      },
+      "stats": {
+        "miles": "Miles Mined Daily",
+        "miners": "Active Miners",
+        "footprint": "Carbon Footprint"
+      },
+      "cta": {
+        "title": "Ready to Start Mining with Miles?",
+        "description": "Join thousands of users who are already earning MileCoins through their daily activities",
+        "button": "Get Started Today"
+      },
+      "footer": {
+        "copyright": "© 2025 MileCoin. Revolutionizing cryptocurrency through movement."
+      }
+    },
+    "bestOffer": {
+      "bestOfferHeading": "Best Offer",
+      "bestOfferText": "Members save 10% or more on over 100,000 hotels worldwide when signed in",
+      "bestOfferButton": "Sign in now"
+    },
+    "topHotels": {
+      "topHotelsHeading": "Top Hotels",
+      "perNight": "perNight",
+      "categories": {
+        "Trending": "Trending",
+        "5-Star": "5-Star",
+        "Asian": "Asian",
+        "Europe": "Europe",
+        "Middle-East": "Middle-East",
+        "Budget-Friendly": "Budget-Friendly",
+        "Adventure": "Adventure",
+        "Family-Friendly": "Family-Friendly"
+      }
+    },
+    "topDeals": {
+      "topDealsHeading": "Last Minute Weekend Deals",
+      "bookNowButton": "Book Now"
+    },
+    "weekendDeals": {
+      "heading": "Last Minute Weekend Deals",
+      "dealsButton": "Member Price Available"
+    },
+    "topFlights": {
+      "heading": "Popular flights near you",
+      "categories": {
+        "International": "International",
+        "Domestic": "Domestic"
+      }
+    },
+    "mobileAppSection": {
+      "heading": "Get Our Mobile App!",
+      "exprensHeading": "Experience Convenience at Your Fingertips",
+      "subHeading": "Explore our curated list of the best countries to visit in 2024 and discover incredible destinations waiting to be explored",
+      "downloadButton": "Download Now"
+    }
+  },
+  "about-us": {
+    "title": "About Tayyran",
+    "subtitle": "Your journey to seamless travel begins here",
+    "ourStory": {
+      "title": "Our Story",
+      "description": "Tayaran was launched with a clear vision: that travel is not just about moving from one place to another, but a complete experience that begins with planning and booking, and extends all the way to reaching your destination. Therefore, the project developed a comprehensive digital platform that allows users to compare thousands of flight and hotel options and choose the most suitable ones with ease and transparency, while also offering innovative services unprecedented in the local market."
+    },
+    "ourVision": {
+      "title": "Our Vision",
+      "cards": {
+        "leadingPlatform": {
+          "title": "Leading Saudi Platform",
+          "description": "We aim to be the leading Saudi platform that combines flight and hotel services in one place, focusing on smart technology and an exceptional user experience."
+        },
+        "vision2030": {
+          "title": "Vision 2030 Partner",
+          "description": "We strive to play an active role in Saudi Arabia's Vision 2030 by supporting the growth of the tourism sector and enhancing the Kingdom's position as a leading global destination."
+        }
+      }
+    },
+    "whatWeOffer": {
+      "title": "What We Offer",
+      "services": [
+        {
+          "title": "Flight Bookings",
+          "description": "Competitive flight bookings with major global and regional airlines"
+        },
+        {
+          "title": "Hotel Deals",
+          "description": "Diverse hotel deals suitable for all budgets"
+        },
+        {
+          "title": "24/7 Support",
+          "description": "Technical support around the clock to ensure your comfort"
+        },
+        {
+          "title": "Fast & Easy",
+          "description": "A fast and easy-to-use interface to book your trip in minutes"
+        },
+        {
+          "title": "Safe Payments",
+          "description": "Multiple secure payment methods that suit everyone"
+        },
+        {
+          "title": "Exclusive Offers",
+          "description": "Seasonal and exclusive offers for frequent travelers"
+        }
+      ]
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us?",
+      "description": "Because we believe that travel is a personal experience that deserves the best attention to detail. We combine modern technology with extensive expertise to provide a service that balances quality, precision, and genuine care for your comfort.",
+      "features": {
+        "userFocused": {
+          "title": "User-Focused",
+          "description": "Built around your needs"
+        },
+        "technology": {
+          "title": "Technology",
+          "description": "Smart, modern solutions"
+        },
+        "excellence": {
+          "title": "Excellence",
+          "description": "Quality in every detail"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey?",
+      "description": "With our platform, your journey will be easier, faster, and closer to what you imagine."
+    }
+  },
+  "SignUp": {
+    "title": "Create Account",
+    "subtitle": "Join us and start your journey",
+    "successMessage": "Account created successfully! Please verify your email.",
+    "errorMessage": "Registration failed. Please try again.",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "createAccount": "Create Account",
+      "creatingAccount": "Creating account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login"
+    },
+    "formErrors": {
+      "firstNameMin": "First name must be at least 2 characters",
+      "lastNameMin": "Last name must be at least 2 characters",
+      "invalidEmail": "Invalid email address",
+      "passwordMin": "Password must be at least 6 characters",
+      "passwordMismatch": "Passwords do not match",
+      "emailAlreadyExists": "This email is already registered",
+      "invalidData": "Invalid registration data",
+      "noConnection": "No connection to server"
+    }
+  },
+  "Login": {
+    "title": "Welcome Back",
+    "subtitle": "Log in to continue your journey",
+    "successMessage": "Login successful!",
+    "errorMessage": "An unexpected error occurred",
+    "form": {
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "forgotPassword": "Forgot?",
+      "login": "Log In",
+      "loggingIn": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign up"
+    },
+    "formErrors": {
+      "invalidEmail": "Invalid email address",
+      "passwordMin": "Password must be at least 6 characters"
+    }
+  },
+  "ForgotPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter your email to receive a reset Code",
+    "successMessage": "Password reset Code sent! Please check your email.",
+    "errorMessage": "An unexpected error occurred",
+    "form": {
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "sendResetLink": "Send Reset Code",
+      "sending": "Sending...",
+      "backToLogin": "Back to Login"
+    },
+    "formErrors": {
+      "invalidEmail": "Invalid email address"
+    }
+  },
+  "VerifyOTP": {
+    "title": "Verify Your Email",
+    "instruction": "Enter the code sent to",
+    "emailRequired": "Email is required",
+    "invalidOtp": "Please enter a valid 6-digit code",
+    "successMessage": "Email verified successfully!",
+    "errorMessage": "An unexpected error occurred",
+    "resendSuccess": "Verification code resent successfully!",
+    "loading": "Loading...",
+    "verifyButton": "Verify Email",
+    "verifying": "Verifying...",
+    "noCodeReceived": "Didn't receive the code?",
+    "resendButton": "Resend Code",
+    "resending": "Sending new code...",
+    "resendFailed": "Failed to send new code",
+    "noServerResponse": "No response from server. Please check your connection.",
+    "codeExpiresIn": "Code expires in {minutes} minutes",
+    "resendIn": "Resend available in",
+    "waitTime": "Please wait {time} before requesting a new code",
+    "newCodeSent": "New code sent!",
+    "timerProgress": "Next resend available in:",
+    "timerPersists": "Resend timer will persist even if you refresh the page"
+  },
+  "PrivacyPolicy": {
+    "title": "Privacy Policy – Tayyran",
+    "subtitle": "A Saudi platform for hotel and flight bookings",
+    "companyName": "QUSA Travel and Tourism Company – Saudi Arabia",
+    "lastUpdated": "Last Updated: December 2025",
+    "cardTitle": "Privacy Information",
+    "cardDescription": "Click on any section below to learn more about how we handle your data",
+    "contactTitle": "Contact Information",
+    "contactDescription": "For any privacy-related inquiries, please contact us:",
+    "companyAddress": "2339 Al Yasmin District – Anas Bin Malik Street – Office No. 10 – First Floor – Riyadh – Kingdom of Saudi Arabia",
+    "backToHome": "Back to Home",
+    "sections": {
+      "whoWeAre": {
+        "title": "Who We Are",
+        "content": "A Saudi platform for hotel and flight bookings\n\n\"Tayyran\" is an innovative Saudi platform that makes it easy for you to plan your trips, bringing together the best flight and hotel offers in one place.\nWe designed the platform to provide you with a smooth, transparent, and fast user experience where you can choose what's best for you in seconds—with the highest levels of confidence.\n\nTayyran is the trade name of QUSA Travel and Tourism Company, located at:\n2339 Al Yasmin District – Anas Bin Malik Street – Office No. 10 – First Floor – Riyadh – Kingdom of Saudi Arabia.\n\nFor any privacy-related inquiries:\ninfo@qessatravel.com"
+      },
+      "dataWeCollect": {
+        "title": "Personal Data We Collect",
+        "content": "• Identity Data: Full name – Passport number – Nationality – Date of birth.\n• Contact Data: Phone number – Email address – Residential address.\n• Financial Data: Payment card – Invoices – Transaction history.\n• Travel Data: Flight tickets – Hotels – Visas – Special requests.\n• Sensitive Data (if necessary): Health information required for travel with your explicit consent."
+      },
+      "howWeCollect": {
+        "title": "How We Collect Data",
+        "content": "• Through booking on the website or application\n• Direct communication with us\n• Visiting our offices\n• Through airlines, hotels, and service partners"
+      },
+      "howWeUse": {
+        "title": "How We Use Your Data",
+        "content": "• Processing bookings\n• Communication regarding trips and payments\n• Providing customer service\n• Sending offers with prior consent\n• Compliance with laws and regulations"
+      },
+      "dataSharing": {
+        "title": "Data Sharing",
+        "content": "We may share your data with:\n• Airlines\n• Hotels\n• Payment companies\n• Government authorities\n• Technical service providers\n\nWe do not sell your data to any party."
+      },
+      "internationalTransfer": {
+        "title": "International Data Transfer",
+        "content": "Data may be transferred outside the Kingdom only for completing bookings with guaranteed compliance with PDPL controls."
+      },
+      "dataProtection": {
+        "title": "Data Protection",
+        "content": "We use:\n• Encryption\n• Fraud detection systems\n• Secure servers\n• Access permission restrictions"
+      },
+      "dataRetention": {
+        "title": "Data Retention",
+        "content": "We retain data only throughout the period of:\n• Service provision\n• Legal requirements\n• Dispute management"
+      },
+      "userRights": {
+        "title": "User Rights",
+        "content": "You have the right to:\n• Access your data\n• Request modification\n• Request deletion\n• Object to processing\n• Withdraw consent\n\nVia email: info@qessatravel.com"
+      },
+      "dataBreach": {
+        "title": "Data Breach",
+        "content": "We will notify you and the competent authority in the event of any breach in accordance with legal requirements."
+      },
+      "updates": {
+        "title": "Updates",
+        "content": "The policy may be updated, and amendments will be published on the website."
+      }
+    }
+  },
+  "TermsConditions": {
+    "title": "Terms and Conditions – Tayyran",
+    "companyName": "Tayyran – Saudi Arabia",
+    "lastUpdated": "Last Updated: December 2025",
+    "agreementNotice": "By using the Tayyran website or application, you fully agree to these terms.",
+    "cardTitle": "Terms and Conditions",
+    "cardDescription": "Click on any section below to view the detailed terms",
+    "importantNoticeTitle": "Important Notice",
+    "importantNoticeDescription": "For any inquiries or complaints regarding these terms, please contact us:",
+    "companyAddress": "2339 Al Yasmin District – Anas Bin Malik Street – Office No. 10 – First Floor – Riyadh – Kingdom of Saudi Arabia",
+    "backToHome": "Back to Home",
+    "sections": {
+      "introductionAgreement": {
+        "title": "Introduction and Agreement Acceptance",
+        "content": "These terms and conditions constitute a legally binding agreement between QUSA Travel and Tourism Company, as the owner and operator of the Tayyran platform, and any person who accesses, uses, or benefits from any service available through the website or affiliated applications.",
+        "points": [
+          "Using the platform by any means constitutes explicit acknowledgment of the user's full and unconditional acceptance of all terms of this agreement",
+          "User's acknowledgment of possessing full legal capacity to enter into this agreement",
+          "User must be 18 years of age or older to use the service"
+        ]
+      },
+      "platformNature": {
+        "title": "Nature of Platform's Role",
+        "content": "Tayyran platform operates as an independent electronic intermediary enabling users to search and book travel services provided by third parties.",
+        "points": [
+          "Services include – without limitation – airlines, hotels, and accommodation service providers",
+          "The platform is not in any case considered an air carrier, operator, or owner of any hotel facility",
+          "Responsibility for service execution, quality, and continuity lies entirely with the relevant service provider",
+          "The platform operates as a technical intermediary and does not bear responsibility for service execution"
+        ]
+      },
+      "termsModification": {
+        "title": "Terms Modification",
+        "content": "The company may modify the terms at any time without prior notice. Continued use constitutes explicit acceptance of the modified terms.",
+        "points": [
+          "Terms may be modified at any time without prior notice",
+          "Modifications become effective immediately upon publication on the platform",
+          "Modifications do not apply retroactively to bookings confirmed before the modification date",
+          "Continued use of the platform after modifications constitutes acceptance of the amended terms"
+        ]
+      },
+      "websiteAvailability": {
+        "title": "Website Availability",
+        "content": "We strive to provide uninterrupted service, but we do not guarantee it will be free from technical failures or downtime. The site may be suspended for periodic maintenance or technical updates without prior notice."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "Tayyran is not responsible for:",
+        "points": [
+          "Technical errors",
+          "Payment failures",
+          "Service disruptions",
+          "Losses resulting from use",
+          "Flight and accommodation services are subject to providers' terms and relevant international agreements",
+          "Applicable agreements include the Montreal Convention for air transport",
+          "The platform is not responsible for any errors or omissions in displayed information"
+        ]
+      },
+      "liabilityLimits": {
+        "title": "Financial Liability Limits",
+        "content": "To the maximum extent permitted by law, Tayyran shall not be liable for any direct, indirect, consequential, or special damages, including loss of profits, data, or opportunities, resulting from using the platform or inability to use it. In all cases, if Tayyran's liability is legally established, the maximum limit of such liability shall not exceed the value of the amount actually paid by the user for the disputed booking."
+      },
+      "acceptableBehavior": {
+        "title": "Acceptable Behavior",
+        "content": "The following activities are strictly prohibited:",
+        "points": [
+          "Fake bookings",
+          "Unauthorized access attempts",
+          "Posting offensive content",
+          "Uploading malicious files",
+          "Using robots or automated copying tools",
+          "Violation of intellectual property rights",
+          "Prohibited: Making fictitious or speculative bookings",
+          "Prohibited: Attempting to hack systems or using automated tools or copying software",
+          "Prohibited: Publishing content that violates or infringes intellectual property rights",
+          "Prohibited: Using the platform for illegal purposes or in violation of regulations",
+          "User must be 18 years of age or older",
+          "User is committed to accuracy of information provided during booking"
+        ]
+      },
+      "flightBookings": {
+        "title": "Flight Bookings and Travel Requirements",
+        "content": "Flight bookings are subject to the following conditions:",
+        "points": [
+          "User bears full responsibility for accuracy of traveler data and its conformity with passports",
+          "Responsibility for visa issuance, passport validity, and health requirements lies solely with the traveler",
+          "Displayed prices may not include some fees or local taxes collected directly by relevant authorities",
+          "In case of traveler no-show, airline policies apply",
+          "User is not entitled to claim any compensation from Tayyran platform due to no-show",
+          "Bookings are subject to specific airline terms and prices at time of booking"
+        ]
+      },
+      "accommodationBookings": {
+        "title": "Accommodation Bookings (Hotels and Others)",
+        "content": "Accommodation bookings are subject to the following conditions:",
+        "points": [
+          "Hotel facility classifications are indicative and subject to local standards of each country",
+          "Some establishments may impose additional fees such as resort fees or city taxes paid directly upon check-in",
+          "Displayed photos and descriptions are provided by service providers, and the platform does not guarantee their complete conformity with reality",
+          "Any special requests are sent as non-binding requests to the service provider",
+          "Check-in and check-out times are subject to hotel establishment policies",
+          "Some offers may be non-refundable or non-modifiable according to hotel policy"
+        ]
+      },
+      "serviceFees": {
+        "title": "Service Fees and Booking Management",
+        "content": "The platform applies service fees for providing booking services and technical support:",
+        "points": [
+          "User acknowledges that displayed prices may include service fees imposed by Tayyran platform",
+          "Service fees are for technical connectivity and providing booking services and technical support",
+          "These fees are non-refundable upon booking cancellation, unless otherwise stated",
+          "If user requests booking modifications, the platform has the right to impose additional administrative fees",
+          "Administrative fees include any price differences or penalties imposed by the service provider",
+          "User is informed of additional fees before confirming any modifications"
+        ]
+      },
+      "refundPolicy": {
+        "title": "Financial Refund Policy",
+        "content": "Refund processes are subject to the following policies and conditions:",
+        "points": [
+          "All refunds are subject to the original service provider's policies",
+          "If the service is non-refundable according to provider's policy, the platform cannot refund any amounts to the user",
+          "Refunds are processed through the original payment method",
+          "Refund period may take from 7 to 21 working days, or more depending on bank and provider procedures",
+          "The platform reserves the right to deduct fixed processing fees or a percentage of the refunded amount",
+          "Maximum processing fee is 5% of the refunded amount",
+          "Fees include processing costs, bank transfers, and any penalties imposed by the provider"
+        ]
+      },
+      "providerChanges": {
+        "title": "Changes by Service Provider",
+        "content": "In case the service provider makes changes to the booking:",
+        "points": [
+          "If airline or hotel cancels or modifies the booking, the platform's role is limited to informing the user",
+          "Notification occurs immediately upon receiving official notice from the provider",
+          "The platform bears no legal or financial responsibility towards the user resulting from these changes",
+          "The case is handled according to the relevant provider's policy",
+          "Platform service fees remain non-refundable in all cases",
+          "User has the right to contact the service provider directly to follow up on claims"
+        ]
+      },
+      "paymentsFraud": {
+        "title": "Fraud Management",
+        "content": "The company has the right to:",
+        "points": [
+          "Cancel suspicious bookings",
+          "Suspend accounts",
+          "Take legal actions",
+          "Impose 5% fees on exploitative cancellations",
+          "Deduction occurs immediately upon booking confirmation using approved payment methods",
+          "User is responsible for any unauthorized use of their payment methods",
+          "In case of suspected fraudulent activity, the platform has the right to cancel the booking immediately",
+          "The platform has the right to suspend or close the suspected account",
+          "Necessary legal procedures are taken against any fraudulent activity",
+          "All transactions are monitored for security and fraud prevention purposes"
+        ]
+      },
+      "forceMajeure": {
+        "title": "Force Majeure",
+        "content": "Tayyran bears no responsibility in cases of force majeure:",
+        "points": [
+          "Not responsible for delay or non-performance resulting from circumstances beyond its control",
+          "Force majeure circumstances include natural disasters and pandemics",
+          "Include government decisions and airspace closures",
+          "Include strikes and civil disturbances",
+          "Include major technical accidents beyond the platform's control",
+          "In such cases, relevant service providers' policies apply"
+        ]
+      },
+      "indemnification": {
+        "title": "Indemnification",
+        "content": "You agree to compensate the company for any losses resulting from misuse of the platform. User agrees to indemnify and hold Tayyran harmless from any claims, losses, or damages arising from violation of these terms, providing incorrect information, or misuse of the platform. This includes all legal expenses and costs related to any lawsuits or claims."
+      },
+      "intellectualProperty": {
+        "title": "Intellectual Property",
+        "content": "All website content is owned by Tayyran. Copying or republishing without permission is prohibited. All platform content, trademarks, and designs are protected under applicable intellectual property laws in the Kingdom of Saudi Arabia and other countries. Their use, republication, copying, or modification by any means is prohibited without prior written permission from QUSA Travel and Tourism Company."
+      },
+      "termsValidity": {
+        "title": "Terms Validity and Agreement Continuity",
+        "content": "If any provision of this agreement is invalidated or deemed unenforceable by a competent court, the remaining provisions shall remain in full force and effect. Invalidity of any provision does not affect the validity or enforceability of any other provision of this agreement."
+      },
+      "lawJurisdiction": {
+        "title": "Law and Jurisdiction",
+        "content": "These terms are subject to the laws of the Kingdom of Saudi Arabia, and its courts have jurisdiction over any disputes. This agreement is governed by the laws and regulations of the Kingdom of Saudi Arabia. The courts of the Kingdom of Saudi Arabia have exclusive jurisdiction to consider any dispute or disagreement arising from the interpretation or implementation of this agreement. The user expressly agrees to the exclusive judicial jurisdiction of the courts of the Kingdom of Saudi Arabia."
+      }
+    }
+  },
+  "ResetPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter the code we sent to",
+    "emailRequired": "Email is required",
+    "successMessage": "Password reset successful! You can now log in with your new password.",
+    "invalidCodeMessage": "Invalid or expired reset code",
+    "errorMessage": "An unexpected error occurred",
+    "networkError": "Network error. Please check your connection and try again.",
+    "loading": "Loading...",
+    "form": {
+      "code": "Reset Code",
+      "codePlaceholder": "Enter 6-digit code",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "resetPassword": "Reset Password",
+      "resettingPassword": "Resetting Password...",
+      "rememberPassword": "Remember your password?",
+      "login": "Log in"
+    },
+    "formErrors": {
+      "codeMin": "Code must be at least 6 characters",
+      "passwordMin": "Password must be at least 6 characters",
+      "passwordMismatch": "Passwords don't match"
+    }
+  },
+  "verifyCode": {
+    "pageTitle": "Verify Code",
+    "subtitle": "Enter the code we sent to",
+    "resetCode": "Reset Code",
+    "codePlaceholder": "Enter 6-digit code",
+    "codeError": "Code must be at least 6 characters",
+    "verifyButton": "Verify Code",
+    "verifying": "Verifying Code...",
+    "dividerText": "Didn't receive code?",
+    "resendButton": "Resend Code",
+    "resending": "Resending...",
+    "rememberPassword": "Remember your password?",
+    "login": "Log in",
+    "alerts": {
+      "emailRequired": "Email is required",
+      "codeVerified": "Code verified successfully!",
+      "invalidCode": "Invalid or expired code. Please try again.",
+      "codeResent": "A new code has been sent to your email!",
+      "resendFailed": "Failed to resend code. Please try again."
+    }
+  },
+  "flightsearch": {
+    "noflight": "No Flight Found"
+  },
+  "searchForm": {
+    "tripTypes": {
+      "roundtrip": "Back and forth",
+      "oneway": "One way only",
+      "multiplecities": "Multiple cities"
+    },
+    "flightClassOptions": {
+      "economy": "Economy",
+      "premiumEconomy": "Premium Economy",
+      "business": "Business",
+      "firstClass": "First Class"
+    },
+    "travlers": {
+      "buttonLabel": "Passengers",
+      "travlers": "Travelers",
+      "adults": {
+        "label": "Adults",
+        "note": "12+ Yrs"
+      },
+      "children": {
+        "label": "children",
+        "note": "2-12 Yrs"
+      },
+      "infants": {
+        "label": "infants",
+        "note": "under 2Yrs"
+      }
+    },
+    "from": "From",
+    "to": "To",
+    "returndate": "Return Date",
+    "searchButton": "Search",
+    "loadingButton": "Searching..."
+  },
+  "filters": {
+    "heading": "Flights",
+    "sortby": "Sort By",
+    "earliestarrival": "Earliest Arrival",
+    "earliesttakeoff": "Earliest Takeoff",
+    "shortest": "Shortest Flights",
+    "cheapest": "Ascending Price",
+    "descendingprice": "Descending Price",
+    "latestdeparture": "Latest Departure",
+    "moreoptions": "More Options",
+    "departuretime": {
+      "departuretimeheading": "Departure Time",
+      "before_morning": "Before 06:00AM",
+      "morning": "06:00AM - 12:00PM",
+      "afternoon": "12:00PM - 06:00PM",
+      "evening": "After 06:00PM"
+    },
+    "price": "Price Range",
+    "pricecurrency": "SAR",
+    "stops": {
+      "stopsheading": "Stops",
+      "any": "Any number of stops",
+      "direct": "Direct flights only",
+      "one": "1 stop",
+      "two_or_more": "2 stops or more"
+    },
+    "airlines": "Airlines"
+  },
+  "bookNow": {
+    "pageTitle": "Complete Your Booking",
+    "personalDetails": {
+      "title": "Personal details",
+      "titleOptions": {
+        "mr": "Mr",
+        "ms": "Ms",
+        "mrs": "Mrs"
+      },
+      "firstName": "First name *",
+      "middleName": "Middle name (Optional)",
+      "lastName": "Last name *",
+      "dateOfBirth": "Date of birth *",
+      "dayPlaceholder": "Day",
+      "monthPlaceholder": "Month",
+      "yearPlaceholder": "Year",
+      "nationality": "Nationality *"
+    },
+    "travelDocument": {
+      "title": "Travel document",
+      "documentType": "Document type *",
+      "passportNumber": "Passport number *",
+      "issuingCountry": "Issuing country *",
+      "expiryDate": "Passport expiry date *"
+    },
+    "contactDetails": {
+      "title": "Contact details",
+      "email": "Email *",
+      "emailNote": "Your purchased tickets will be sent to this email.",
+      "phoneCode": "Code *",
+      "phoneNumber": "Mobile number *"
+    },
+    "payment": {
+      "confirmButton": "Confirm Booking",
+      "processing": "Processing...",
+      "continueToPayment": "Continue to Payment",
+      "backToDetails": "Back to Traveler Details",
+      "totalPrice": "Total Price:",
+      "currency": "SAR",
+      "amount": "Amount"
+    },
+    "baggage": {
+      "cabin": "7 KG Cabin baggage",
+      "checked": "20kg total checked baggage",
+      "quantity": "1 piece"
+    },
+    "errors": {
+      "requiredField": "This field is required",
+      "invalidEmail": "Please enter a valid email",
+      "invalidPhone": "Please enter a valid phone number",
+      "completeAllTravelers": "Please Complete All Travelers Info",
+      "noFlightAvailable": "No flights available",
+      "noFlightDescription": "We couldn't find any flights matching your criteria.",
+      "backToSearch": "Back to search",
+      "noFlightAltText": "No flights available illustration"
+    }
+  },
+  "FlightCard": {
+    "direct": "Direct",
+    "fareAmenities": "Fare Amenities",
+    "included": "Included",
+    "notIncluded": "Not Included",
+    "baggageIncluded": "Baggage Included",
+    "cabinBaggage": "Cabin Baggage",
+    "checkedBaggage": "Checked Baggage",
+    "stop": "Stop",
+    "stops": "Stops",
+    "noStops": "No Stops",
+    "flightHasNoStop": "Flight has no stop",
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "airport": "Airport",
+    "duration": "Duration",
+    "departureTitle": "Departure",
+    "flightDetails": "Flight Details",
+    "checking": "Checking...",
+    "bookNow": "Book Now",
+    "select": "Select Flight",
+    "priceWithoutTax": "* Price excludes taxes"
+  },
+  "FlightBooking": {
+    "bookingConfirmed": "Booking Confirmed!",
+    "flightSuccessfullyBooked": "Your flight has been successfully booked",
+    "confirmation": "Confirmation",
+    "flightDetails": "Flight Details",
+    "flight": "Flight",
+    "departure": "Departure",
+    "arrival": "Arrival",
+    "terminal": "Terminal",
+    "notAvailable": "Not Available",
+    "economy": "Economy",
+    "passengerInformation": "Passenger Information",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "bookingDate": "Booking Date",
+    "bookingSummary": "Booking Summary",
+    "basePrice": "Base Price",
+    "taxesAndFees": "Taxes & Fees",
+    "administrationFees": "Administration Fees",
+    "serviceFee": "Service Fee",
+    "vat": "Vat",
+    "totalPaid": "Total Paid",
+    "travelTips": "Travel Tips",
+    "beforeYouTravel": "Before You Travel",
+    "checkPassportExpiry": "Check passport expiry date",
+    "reviewBaggagePolicies": "Review baggage policies",
+    "downloadAirlineApp": "Download airline app",
+    "atTheAirport": "At The Airport",
+    "useMobileBoardingPass": "Use mobile boarding pass",
+    "checkSecurityWaitTimes": "Check security wait times",
+    "locateDepartureGate": "Locate departure gate",
+    "importantInformation": "Important Information",
+    "flexibleChanges": "Flexible Changes",
+    "flexibleChangesDescription": "Change or cancel your booking up to 24 hours before departure",
+    "support24/7": "24/7 Support",
+    "support24/7Description": "Our customer service team is available around the clock",
+    "travelUpdates": "Travel Updates",
+    "travelUpdatesDescription": "Get real-time notifications about your flight status",
+    "eTicket": "E-Ticket",
+    "ticketNumber": "Ticket Number",
+    "status": "Status",
+    "issued": "ISSUED",
+    "connecting": "Connecting Flight",
+    "layover": "Layover",
+    "unknown": "Unknown",
+    "mobileBoardingPass": "Mobile Boarding Pass",
+    "directFlight": "Direct flight",
+    "passenger": "Passenger"
+  },
+  "OrderProgress": {
+    "processingOrder": "Processing your order",
+    "pleaseWait": "Please wait while we confirm your payment and booking",
+    "progress": "Progress",
+    "complete": "Complete",
+    "verifyingPayment": "Verifying payment details",
+    "securingBooking": "Securing your booking",
+    "confirmingAvailability": "Confirming availability",
+    "finalizingOrder": "Finalizing your order",
+    "processTime": "This process usually takes 30-60 seconds. Please don't refresh the page"
+  },
+  "PaymentFailed": {
+    "paymentFailed": "Payment Failed",
+    "paymentNotProcessed": "We couldn't process your payment",
+    "transaction": "Transaction",
+    "paymentError": "Payment Error",
+    "noChargesApplied": "No charges have been applied to your account. You can safely try again.",
+    "paymentMethod": "Payment Method",
+    "cardBrand": "Card Brand",
+    "cardNumber": "Card Number",
+    "expiry": "Expiry",
+    "issuer": "Issuer",
+    "amount": "Amount",
+    "transactionId": "Transaction ID",
+    "tryDifferentPayment": "Try Different Payment Method",
+    "backToBooking": "Back to Booking",
+    "informationSecure": "Your Information is Secure",
+    "securityDescription": "All payment information is encrypted and protected. Since the payment failed, no charges were processed and your financial information remains secure.",
+    "needHelp": "Need Help?",
+    "callSupport": "Call Support",
+    "emailHelp": "Email Help",
+    "responseTime": "Average response time: Under 5 minutes"
+  },
+  "BookingFailed": {
+    "title": "Booking Failed",
+    "subtitle": "We encountered an issue processing your flight booking",
+    "errorCodeLabel": "Error Code",
+    "whatHappenedTitle": "What Happened?",
+    "errorSummary": {
+      "title": "Booking Could Not Be Completed",
+      "description": "Your flight booking was not successful due to a technical issue. Don't worry - no charges have been made to your payment method.",
+      "timestampLabel": "Error occurred at",
+      "referenceIdLabel": "Reference ID"
+    },
+    "attemptedBookingTitle": "Attempted Booking Details",
+    "routeLabel": "Route",
+    "flightLabel": "Flight",
+    "dateLabel": "Date",
+    "passengersLabel": "Passengers",
+    "commonCausesTitle": "Common Causes",
+    "commonIssues": [
+      {
+        "title": "Payment Processing",
+        "description": "Credit card declined or payment gateway timeout"
+      },
+      {
+        "title": "Session Timeout",
+        "description": "Booking session expired during checkout process"
+      },
+      {
+        "title": "Connection Issues",
+        "description": "Network connectivity problems during booking"
+      },
+      {
+        "title": "System Maintenance",
+        "description": "Temporary system unavailability or maintenance"
+      }
+    ],
+    "attemptedFlight": {
+      "route": "New York (JFK) → Los Angeles (LAX)",
+      "date": "March 15, 2024",
+      "flightNumber": "SL 1847"
+    },
+    "quickActionsTitle": "Quick Actions",
+    "tryAgainButton": "Try Booking Again",
+    "backToSearchButton": "Back to Search",
+    "backButton": "Back",
+    "needHelpTitle": "Need Help?",
+    "callSupportLabel": "Call Support",
+    "responseTimeLabel": "Average response time: 2-5 minutes",
+    "apologyMessage": "We apologize for the inconvenience. Our team is working to resolve any technical issues.",
+    "systemStatusLink": "System Status",
+    "helpCenterLink": "Help Center",
+    "contactSupportLink": "Contact Support",
+    "reportIssueLink": "Report Issue"
+  },
+  "HotelPage": {
+    "sort": {
+      "sortBy": "Sort By",
+      "priceLowToHigh": "Price: Low to High",
+      "priceHighToLow": "Price: High to Low",
+      "starsLowToHigh": "Stars: Low to High",
+      "starsHighToLow": "Stars: High to Low"
+    },
+    "showing": "Showing",
+    "places": "places",
+    "noImage": "No image available",
+    "excludingTax": "Excluding tax",
+    "night": "night",
+    "startingFrom": "Starting from",
+    "starHotel": "Star Hotel",
+    "amenities": "Amenities",
+    "viewPlace": "View Place",
+    "noHotelsFound": "No hotels found",
+    "searchResults": "Search Results",
+    "sortOptions": "Sort Options",
+    "resetSort": "Reset Sort",
+    "stars": "Stars",
+    "tryAdjustingFilters": "Try adjusting your filters or search terms"
+  },
+  "hotel": {
+    "invalidHotelCode": "Invalid Hotel Code.",
+    "error": "Error"
+  },
+  "hotelDetails": {
+    "stars": "{rating} Star Hotel",
+    "buttons": {
+      "bookNow": "Book Now"
+    }
+  },
+  "RoomListing": {
+    "unnamedRoom": "Unnamed Room",
+    "optionsAvailable": "{count, plural, one {option available} other {options available}}",
+    "roomDetails": "Room Details & Features",
+    "guests": "Guests",
+    "price": "Price",
+    "action": "Action",
+    "roomOnly": "Room Only",
+    "freeCancellation": "FREE Cancellation",
+    "specialOffers": "Special Offers Available",
+    "specialPromotions": "Special Promotions",
+    "includesTransfers": "Includes Transfers",
+    "guestsCount": "{count} Guests",
+    "includesTaxes": "incl. taxes & fees",
+    "bookNow": "Book Now"
+  },
+  "hotelThankYou": {
+    "thankYou": "Thank You for Your Booking!",
+    "message": "Your hotel booking has been confirmed successfully.",
+    "bookingDetails": "Booking Details",
+    "bookingStatus": "Booking Status",
+    "confirmationNo": "Confirmation #",
+    "clientRef": "Client Reference",
+    "guestName": "Guest Name",
+    "email": "Email",
+    "phone": "Phone",
+    "total": "Total Amount",
+    "backHome": "Back to Home",
+    "invoice": "Invoice ID"
+  },
+  "ProfilePage": {
+    "title": "Profile",
+    "profile": "Profile",
+    "travelDocuments": "Travel Documents",
+    "settings": "Settings",
+    "transactions": "Transactions",
+    "membership": "Membership",
+    "priorityAccess": "Priority Access",
+    "joinMembership": "Join Membership",
+    "saveOnBookings": "Save {discountPercentage}% on all bookings",
+    "points": "Points",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "mobileNumber": "Mobile Number",
+    "nationality": "Nationality",
+    "passportNumber": "Passport Number",
+    "issuingCountry": "Issuing Country",
+    "currency": "Currency",
+    "language": "Language",
+    "noPassportInfo": "No passport information added",
+    "addPassportDetails": "Add Passport Details",
+    "noTransactions": "No transactions yet",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "profileUpdated": "Profile updated successfully",
+    "status": {
+      "active": "Active",
+      "pending": "Pending"
+    },
+    "currencyValue": "SAR/SAR",
+    "languageValue": "English",
+    "loading": "Loading...",
+    "notLoggedInTitle": "Welcome to Your Profile",
+    "notLoggedInMessage": "Please log in to view and manage your profile information.",
+    "loginButton": "Log In",
+    "registerButton": "Create Account",
+    "loginHint": "Don't have an account yet? Sign up to get started!",
+    "logout": "Log Out",
+    "notProvided": "Not provided"
+  },
+  "MileCoinPage": {
+    "title": "MileCoin",
+    "subtitle": "Rewarding Your Travels",
+    "hero": {
+      "badge": "Revolutionary Loyalty Program",
+      "headline": "MileCoin",
+      "tagline": "Earn While You Travel",
+      "description": "Experience the first digital loyalty currency that rewards your bookings and interactions. Every journey brings you closer to exclusive benefits and savings.",
+      "ctaPrimary": "Start Earning Today",
+      "ctaSecondary": "Download App"
+    },
+    "whatIsMileCoin": {
+      "title": "What is MileCoin?",
+      "description": "MileCoin is a digital loyalty currency within the Tayaran app, designed to reward users for:",
+      "points": {
+        "bookings": "Flight & hotel bookings",
+        "interaction": "App engagement",
+        "loyalty": "Continuous loyalty"
+      },
+      "howItWorks": "How MileCoin Works?",
+      "howPoints": {
+        "booking": "Each booking = MileCoin balance",
+        "interaction": "Each interaction = Bonus points",
+        "usage": "Use MileCoin for:"
+      },
+      "usage": {
+        "discounts": "Instant discounts",
+        "bookings": "Cheaper bookings",
+        "upgrades": "Membership upgrades",
+        "offers": "Exclusive offers"
+      },
+      "value": "MileCoin isn't just points - it's real value that reduces travel costs"
+    },
+    "membership": {
+      "title": "Membership & Loyalty Program",
+      "features": "Tayaran Membership Benefits:",
+      "benefits": {
+        "prices": "Member-exclusive pricing",
+        "earning": "Earn MileCoin with every booking",
+        "hotels": "Extra hotel discounts",
+        "seasonal": "Seasonal exclusive offers",
+        "priority": "Priority notifications & offers",
+        "support": "Dedicated member support"
+      },
+      "levels": "Membership Levels:",
+      "tiers": {
+        "basic": {
+          "name": "Basic",
+          "features": "Free registration + MileCoin earning"
+        },
+        "silver": {
+          "name": "Silver",
+          "features": "Higher discounts + Double MileCoin"
+        },
+        "gold": {
+          "name": "Gold",
+          "features": "Best prices + Exclusive offers + Premium support"
+        },
+        "platinum": {
+          "name": "Platinum",
+          "features": "Maximum value + Major discounts + VIP benefits"
+        }
+      }
+    },
+    "salesPlan": {
+      "title": "Sales Strategy",
+      "model": "Primary Sales Model:",
+      "points": {
+        "commission": "Commission from airlines & hotels",
+        "value": "Increased order value through paid memberships",
+        "repeat": "Repeat purchases due to loyalty program"
+      },
+      "whyBuy": "Why Customers Choose Us:",
+      "reasons": {
+        "price": "Lowest prices guaranteed",
+        "reward": "Continuous rewards system",
+        "value": "Every trip returns value to you"
+      },
+      "strengths": "Key Selling Points:",
+      "strengthsList": {
+        "closer": "Each booking brings you closer to bigger discounts",
+        "convert": "Don't waste your money... convert it to MileCoin",
+        "cheaper": "Travel becomes more affordable over time"
+      }
+    },
+    "marketing": {
+      "title": "Marketing Strategy",
+      "target": "Target Audience:",
+      "audience": {
+        "frequent": "Frequent travelers",
+        "business": "Business professionals",
+        "families": "Families",
+        "students": "Students",
+        "tourists": "Tourists & medical travelers"
+      },
+      "channels": "Marketing Channels:",
+      "channelsList": {
+        "social": "Social Media (Instagram – TikTok – X)",
+        "influencers": "Travel influencers",
+        "ads": "Google Ads (Search + Display)",
+        "retargeting": "Retargeting campaigns",
+        "partnerships": "Partnerships with:"
+      },
+      "partners": {
+        "tourism": "Tourism companies",
+        "hotels": "Hotels",
+        "carRental": "Car rental companies"
+      },
+      "messages": "Powerful Marketing Messages:",
+      "messagesList": {
+        "travelReturn": "Travel and return with a discount",
+        "everyTrip": "Every trip earns you MileCoin",
+        "todayTomorrow": "Today's prices + Tomorrow's discounts",
+        "worthReward": "Tayaran... because travel deserves a reward"
+      }
+    },
+    "branding": {
+      "title": "With Tayran and Milecoin",
+      "taglines": "Short Taglines:",
+      "taglinesList": {
+        "smarter": "Travel smarter",
+        "bookLess": "Book less, earn more",
+        "reward": "MileCoin... your travel reward",
+        "everyTrip": "With Tayaran, every trip has value",
+        "dontJustBook": "Don't just book... earn"
+      },
+      "description": "Marketing Description:",
+      "fullDescription": "Tayaran isn't just a booking app - it's a smart travel experience that rewards you every step of the way, from search to return."
+    },
+    "differentiator": {
+      "title": "Why Tayaran is Different?",
+      "points": {
+        "search": "Powerful search engine",
+        "loyalty": "Real loyalty program",
+        "discounts": "Actual discounts, not illusions",
+        "experience": "Simple user experience",
+        "value": "Continuous value after every trip"
+      }
+    },
+    "cta": {
+      "title": "Start Your MileCoin Journey Today",
+      "description": "Join the loyalty revolution. Download the app and start earning rewards with every trip you book.",
+      "ios": "Download for iOS",
+      "android": "Download for Android",
+      "note": "Available on all platforms. Start earning in under 2 minutes."
+    },
+    "icons": {
+      "coins": "Coins",
+      "map": "Location",
+      "trending": "Growth",
+      "users": "Users",
+      "zap": "Speed",
+      "shield": "Security",
+      "globe": "Global",
+      "smartphone": "Mobile",
+      "chart": "Analytics",
+      "wallet": "Wallet",
+      "car": "Car",
+      "bike": "Bike",
+      "footprints": "Walking"
+    }
+  },
+  "EditContactDialog": {
+    "title": "Edit Contact Information",
+    "description": "Update your email and phone number",
+    "email": "Email Address",
+    "mobileNumber": "Mobile Number",
+    "emailRequired": "Email Address *",
+    "mobileRequired": "Mobile Number *",
+    "phonePlaceholder": "533322921",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "countryCodes": {
+      "sa": "+966 (SA)",
+      "ae": "+971 (AE)",
+      "kw": "+965 (KW)",
+      "qa": "+974 (QA)",
+      "bh": "+973 (BH)",
+      "om": "+968 (OM)",
+      "eg": "+20 (EG)",
+      "jo": "+962 (JO)",
+      "lb": "+961 (LB)",
+      "us": "+1 (US/CA)",
+      "uk": "+44 (UK)",
+      "in": "+91 (IN)",
+      "pk": "+92 (PK)",
+      "bd": "+880 (BD)",
+      "ph": "+63 (PH)"
+    }
+  },
+  "EditPassportDialog": {
+    "title": "Travel Documents",
+    "description": "Add or update your passport information",
+    "alert": "Please make sure your information matches your government-issued identification.",
+    "personalDetails": "Personal Details",
+    "passportNumber": "Passport Number",
+    "passportNumberRequired": "Passport Number *",
+    "issuingCountry": "Issuing Country",
+    "issuingCountryRequired": "Issuing Country *",
+    "expiryDate": "Expiry Date",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "passportPlaceholder": "Enter passport number",
+    "selectCountry": "Select issuing country",
+    "countries": {
+      "saudiArabia": "Saudi Arabia",
+      "uae": "United Arab Emirates",
+      "kuwait": "Kuwait",
+      "qatar": "Qatar",
+      "bahrain": "Bahrain",
+      "oman": "Oman",
+      "egypt": "Egypt",
+      "jordan": "Jordan",
+      "lebanon": "Lebanon",
+      "usa": "United States",
+      "uk": "United Kingdom",
+      "canada": "Canada",
+      "australia": "Australia",
+      "germany": "Germany",
+      "france": "France",
+      "india": "India",
+      "pakistan": "Pakistan",
+      "bangladesh": "Bangladesh",
+      "philippines": "Philippines"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "EditProfileDialog": {
+    "title": "Edit Profile",
+    "description": "Update your personal information",
+    "alert": "Please make sure your information matches your government-issued identification.",
+    "titleLabel": "Title",
+    "firstName": "First Name",
+    "firstNameRequired": "First Name *",
+    "middleName": "Middle Name",
+    "middleNamePlaceholder": "Optional",
+    "lastName": "Last Name",
+    "lastNameRequired": "Last Name *",
+    "nationality": "Nationality",
+    "selectNationality": "Select nationality",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "titles": {
+      "mr": "Mr",
+      "ms": "Ms",
+      "mrs": "Mrs"
+    },
+    "countries": {
+      "saudiArabia": "Saudi Arabia",
+      "uae": "United Arab Emirates",
+      "kuwait": "Kuwait",
+      "qatar": "Qatar",
+      "bahrain": "Bahrain",
+      "oman": "Oman",
+      "egypt": "Egypt",
+      "jordan": "Jordan",
+      "lebanon": "Lebanon",
+      "usa": "United States",
+      "uk": "United Kingdom",
+      "canada": "Canada",
+      "australia": "Australia",
+      "germany": "Germany",
+      "france": "France",
+      "india": "India",
+      "pakistan": "Pakistan",
+      "bangladesh": "Bangladesh",
+      "philippines": "Philippines"
+    }
+  },
+  "EditDateOfBirthDialog": {
+    "title": "Date of Birth",
+    "description": "Update your date of birth information",
+    "dateOfBirth": "Date of Birth",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "footer": {
+    "description": "Let's book your next trip! Choose from over 1.5 million hotels & 450+ airlines worldwide. Your journey begins here.",
+    "titles": {
+      "company": "Company",
+      "legal": "Legal",
+      "contact": "Contact"
+    },
+    "company": {
+      "milecoin": "Milecoin",
+      "about": "About Us",
+      "order": "Order",
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "legal": {
+      "terms": "Terms and Conditions",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookies Policy",
+      "developers": "Developers"
+    },
+    "contact": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "country": "Saudi Arabia"
+    },
+    "poweredBy": "Powered by",
+    "copyright": "All rights reserved."
+  },
+  "errors": {
+    "fromError": "Please select a departure city",
+    "toError": "Please select a destination city.",
+    "requiredFields": "Please fill in all required fields for the hotel search.",
+    "hotelErrorFetchingCountries": "Error fetching countries:",
+    "hotelErrorFetchingcities": "Error fetching cities:",
+    "hotelSearchAlert": "Please select city, check-in, and check-out dates.",
+    "noFlightAvailable": "No flights available",
+    "noFlightDescription": "We couldn't find any flights matching your criteria.",
+    "backToSearch": "Back to search",
+    "noFlightAltText": "No flights available illustration"
+  }
+}
