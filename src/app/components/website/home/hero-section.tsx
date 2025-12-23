@@ -22,6 +22,10 @@ import { useLocale } from "next-intl";
 import { IoMdAdd } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { setSearchData } from "@/redux/flights/flightSlice";
+import { useAuthContext } from "@/context/AuthContext";
+
+
+
 
 export interface FlightSegment {
   id: string;
@@ -67,7 +71,7 @@ const HeroSection = () => {
   const [rooms, setRooms] = useState<Room[]>([
     { id: 1, adults: 1, children: 0 },
   ]);
-
+  const { user, logout } = useAuthContext();
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -146,7 +150,7 @@ const HeroSection = () => {
     }));
   };
 
-  useEffect(() => {}, [flightFormData.segments]);
+  useEffect(() => { }, [flightFormData.segments]);
 
   const removeFlightSegment = (index: number) => {
     // Don't allow removing the last segment
@@ -327,7 +331,7 @@ const HeroSection = () => {
                             minDate={
                               index > 0
                                 ? flightFormData.segments![index - 1].date ||
-                                  undefined
+                                undefined
                                 : new Date()
                             }
                             onChange={(date) =>
@@ -433,7 +437,7 @@ const HeroSection = () => {
                     <select
                       className="  w-full  rounded-lg px-4 py-2.5"
                       value={flightFormData.flightClass}
-                    onChange={(e) => handleFlightChange("flightClass", e.target.value)}
+                      onChange={(e) => handleFlightChange("flightClass", e.target.value)}
 
                     >
                       {flightClassOptions.map((item) => (
@@ -465,11 +469,17 @@ const HeroSection = () => {
                   </button>
                 </div>
               </div>
+            )  : (
+            user ? (
+            <div className="">
+              <HotelSearch />
+            </div>
             ) : (
-              <div className="">
-                <HotelSearch />
-              </div>
-            )}
+            <div className="p-4 text-center text-gray-500">
+              Please log in to search for hotels
+            </div>
+            )  
+                )}
           </div>
         </div>
       </Section>

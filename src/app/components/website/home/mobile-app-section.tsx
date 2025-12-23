@@ -4,7 +4,9 @@ import SubHeading from '../../shared/subHeading'
 import Button from '../../shared/Button'
 import mobile from '/public/assets/images/tayyranapp.png'
 import appstore from '/public/assets/images/appstore.png'
-import playstore from '/public/assets/images/aystore.png'
+import playstore from '/public/assets/images/playstore.png'
+import qrappstore from '/public/assets/images/qr-appstore.png'
+import qrplaystore from '/public/assets/images/qr-playstore.png'
 import Image from 'next/image'
 import ParaHeading from '../../shared/para-heading'
 import Link from 'next/link'
@@ -25,7 +27,7 @@ const MobileAppSection = (props: Props) => {
                         <ParaHeading className='!text-black !font-bold'>  {t("mobileAppSection.exprensHeading")} </ParaHeading>
                         <SubHeading className='!text-grayText'>{t("mobileAppSection.subHeading")}</SubHeading>
                         <Button label={t("mobileAppSection.downloadButton")} style="!bg-orange" />
-                        <div className="flex gap-5 items-center">
+                        <div className="flex gap-5 p-8 items-center">
                             <Link href="https://play.google.com/store/apps/details?id=com.tayyran.tayyran_app" className="hover:scale-105 duration-300 transition-all">
                                 <Image src={playstore} alt='' className='' />
                             </Link>
@@ -33,6 +35,13 @@ const MobileAppSection = (props: Props) => {
                             <Link href="https://apps.apple.com/sa/app/tayyran/id6756125501" className="hover:scale-105 duration-300 transition-all">
                                 <Image src={appstore} alt='' className='' />
                             </Link>
+                        </div>
+
+                        {/* qr codes  */}
+                        <div className="flex !mt-8  gap-6 items-center">
+                                <Image src={qrplaystore} alt='' className='' width={150} height={150} />
+
+                                <Image src={qrappstore} alt='' className='' width={150} height={150} />
                         </div>
 
                     </div>

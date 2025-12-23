@@ -31,7 +31,6 @@ const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { user, logout } = useAuthContext();
-  console.log(user, "user")
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

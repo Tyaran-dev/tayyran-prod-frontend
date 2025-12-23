@@ -118,9 +118,24 @@
         "Family-Friendly": "مناسبة للعائلات"
       }
     },
-    "topDeals": {
-      "topDealsHeading": "عروض اللحظة الأخيرة لعطلة نهاية الأسبوع",
-      "bookNowButton": "احجز الآن"
+    "trips": {
+      "featured": "مميز",
+      "days": "أيام",
+      "includes": "يشمل",
+      "more": "المزيد",
+      "startingFrom": "ابتداءً من",
+      "currency": "ريال",
+      "perPerson": "للشخص",
+      "bookNow": "احجز الآن",
+      "heading": "أفضل العروض السياحية",
+      "noTrips": "لا توجد عروض حالياً",
+      "viewAll": "عرض جميع العروض",
+      "destination": "الوجهة",
+      "duration": "المدة",
+      "rating": "التقييم",
+      "price": "السعر",
+      "advantages": "المميزات",
+      "disadvantages": "ما لا يشمل"
     },
     "weekendDeals": {
       "heading": "عروض اللحظة الأخيرة لعطلة نهاية الأسبوع",

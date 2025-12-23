@@ -305,13 +305,13 @@ export default function TermsConditionsPage() {
               </p>
               <div className="space-y-3">
                 <a
-                  href="mailto:info@qessatravel.com"
+                  href="mailto:info@tayyran.com"
                   className="inline-flex items-center gap-3 text-emerald-700 hover:text-emerald--800  font-medium text-sm sm:text-base transition-colors group"
                 >
                   <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center border border-blue-200 group-hover:border-blue-300 transition-colors">
                     <FaEnvelope className="w-4 h-4" />
                   </div>
-                  <span>info@qessatravel.com</span>
+                  <span>info@tayyran.com</span>
                 </a>
                 <div className="flex items-start gap-3 text-slate-600">
                   <FaBuilding className="w-4 h-4 mt-1 flex-shrink-0 text-emerald-700" />

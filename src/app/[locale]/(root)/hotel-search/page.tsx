@@ -15,6 +15,7 @@ import CustomProgressBar from "@/app/components/shared/progress-bar";
 import HotelCardSkeleton from "@/app/components/shared/Feedback/HotelCardSkeleton";
 import Heading from "@/app/components/shared/heading";
 import Image from "next/image";
+
 // Rename the type to avoid confusion with the Pagination component
 type Paging = {
   page: number;
@@ -58,7 +59,7 @@ export default function Page() {
     return {
       ...searchParamsData,
       Language: locale,
-      page: currentPage,
+      page: currentPage, // Pass current page to API
     };
   }, [searchParamsData, currentPage, locale]);
 
@@ -72,12 +73,7 @@ export default function Page() {
     dispatch(actGetHotels(fullParams));
   }, [fullParams, dispatch]);
 
-  useEffect(() => {
-    if (!hotels) return;
-
-    console.log("🔥 RAW HOTELS FROM REDUX:", JSON.stringify(hotels, null, 2));
-  }, [hotels]);
-
+  // Normalize hotels data when it arrives
   useEffect(() => {
     if (!hotels) return;
 
@@ -97,14 +93,18 @@ export default function Page() {
       hotels: normalizedHotels,
       pagination: normalizedPagination,
     });
+
+    // Sync current page with pagination from API
+    if (normalizedPagination.page && normalizedPagination.page !== currentPage) {
+      setCurrentPage(normalizedPagination.page);
+    }
   }, [hotels]);
 
-
-
+  console.log("HOTELS DATA:", hotelsData);
+  console.log("CURRENT PAGE:", currentPage);
 
   const noResults =
     loading === "succeeded" && hotelsData.hotels.length === 0 || loading === "failed";
-
 
   return (
     <Section className="py-5">
@@ -112,6 +112,7 @@ export default function Page() {
         <Stepper currentStep={currentStep} stepsType="hotelSteps" />
       </div>
       <HotelSearch className="lg:grid-cols-4 grid-cols-2 bg-white rounded-3xl shadow-md p-8 border " />
+      
       {loading === "failed" && (
         <>
           <div className="min-h-screen w-full flex-col flex justify-center items-center">
@@ -141,18 +142,29 @@ export default function Page() {
             </div>
           )}
 
-          {!noResults &&
-            (
-              <>
-                <Hotel hotels={hotelsData.hotels} pages={hotelsData.pagination.totalPages || 0} />
-              </>
-
-            )
-          }
-
+          {!noResults && (
+            <>
+              <Hotel 
+                hotels={hotelsData.hotels} 
+                pagination={hotelsData.pagination}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+              />
+              
+              {/* Show server-side pagination if available */}
+              {hotelsData.pagination.totalPages > 1 && (
+                <div className="mt-8">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={hotelsData.pagination.totalPages}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </>
-      )
-      }
-    </Section >
+      )}
+    </Section>
   );
 }
