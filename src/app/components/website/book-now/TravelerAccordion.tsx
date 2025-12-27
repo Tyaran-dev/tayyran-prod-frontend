@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { TravelerFormData } from "@/app/[locale]/(root)/book-now/page";
@@ -7,6 +7,9 @@ import {
   nationalityOptions,
   countryCodesOptions,
 } from "@/app/data/data.js";
+import { useAuthContext } from "@/context/AuthContext";
+
+
 interface DateFields {
   day: string;
   month: string;
@@ -22,6 +25,37 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
   travelers,
   onTravelerUpdate,
 }) => {
+  const { user, logout } = useAuthContext();
+  console.log(user, "user")
+  console.log(travelers, "travelers props")
+
+  useEffect(() => {
+    if (user) {
+      onTravelerUpdate(0, {
+        ...travelers[0],
+        email: user.email || "",
+        phoneNumber: user.personalInfo?.contact.phoneNumber || "",
+        phoneCode: user.personalInfo?.contact.phoneCode || "",
+        firstName: user.first_name || "",
+        lastName: user.last_name || "",
+        dateOfBirth:{
+          day: user.personalInfo?.dateOfBirth.day || "",
+          month: user.personalInfo?.dateOfBirth.month.toString() || "",
+          year: user.personalInfo?.dateOfBirth.year || "",
+        },
+        nationality: user.personalInfo?.nationality || "",
+        title: user.personalInfo?.title || "",
+        passportNumber: user.personalInfo?.passport.number || "",
+        issuanceCountry: user.personalInfo?.passport.issuingCountry || "",
+        passportExpiry: {
+          day: user.personalInfo?.passport.expiryDate.day || "",
+          month: user.personalInfo?.passport.expiryDate.month.toString() || "",
+          year: user.personalInfo?.passport.expiryDate.year || "",
+        },
+      })
+    }
+  }, [user])
+
   const [expandedIndex, setExpandedIndex] = useState<number>(0);
   const locale = useLocale();
   const t = useTranslations("bookNow");
@@ -126,13 +160,13 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
     required: boolean;
     onChange: (value: string) => void;
     options:
-      | Array<{
-          value?: string;
-          label?: string;
-          country?: string;
-          arabicName?: string;
-        }>
-      | number[];
+    | Array<{
+      value?: string;
+      label?: string;
+      country?: string;
+      arabicName?: string;
+    }>
+    | number[];
     placeholder: string;
     className?: string;
     searchable?: boolean;
@@ -145,57 +179,57 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
     searchable = false,
     required = true,
   }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
+      const [isOpen, setIsOpen] = useState(false);
+      const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredOptions =
-      searchable && Array.isArray(options) && typeof options[0] === "object"
-        ? (options as Array<{ value: string; label: string }>).filter(
+      const filteredOptions =
+        searchable && Array.isArray(options) && typeof options[0] === "object"
+          ? (options as Array<{ value: string; label: string }>).filter(
             (option) =>
               option.label?.toLowerCase().includes(searchTerm.toLowerCase())
           )
-        : options;
+          : options;
 
-    const displayValue =
-      Array.isArray(options) && typeof options[0] === "object"
-        ? (options as Array<{ value: string; label: string }>).find(
+      const displayValue =
+        Array.isArray(options) && typeof options[0] === "object"
+          ? (options as Array<{ value: string; label: string }>).find(
             (opt) => opt.value === value
           )?.label || placeholder
-        : value || placeholder;
+          : value || placeholder;
 
-    return (
-      <div className={`relative ${className}`}>
-        <div
-          className="w-full  py-1 text-sm px-4 md:py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white cursor-pointer transition-colors hover:border-stone-400 flex items-center justify-between"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className={value ? "text-stone-900" : "text-stone-500"}>
-            {displayValue}
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          />
-        </div>
+      return (
+        <div className={`relative ${className}`}>
+          <div
+            className="w-full  py-1 text-sm px-4 md:py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white cursor-pointer transition-colors hover:border-stone-400 flex items-center justify-between"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className={value ? "text-stone-900" : "text-stone-500"}>
+              {displayValue}
+            </span>
+            <ChevronDown
+              className={`w-4 h-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            />
+          </div>
 
-        {isOpen && (
-          <div className="absolute z-50 w-full mt-1 bg-white border  border-stone-300 rounded-lg shadow-lg max-h-60 md:overflow-hidden">
-            {searchable && (
-              <div className="p-2 border-b w-full  bg-white border-stone-200">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full  px-3 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  onClick={(e) => e.stopPropagation()}
-                  required={required}
-                />
-              </div>
-            )}
-            <div className="max-h-48 w-full overflow-y-auto bg-white">
-              {Array.isArray(filteredOptions) &&
-              typeof filteredOptions[0] === "object"
-                ? (
+          {isOpen && (
+            <div className="absolute z-50 w-full mt-1 bg-white border  border-stone-300 rounded-lg shadow-lg max-h-60 md:overflow-hidden">
+              {searchable && (
+                <div className="p-2 border-b w-full  bg-white border-stone-200">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full  px-3 py-2 border border-stone-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    onClick={(e) => e.stopPropagation()}
+                    required={required}
+                  />
+                </div>
+              )}
+              <div className="max-h-48 w-full overflow-y-auto bg-white">
+                {Array.isArray(filteredOptions) &&
+                  typeof filteredOptions[0] === "object"
+                  ? (
                     filteredOptions as Array<{ value: string; label: string }>
                   ).map((option, indx) => (
                     <div
@@ -210,7 +244,7 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
                       {option.label}
                     </div>
                   ))
-                : (filteredOptions as number[]).map((option) => (
+                  : (filteredOptions as number[]).map((option) => (
                     <div
                       key={option}
                       className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors border-b border-stone-100 last:border-b-0"
@@ -222,12 +256,12 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
                       {option}
                     </div>
                   ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    );
-  };
+          )}
+        </div>
+      );
+    };
   return (
     <div className="space-y-4">
       {travelers?.map((traveler: any, index: number) => (
@@ -241,11 +275,10 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
           >
             <div className="flex items-center space-x-3">
               <div
-                className={`w-8 h-8 rounded-2xl flex items-center justify-center transition-all duration-200 mx-2 ${
-                  traveler.isCompleted
-                    ? "bg-gradient-to-r from-green-500 to-green-600 shadow-lg"
-                    : "bg-white"
-                }`}
+                className={`w-8 h-8 rounded-2xl flex items-center justify-center transition-all duration-200 mx-2 ${traveler.isCompleted
+                  ? "bg-gradient-to-r from-green-500 to-green-600 shadow-lg"
+                  : "bg-white"
+                  }`}
               >
                 {traveler.isCompleted ? (
                   <Check className="w-4 h-4 text-white" />
@@ -290,11 +323,10 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
                     <button
                       key={title}
                       type="button"
-                      className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                        traveler.title === title
-                          ? "bg-emerald-800 text-white shadow-lg transform scale-105"
-                          : "bg-white border-2 border-stone-200 text-stone-700 hover:border-[#1C1466] hover:shadow-md"
-                      }`}
+                      className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${traveler.title === title
+                        ? "bg-emerald-800 text-white shadow-lg transform scale-105"
+                        : "bg-white border-2 border-stone-200 text-stone-700 hover:border-[#1C1466] hover:shadow-md"
+                        }`}
                       onClick={() => updateTravelerData(index, "title", title)}
                     >
                       {t(`personalDetails.titleOptions.${title.toLowerCase()}`)}

@@ -91,7 +91,7 @@ export default function EditProfileDialog({
     onOpenChange(false);
   };
 
-  const titles = ["mr", "ms", "mrs"];
+  const titles = ["Mr", "Ms", "Mrs"];
 
   return (
     <div

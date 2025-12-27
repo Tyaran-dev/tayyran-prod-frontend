@@ -3,21 +3,16 @@ import Section from "@/app/components/shared/section";
 import React, { useEffect, useState } from "react";
 import FlightCard from "@/app/components/website/book-now/DepartureCard";
 import RulesComponent from "@/app/components/website/book-now/RulesComponent";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import PaymentForm from "@/app/components/payment/MyFatoorahForm";
 import TravelerAccordion from "@/app/components/website/book-now/TravelerAccordion";
-import Stepper from "@/app/components/shared/Feedback/Stepper";
 import { useTranslations, useLocale } from "next-intl";
 import Head from "next/head";
-import axios from "axios";
-import {
-  addFlightData,
-  selectFlight,
-  setCommission,
-} from "@/redux/flights/flightSlice";
 import { LoadingSpinner } from "@/app/components/shared/Feedback/loading-spinner";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuthContext } from "@/context/AuthContext";
+
 
 export interface TravelerFormData {
   travelerId: number;
@@ -50,15 +45,14 @@ const Page = () => {
   const locale = useLocale();
   const [currentStep, setCurrentStep] = useState(2);
   const [loading, setLoading] = useState(false);
+  const { user, logout } = useAuthContext();
 
-  const dispatch = useDispatch();
   const flightDataSlice = useSelector(
     (state: any) => state.flightData.slectedFlight
   );
   const flightFullData = useSelector(
     (state: any) => state.flightData.flights[0]
   );
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const presentageCommission = useSelector(
     (state: any) => state.flightData.presentageCommission || 5
@@ -173,6 +167,7 @@ const Page = () => {
       ) || []
     );
   });
+
 
   const handleTravelerUpdate = (
     index: number,
