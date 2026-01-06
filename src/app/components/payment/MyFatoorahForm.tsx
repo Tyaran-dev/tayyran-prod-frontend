@@ -1,7 +1,7 @@
 // app/components/payment/MyFatoorahForm.tsx
 "use client";
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import api from "@/utils/axios";
 import Script from "next/script";
 import { TravelerFormData } from "@/app/[locale]/(root)/book-now/page";
 import { useTranslations } from "next-intl";
@@ -125,7 +125,7 @@ export default function PaymentForm({
   // Step 1 — Start MyFatoorah session
   useEffect(() => {
     (async () => {
-      const r = await axios.post(`${baseUrl}/payment/initiateSession`);
+      const r = await api.post(`/payment/initiateSession`);
       setSession(r.data.data.Data); // { SessionId, CountryCode }
     })();
   }, []);
@@ -162,8 +162,8 @@ export default function PaymentForm({
           });
 
           // Call backend to execute payment & store booking data
-          const response = await axios.post(
-            `${baseUrl}/payment/execute-payment`,
+          const response = await api.post(
+            `/payment/execute-payment`,
             paymentPayload,
             {
               headers: {

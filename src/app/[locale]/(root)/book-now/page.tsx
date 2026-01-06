@@ -45,7 +45,6 @@ const Page = () => {
   const locale = useLocale();
   const [currentStep, setCurrentStep] = useState(2);
   const [loading, setLoading] = useState(false);
-  const { user, logout } = useAuthContext();
 
   const flightDataSlice = useSelector(
     (state: any) => state.flightData.slectedFlight

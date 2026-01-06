@@ -38,7 +38,7 @@ export default function EditProfileDialog({
   useEffect(() => {
     if (open) {
       setFormData({
-        title: userData?.personalInfo?.title || "mr",
+        title: userData?.personalInfo?.title || "Mr",
         firstName: userData?.first_name || "",
         middleName: userData?.personalInfo?.middle_name || "",
         lastName: userData?.last_name || "",

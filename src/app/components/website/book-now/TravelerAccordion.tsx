@@ -48,9 +48,9 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
         passportNumber: user.personalInfo?.passport.number || "",
         issuanceCountry: user.personalInfo?.passport.issuingCountry || "",
         passportExpiry: {
-          day: user.personalInfo?.passport.expiryDate.day || "",
-          month: user.personalInfo?.passport.expiryDate.month.toString() || "",
-          year: user.personalInfo?.passport.expiryDate.year || "",
+          day: user.personalInfo?.passport.expiryDate?.day || "",
+          month: user.personalInfo?.passport.expiryDate?.month.toString() || "",
+          year: user.personalInfo?.passport.expiryDate?.year || "",
         },
       })
     }
