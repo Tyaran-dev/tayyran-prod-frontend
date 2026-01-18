@@ -50,9 +50,9 @@ export default function Home() {
       <Milecoin />
       <TopHotels t={t} />
       <BestOffer t={t} />
-      {locale === "ar" && (
+      {/* {locale === "ar" && ( */}
         <TripsSection t={t} />
-      )}
+      {/* )} */}
       <TopFlights t={t} />
       <MobileAppSection t={t} />
       <Footer />

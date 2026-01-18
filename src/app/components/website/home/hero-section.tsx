@@ -470,15 +470,15 @@ const HeroSection = () => {
                 </div>
               </div>
             )  : (
-            user ? (
+            // user ? (
             <div className="">
               <HotelSearch />
             </div>
-            ) : (
-            <div className="p-4 text-center text-gray-500">
-              Please log in to search for hotels
-            </div>
-            )  
+            // ) : (
+            // <div className="p-4 text-center text-gray-500">
+            //   Please log in to search for hotels
+            // </div>
+            // )  
                 )}
           </div>
         </div>

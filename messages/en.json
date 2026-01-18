@@ -118,6 +118,25 @@
         "Family-Friendly": "Family-Friendly"
       }
     },
+    "trips": {
+      "featured": "Featured",
+      "days": "Days",
+      "includes": "Includes",
+      "more": "More",
+      "startingFrom": "Starting From",
+      "currency": "SAR",
+      "perPerson": "Per Person",
+      "bookNow": "Book Now",
+      "heading": "Best Tour Offers",
+      "noTrips": "No offers currently available",
+      "viewAll": "View All Offers",
+      "destination": "Destination",
+      "duration": "Duration",
+      "rating": "Rating",
+      "price": "Price",
+      "advantages": "Advantages",
+      "disadvantages": "Exclusions"
+    },
     "topDeals": {
       "topDealsHeading": "Last Minute Weekend Deals",
       "bookNowButton": "Book Now"
