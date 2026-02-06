@@ -262,12 +262,14 @@ const Hotel = ({ hotels, pages }: Props) => {
                   >
                     {/* Hotel Image - Made responsive */}
                     <div className="w-full md:w-[40%] lg:w-[30%] h-48 md:h-52 lg:h-64 flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-xl">
-                      {hotel?.Images ? (
-                        <img
-                          src={hotel.Image}
+                      {hotel?.image_urls ? (
+                        <Image
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                          alt={hotel?.HotelName}
+                          alt={hotel?.HotelName} src={hotel.image_urls[0]}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 30vw"
                         />
+
                       ) : (
                         <Image
                           alt={t("noImage")}
@@ -294,13 +296,13 @@ const Hotel = ({ hotels, pages }: Props) => {
                           <div className="hidden md:flex flex-col md:flex-row justify-between items-start md:items-center mb-2 md:mb-3 w-full gap-2 md:gap-3">
                             <div className="flex-1">
                               <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-slate-900 mb-1 md:mb-2 line-clamp-2">
-                                {hotel?.HotelName}
+                                {hotel?.name}
                               </h2>
                               {/* Address - Made responsive */}
                               <div className="hidden md:flex items-start gap-1 md:gap-2 mb-2 md:mb-3">
                                 <FaLocationDot className="text-red-500 mt-0.5 md:mt-1 flex-shrink-0 w-3 h-3 md:w-4 md:h-4" />
                                 <p className="text-xs md:text-sm lg:text-base text-slate-700 line-clamp-2">
-                                  {hotel?.Address}
+                                  {hotel?.address}
                                 </p>
                               </div>
                             </div>
@@ -336,12 +338,12 @@ const Hotel = ({ hotels, pages }: Props) => {
                           <div className="md:hidden flex justify-between items-start">
                             <div>
                               <h2 className="text-lg font-bold text-slate-900 mb-1 line-clamp-1">
-                                {hotel?.HotelName}
+                                {hotel?.name}
                               </h2>
                               <div className="flex items-center gap-1">
                                 <FaLocationDot className="text-red-500 w-3 h-3 mt-0.5 flex-shrink-0" />
                                 <p className="text-xs text-slate-700 line-clamp-1 flex-1">
-                                  {hotel?.Address}
+                                  {hotel?.address}
                                 </p>
                               </div>
                             </div>

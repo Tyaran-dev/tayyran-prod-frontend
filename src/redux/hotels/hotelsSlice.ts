@@ -51,9 +51,11 @@ export interface HotelDetailsResponse {
 export interface HotelSearchData {
   Language: string;
   page: number;
-  CityCode?: string | undefined;
-  CheckIn?: string | undefined;
-  CheckOut?: string | undefined;
+  CityCode?: string | undefined; // Kept for backward compatibility if needed
+  Code?: string | undefined;
+  Type?: "city" | "hotel" | undefined;
+  CheckIn?: Date | null | undefined;
+  CheckOut?: Date | null | undefined;
   HotelCodes?: string[] | undefined;
   GuestNationality?: string | undefined;
   PreferredCurrencyCode?: string | undefined;
@@ -73,12 +75,12 @@ export interface SearchFilters {
   Refundable: boolean;
   NoOfRooms: "All" | string;
   MealType:
-    | "All"
-    | "Breakfast"
-    | "HalfBoard"
-    | "FullBoard"
-    | "RoomOnly"
-    | string;
+  | "All"
+  | "Breakfast"
+  | "HalfBoard"
+  | "FullBoard"
+  | "RoomOnly"
+  | string;
 }
 
 /* ✅ Add this new interface for storing the search form UI state */

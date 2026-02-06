@@ -12,7 +12,7 @@ const actGetHotels = createAsyncThunk(
       const BaseUrl = process.env.NEXT_PUBLIC_API_URL;
 
       // Perform your request here
-      const response = await axios.post(`${BaseUrl}/hotels/HotelsSearch`, {
+      const response = await axios.post(`${BaseUrl}/hotels/searchHotels`, {
         ...hotelSearchData,
       });
 

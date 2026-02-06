@@ -13,6 +13,8 @@ import {
 import Stepper from "../../shared/Feedback/Stepper";
 import { useHotelSearchForm } from "@/hooks/useSearchHotels";
 
+import HotelLocationSearchField, { SearchResultItem } from "./HotelLocationSearchField";
+
 type Room = {
   Adults: number;
   Children: number;
@@ -49,18 +51,17 @@ const HotelSearch = () => {
     today,
   } = useHotelSearchForm();
 
-  console.log(cityName, "cityName");
-  console.log(countryName, "countryName");
+
 
   const dispatch = useDispatch();
   const router = useRouter();
   const locale = useLocale();
-  const [hotelcodes, setHotelCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<SearchResultItem | null>(null);
 
   const handleSearch = async () => {
-    if (!selectedCity || !checkIn || !checkOut) {
-      alert("Please select city, check-in, and check-out dates.");
+    if (!selectedLocation || !checkIn || !checkOut) {
+      alert("Please select a location/hotel, check-in, and check-out dates.");
       return;
     }
 
@@ -72,16 +73,21 @@ const HotelSearch = () => {
 
       dispatch(
         setHotelFormData({
-          selectedCountry: countryName, ///country name
-          selectedCity: cityName, // city name
-          selectedNationality: selectedNationality || selectedCountry,
+          selectedCountry: selectedLocation.originalData.country_name, ///country name
+          selectedCity: selectedLocation.label, // city name or hotel name
+          selectedNationality: selectedNationality || "SA", // Default to SA if not selected
           checkIn,
           checkOut,
           rooms,
         })
       );
-      // Navigate to results page (you can change the path)
-      router.push(`/${locale}/hotel-search`);
+
+      if (selectedLocation.type === "hotel") {
+        router.push(`/${locale}/hotel-details/${selectedLocation.code}`);
+      } else {
+        router.push(`/${locale}/hotel-search`);
+      }
+
     } catch (error) {
       console.error("Hotel search failed:", error);
       alert("Something went wrong. Please try again.");
@@ -93,17 +99,19 @@ const HotelSearch = () => {
   const searchParams = {
     CheckIn: checkIn,
     CheckOut: checkOut,
-    CityCode: selectedCity,
+    Code: selectedLocation?.code,
+    Type: selectedLocation?.type,
     Language: locale,
-    GuestNationality: selectedNationality || selectedCountry,
+    GuestNationality: selectedNationality || "SA",
     PreferredCurrencyCode: "SAR",
     PaxRooms: rooms,
     IsDetailResponse: true,
     ResponseTime: 23,
+    page: 1,
     Filters: {
       MealType: "All",
-      Refundable: "true",
-      NoOfRooms: rooms.length,
+      Refundable: true,
+      NoOfRooms: rooms.length.toString(),
     },
   };
 
@@ -111,53 +119,14 @@ const HotelSearch = () => {
     <div className="p-4 max-w-3xl mx-auto ">
       {/* <h2 className="text-lg font-semibold mb-4">Search Hotels</h2> */}
       {/* Country & City */}
-      <div className="flex flex-col md:flex-row justify-between gap-4">
-        <div className="mb-2 md:w-1/2">
-          <label className="hidden md:block mb-2 text-sm text-[#12121299]">
-            Select Country
-          </label>
-          <select
-            // value={selectedCountry || ""} // ✅ ensures default shows
-            onChange={(e) => {
-              const country = JSON.parse(e.target.value);
-              setSelectedCountry(country.Code);
-              setCountryName(country.Code);
-            }}
-            className="border p-3 w-full rounded-lg"
-          >
-            <option value="">Select a country</option>
-            {countries.map((country, indx) => (
-              <option key={country.Code + indx} value={JSON.stringify(country)}>
-                {country.Name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-4 md:w-1/2">
-          <label className="hidden md:block mb-2 text-[#12121299] text-sm">
-            Select City
-          </label>
-          <select
-            // value={selectedCity}
-            onChange={(e) => {
-              console.log(e.target.value, "e.target");
-              const city = JSON.parse(e.target.value);
-              console.log(city, "city");
-
-              setSelectedCity(city.Code);
-              setCityName(city.Code);
-            }}
-            className="border p-3 w-full rounded-lg"
-          >
-            <option value="">Select a city</option>
-            {cities.map((city) => (
-              <option key={city.Code} value={JSON.stringify(city)}>
-                {city.Name}
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* Location Search */}
+      <div className="mb-4 w-full">
+        <HotelLocationSearchField
+          label="Select City or Hotel"
+          placeholder="Search for a city or hotel..."
+          onSelect={(item) => setSelectedLocation(item)}
+          className="border p-3 rounded-lg"
+        />
       </div>
 
       {/* Dates */}
@@ -342,3 +311,5 @@ const HotelSearch = () => {
 };
 
 export default HotelSearch;
+
+

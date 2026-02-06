@@ -122,7 +122,6 @@ const AirportSearchField: React.FC<Props> = ({
       setLoading(true);
       // Fetch airports from Amadeus API
       const fetchedAirports = await getAirports(searchTerm);
-      console.log("🔹 Fetched Airports:", fetchedAirports);
 
       setLoading(false);
       setAirports(fetchedAirports);

@@ -65,7 +65,7 @@ export default function Page() {
 
   // Fetch on params change
   useEffect(() => {
-    if (!fullParams?.CityCode || !fullParams?.CheckIn || !fullParams?.CheckOut) {
+    if ((!fullParams?.Code && !fullParams?.CityCode) || !fullParams?.CheckIn || !fullParams?.CheckOut) {
       return; // don't fire until params are ready
     }
 
@@ -112,7 +112,7 @@ export default function Page() {
         <Stepper currentStep={currentStep} stepsType="hotelSteps" />
       </div>
       <HotelSearch className="lg:grid-cols-4 grid-cols-2 bg-white rounded-3xl shadow-md p-8 border " />
-      
+
       {loading === "failed" && (
         <>
           <div className="min-h-screen w-full flex-col flex justify-center items-center">
@@ -144,13 +144,13 @@ export default function Page() {
 
           {!noResults && (
             <>
-              <Hotel 
-                hotels={hotelsData.hotels} 
+              <Hotel
+                hotels={hotelsData.hotels}
                 pagination={hotelsData.pagination}
                 currentPage={currentPage}
                 onPageChange={setCurrentPage}
               />
-              
+
               {/* Show server-side pagination if available */}
               {hotelsData.pagination.totalPages > 1 && (
                 <div className="mt-8">
