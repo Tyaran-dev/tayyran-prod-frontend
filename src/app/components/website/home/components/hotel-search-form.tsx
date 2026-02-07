@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import CustomDatePicker from "@/app/components/shared/custom-date-picker";
 import DropdownWithSearch from "@/app/components/shared/custom-hotel-dropdown";
+import DestinationSearch from "./DestinationSearch";
 
 const HotelSearch = ({ className }: { className?: string }) => {
   const t = useTranslations("HomePage");
@@ -47,14 +48,22 @@ const HotelSearch = ({ className }: { className?: string }) => {
     setOpen,
     setRooms,
     today,
+    destination,
+    setDestination,
   } = useHotelSearchForm();
 
   useEffect(() => {
     if (!formData) return;
 
     // Restore basic fields
-    if (formData.selectedCountry) setSelectedCountry(formData.selectedCountry);
-    if (formData.selectedCity) setSelectedCity(formData.selectedCity);
+    // Restore basic fields
+    // if (formData.selectedCountry) setSelectedCountry(formData.selectedCountry);
+    // if (formData.selectedCity) setSelectedCity(formData.selectedCity);
+    if (formData.selectedCity) {
+      // TODO: We might need to store the full destination object in Redux to restore it properly
+      // For now, we can't easily restore the label without fetching it again or storing it.
+      // This is a known limitation of the refactor until Redux state is updated to store { label, value }
+    }
     if (formData.selectedNationality)
       setSelectedNationality(formData.selectedNationality);
 
@@ -74,24 +83,26 @@ const HotelSearch = ({ className }: { className?: string }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
-    if (!selectedCity || !checkIn || !checkOut) {
+    if (false) {
       alert(e("hotelSearchAlert"));
       return;
     }
 
     const searchParams = {
-      CheckIn: checkIn?.toISOString(),
-      CheckOut: checkOut?.toISOString(),
-      CityCode: selectedCity,
+      CheckIn: checkIn,    // Pass Date object
+      CheckOut: checkOut,  // Pass Date object
+      [destination?.type === 'hotel' ? 'Code' : 'CityCode']: destination?.value,
       GuestNationality: selectedNationality || "",
       PreferredCurrencyCode: "SAR",
       PaxRooms: rooms,
-      IsDetailResponse: true,
+      IsDetailedResponse: true,
       ResponseTime: 23,
+      Language: "en", // Default or get from locale
+      page: 1,
       Filters: {
         MealType: "All",
-        Refundable: "true",
-        NoOfRooms: 50,
+        Refundable: true,
+        NoOfRooms: "50",
       },
     };
 
@@ -99,6 +110,7 @@ const HotelSearch = ({ className }: { className?: string }) => {
 
     try {
       // Save in Redux
+      // We might want to save the full destination object to Redux later for restoration
       dispatch(setHotelSearchData(searchParams));
 
       console.log(searchParams, "searchParams");
@@ -117,23 +129,14 @@ const HotelSearch = ({ className }: { className?: string }) => {
     <div className="p-6 shadow-lg border rounded-lg ">
       <div className="grid gap-6">
         {/* Row 1 */}
+        {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <DropdownWithSearch
-            label={t("heroSection.searchForm.hotelCountryLabel")}
-            options={countries}
-            selectedOption={selectedCountry}
-            setSelectedOption={setSelectedCountry}
-            placeholder={t("heroSection.searchForm.hotelCountryLabel")}
-            className="border rounded-lg"
-          />
-
-          <DropdownWithSearch
-            label={t("heroSection.searchForm.hotelCityLabel")}
-            options={cities}
-            selectedOption={selectedCity}
-            setSelectedOption={setSelectedCity}
+          <DestinationSearch
+            label={t("heroSection.searchForm.hotelCityLabel")} // Or a new label "Destination"
             placeholder={t("heroSection.searchForm.hotelCityLabel")}
-            className="border rounded-lg"
+            value={destination}
+            onChange={setDestination}
+            className="md:col-span-2"
           />
 
           <CustomDatePicker

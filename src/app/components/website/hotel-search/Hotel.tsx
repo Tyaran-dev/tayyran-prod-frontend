@@ -29,8 +29,22 @@ import {
 interface Props {
   hotels: { data: HotelType[] } | HotelType[];
   pages?: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
+const convertRatingToNumber = (rating: string): number => {
+  const ratingMap: { [key: string]: number } = {
+    'One': 1,
+    'Two': 2,
+    'Three': 3,
+    'Four': 4,
+    'Five': 5,
+    'All': 0, // Unrated
+  };
+
+  return ratingMap[rating]
+}
 const Hotel = ({ hotels, pages }: Props) => {
   const locale = useLocale();
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,7 +52,7 @@ const Hotel = ({ hotels, pages }: Props) => {
   const t = useTranslations("HotelPage");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState('none');
-  const [starRatingMap, setStarRatingMap] = useState([]);
+  const [starRatingMap, setStarRatingMap] = useState<number[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([10, 10000]);
   const [selectedHotelOptions, setSelectedHotelOptions] = useState<string[]>(
     []
@@ -109,9 +123,9 @@ const Hotel = ({ hotels, pages }: Props) => {
 
       const isStarRatingMatch =
         selectedStarRatingOptions.length === 0 ||
-        selectedStarRatingOptions.includes(String(hotel?.HotelRating));
+        selectedStarRatingOptions.includes(String(convertRatingToNumber(hotel?.star_rating) || 0));
 
-      const isNameMatch = searchQuery.trim() === "" || hotel?.HotelName.toLowerCase().includes(searchQuery.toLowerCase());
+      const isNameMatch = searchQuery.trim() === "" || hotel?.name.toLowerCase().includes(searchQuery.toLowerCase());
 
       return isInPriceRange && isStarRatingMatch && isNameMatch;
     });
@@ -123,10 +137,14 @@ const Hotel = ({ hotels, pages }: Props) => {
     selectedStarRatingOptions,
   );
 
+  const uniqueRatings = React.useMemo(() => {
+    const ratings = [...new Set(hotelData.map((h: any) => convertRatingToNumber(h?.star_rating) || 0))];
+    return ratings.sort((a, b) => a - b);
+  }, [hotelData]);
+
   useEffect(() => {
-    const uniqueRatings = [...new Set(hotels.map(h => String(h.HotelRating)))];
-    setStarRatingMap(uniqueRatings.sort((a, b) => a - b));
-  }, [hotels]);
+    setStarRatingMap(uniqueRatings);
+  }, [uniqueRatings]);
 
   const sortedHotels = [...filteredHotels].sort((a, b) => {
     switch (selectedSortOption) {
@@ -137,10 +155,10 @@ const Hotel = ({ hotels, pages }: Props) => {
         return (b.MinHotelPrice || 0) - (a.MinHotelPrice || 0);
 
       case "star-asc":
-        return (parseFloat(a.HotelRating) || 0) - (parseFloat(b.HotelRating) || 0);
+        return (convertRatingToNumber(a?.star_rating) || 0) - (convertRatingToNumber(b?.star_rating) || 0);
 
       case "star-desc":
-        return (parseFloat(b.HotelRating) || 0) - (parseFloat(a.HotelRating) || 0);
+        return (convertRatingToNumber(b?.star_rating) || 0) - (convertRatingToNumber(a?.star_rating) || 0);
 
       default:
         return 0;
@@ -282,7 +300,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                       {/* Rating Badge - Made responsive */}
                       <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg flex items-center gap-1">
                         <FaStar className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
-                        <span className="font-bold text-slate-800 text-sm md:text-base">{hotel?.HotelRating || 0}</span>
+                        <span className="font-bold text-slate-800 text-sm md:text-base">{convertRatingToNumber(hotel?.star_rating) || 0}</span>
                         <span className="text-xs text-slate-600 ml-1 hidden md:inline">{t("stars")}</span>
                       </div>
                     </div>
@@ -373,7 +391,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                           <div className="hidden md:flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 md:gap-4 mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-100">
                             <div className="flex items-center gap-1 md:gap-2">
                               <div className="flex items-center gap-0.5 md:gap-1">
-                                {[...Array(Math.floor(parseFloat(hotel?.HotelRating) || 0))].map((_, index) => (
+                                {[...Array(Math.floor(convertRatingToNumber(hotel?.star_rating) || 0))].map((_, index) => (
                                   <MdStar
                                     className="text-amber-500 text-base md:text-lg"
                                     key={index}
@@ -381,7 +399,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                                 ))}
                               </div>
                               <p className="text-xs md:text-sm font-medium text-slate-700">
-                                {hotel?.HotelRating || 0} {t("starHotel")}
+                                {convertRatingToNumber(hotel?.star_rating) || 0} {t("starHotel")}
                               </p>
                             </div>
                             <div className="text-xs md:text-sm text-slate-600 bg-slate-50 px-2 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg">
@@ -396,14 +414,14 @@ const Hotel = ({ hotels, pages }: Props) => {
                       <div className="md:hidden flex flex-col gap-3 mt-3 pt-3 border-t border-slate-100">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1">
-                            {[...Array(Math.floor(parseFloat(hotel?.HotelRating) || 0))].map((_, index) => (
+                            {[...Array(Math.floor(parseFloat(convertRatingToNumber(hotel?.star_rating)) || 0))].map((_, index) => (
                               <MdStar
                                 className="text-amber-500"
                                 key={index}
                               />
                             ))}
                             <p className="text-xs font-medium text-slate-700 ml-1">
-                              {hotel?.HotelRating || 0} {t("starHotel")}
+                              {convertRatingToNumber(hotel?.star_rating) || 0} {t("starHotel")}
                             </p>
                           </div>
                           <div className="text-xs text-slate-600 bg-slate-50 px-2 py-1 rounded">

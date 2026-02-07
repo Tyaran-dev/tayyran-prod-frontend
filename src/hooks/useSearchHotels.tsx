@@ -25,6 +25,7 @@ export const useHotelSearchForm = () => {
   const [selectedNationality, setSelectedNationality] = useState("");
   const [checkIn, setCheckIn] = useState<Date | null>(today);
   const [checkOut, setCheckOut] = useState<Date | null>(tomorrow);
+  const [destination, setDestination] = useState<{ label: string; value: string; type: 'city' | 'hotel' } | null>(null); // ✅ new state
   const [rooms, setRooms] = useState<Room[]>([
     { Adults: 2, Children: 0, ChildrenAges: [] },
   ]);
@@ -87,13 +88,13 @@ export const useHotelSearchForm = () => {
       prev.map((room, i) =>
         i === roomIndex
           ? {
-              ...room,
-              Children: Math.min(4, Math.max(0, room.Children + delta)),
-              ChildrenAges:
-                delta > 0
-                  ? [...room.ChildrenAges, 0].slice(0, 4)
-                  : room.ChildrenAges.slice(0, room.ChildrenAges.length - 1),
-            }
+            ...room,
+            Children: Math.min(4, Math.max(0, room.Children + delta)),
+            ChildrenAges:
+              delta > 0
+                ? [...room.ChildrenAges, 0].slice(0, 4)
+                : room.ChildrenAges.slice(0, room.ChildrenAges.length - 1),
+          }
           : room
       )
     );
@@ -108,23 +109,22 @@ export const useHotelSearchForm = () => {
       prev.map((room, i) =>
         i === roomIndex
           ? {
-              ...room,
-              ChildrenAges: room.ChildrenAges.map((age, j) =>
-                j === childIndex ? value : age
-              ),
-            }
+            ...room,
+            ChildrenAges: room.ChildrenAges.map((age, j) =>
+              j === childIndex ? value : age
+            ),
+          }
           : room
       )
     );
   };
 
   // ✅ Total summary
-  const totalSummary = `${rooms.length} Room${
-    rooms.length > 1 ? "s" : ""
-  }, ${rooms.reduce((sum, r) => sum + r.Adults, 0)} Adults, ${rooms.reduce(
-    (sum, r) => sum + r.Children,
-    0
-  )} Child${rooms.reduce((sum, r) => sum + r.Children, 0) !== 1 ? "ren" : ""}`;
+  const totalSummary = `${rooms.length} Room${rooms.length > 1 ? "s" : ""
+    }, ${rooms.reduce((sum, r) => sum + r.Adults, 0)} Adults, ${rooms.reduce(
+      (sum, r) => sum + r.Children,
+      0
+    )} Child${rooms.reduce((sum, r) => sum + r.Children, 0) !== 1 ? "ren" : ""}`;
 
   return {
     countries,
@@ -156,5 +156,7 @@ export const useHotelSearchForm = () => {
     open,
     setOpen,
     today,
+    destination, // ✅ Export destination
+    setDestination, // ✅ Export setter
   };
 };
