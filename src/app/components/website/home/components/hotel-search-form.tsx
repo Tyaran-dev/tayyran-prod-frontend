@@ -6,14 +6,15 @@ import { LuSearch } from "react-icons/lu";
 import { LoaderPinwheel } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useDispatch } from "react-redux";
-import { setHotelSearchData } from "@/redux/hotels/hotelsSlice";
 import { useHotelSearchForm } from "@/hooks/useSearchHotels";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import CustomDatePicker from "@/app/components/shared/custom-date-picker";
 import DropdownWithSearch from "@/app/components/shared/custom-hotel-dropdown";
 import DestinationSearch from "./DestinationSearch";
-
+import HotelLocationSearchField, { SearchResultItem } from "@/app/components/website/hotel-search/HotelLocationSearchField";
+import { useLocale } from "next-intl";
+import {setHotelFormData,setHotelSearchData,} from "@/redux/hotels/hotelsSlice";
 const HotelSearch = ({ className }: { className?: string }) => {
   const t = useTranslations("HomePage");
   const e = useTranslations("errors");
@@ -81,49 +82,67 @@ const HotelSearch = ({ className }: { className?: string }) => {
   }, [formData]);
 
   const [loading, setLoading] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<SearchResultItem | null>(null);
+  const locale = useLocale();
+
+  const searchParams = {
+    CheckIn: checkIn,
+    CheckOut: checkOut,
+    Code: selectedLocation?.code,
+    Type: selectedLocation?.type,
+    Language: locale,
+    GuestNationality: selectedNationality || "SA",
+    PreferredCurrencyCode: "SAR",
+    PaxRooms: rooms,
+    IsDetailResponse: true,
+    ResponseTime: 23,
+    page: 1,
+    Filters: {
+      MealType: "All",
+      Refundable: true,
+      NoOfRooms: rooms.length.toString(),
+    },
+  };
+
+
 
   const handleSearch = async () => {
-    if (false) {
-      alert(e("hotelSearchAlert"));
+    if (!selectedLocation || !checkIn || !checkOut) {
+      alert("Please select a location/hotel, check-in, and check-out dates.");
       return;
     }
-
-    const searchParams = {
-      CheckIn: checkIn,    // Pass Date object
-      CheckOut: checkOut,  // Pass Date object
-      [destination?.type === 'hotel' ? 'Code' : 'CityCode']: destination?.value,
-      GuestNationality: selectedNationality || "",
-      PreferredCurrencyCode: "SAR",
-      PaxRooms: rooms,
-      IsDetailedResponse: true,
-      ResponseTime: 23,
-      Language: "en", // Default or get from locale
-      page: 1,
-      Filters: {
-        MealType: "All",
-        Refundable: true,
-        NoOfRooms: "50",
-      },
-    };
 
     setLoading(true);
 
     try {
-      // Save in Redux
-      // We might want to save the full destination object to Redux later for restoration
+      // Store search parameters in Redux
       dispatch(setHotelSearchData(searchParams));
 
-      console.log(searchParams, "searchParams");
+      dispatch(
+        setHotelFormData({
+          selectedCountry: selectedLocation.originalData.country_name, ///country name
+          selectedCity: selectedLocation.label, // city name or hotel name
+          selectedNationality: selectedNationality || "SA", // Default to SA if not selected
+          checkIn,
+          checkOut,
+          rooms,
+        })
+      );
 
-      // Navigate (keep locale if needed)
-      //   router.push(`/hotels/search`);
-    } catch (err) {
-      console.error("Hotel search error:", err);
+      if (selectedLocation.type === "hotel") {
+        router.push(`/${locale}/hotel-details/${selectedLocation.code}`);
+      } else {
+        router.push(`/${locale}/hotel-search`);
+      }
+
+    } catch (error) {
+      console.error("Hotel search failed:", error);
       alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="p-6 shadow-lg border rounded-lg ">
@@ -131,13 +150,19 @@ const HotelSearch = ({ className }: { className?: string }) => {
         {/* Row 1 */}
         {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <DestinationSearch
+          <HotelLocationSearchField
+            label="Select City or Hotel"
+            placeholder="Search for a city or hotel..."
+            onSelect={(item) => setSelectedLocation(item)}
+            className="border p-3 rounded-lg"
+          />
+          {/* <DestinationSearch
             label={t("heroSection.searchForm.hotelCityLabel")} // Or a new label "Destination"
             placeholder={t("heroSection.searchForm.hotelCityLabel")}
             value={destination}
             onChange={setDestination}
             className="md:col-span-2"
-          />
+          /> */}
 
           <CustomDatePicker
             label={t("heroSection.searchForm.hotelCheckInDate")}
