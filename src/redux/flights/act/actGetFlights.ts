@@ -25,7 +25,7 @@ interface FlightData {
   page?: string;
   pageSize?: string;
   flightClass?: string;
-  }
+}
 
 interface Carriers {
   [key: string]: string; // Assuming carriers is a dictionary where key is carrier code
@@ -36,12 +36,12 @@ interface Meta {
 }
 
 interface FlightApiResponse {
-    data: FlightData[];
-    dictionaries: {
-      carriers: Carriers;
-    };
-    meta: Meta;
-  }
+  data: FlightData[];
+  dictionaries: {
+    carriers: Carriers;
+  };
+  meta: Meta;
+}
 
 // Define the type of the result that will be returned
 interface FlightsResult {
@@ -64,7 +64,7 @@ const actGetFlights = createAsyncThunk<FlightsResult, FlightSearchData, { reject
     const { rejectWithValue, signal } = thunkAPI;
     const page = flightSearchData.page || "1"; // Default to page 1
     const pageSize = flightSearchData.pageSize || "10"; // Default page size
-  
+
     try {
       // const accessToken = await getAmadeusToken();
       const apiUrl = "https://test.api.amadeus.com/v2/shopping/flight-offers";
@@ -146,9 +146,7 @@ const actGetFlights = createAsyncThunk<FlightsResult, FlightSearchData, { reject
     } catch (error: any) {
       console.error("Error fetching flights:", error);
 
-      const statusCode = error.response?.status || 500;
-      const message = error.response?.data || { error: error.message };
-      return rejectWithValue(axiosErrorHandler(message));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );

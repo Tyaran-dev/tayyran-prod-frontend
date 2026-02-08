@@ -18,10 +18,8 @@ const actGetHotels = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      const statusCode = error.response?.status || 500;
-      const message = error.response?.data || { error: error.message };
       console.log(error, "the error");
-      return rejectWithValue(axiosErrorHandler(message));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );

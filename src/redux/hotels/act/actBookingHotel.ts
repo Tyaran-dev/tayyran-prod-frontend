@@ -62,9 +62,7 @@ const actBookingHotel = createAsyncThunk<
       } as BookingResponse;
 
     } catch (error: any) {
-      const statusCode = error.response?.status || 500;
-      const message = error.response?.data || { error: error.message };
-      return rejectWithValue(axiosErrorHandler(message));
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );
