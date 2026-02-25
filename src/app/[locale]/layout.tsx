@@ -14,7 +14,9 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { AuthProvider } from "@/context/AuthContext";
 import ClientLayout from "./client-layout";
-
+import Navbar from "../components/shared/navbar";
+import Footer from "../components/shared/footer/Footer";
+import { FloatingChatButton } from "../components/shared/floating-chat/FloatingChatButton";
 const inter = Inter({
   subsets: ['latin'], // you can specify ['latin', 'cyrillic', etc.]
   display: 'swap',    // optional, but good for performance
@@ -97,7 +99,12 @@ export default async function RootLayout({
             <StoreProvider>
               <AnimationProvider>
                 {/* <GoogleTranslate /> */}
-                <NextIntlClientProvider>{children}</NextIntlClientProvider>
+                <NextIntlClientProvider>
+                  <Navbar />
+                  <FloatingChatButton />
+                  {children}
+                  <Footer />
+                </NextIntlClientProvider>
               </AnimationProvider>
             </StoreProvider>
           </AuthProvider>

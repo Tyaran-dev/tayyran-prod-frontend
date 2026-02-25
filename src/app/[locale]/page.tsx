@@ -44,7 +44,6 @@ export default function Home() {
     <div className="animate-fadeInSlow fade-in transition-opacity duration-700">
       <Toaster />
       <div className="sticky top-0 left-0 z-50">
-        <Navbar />
       </div>
       <HeroSection />
       <Milecoin />
@@ -55,7 +54,6 @@ export default function Home() {
       {/* )} */}
       <TopFlights t={t} />
       <MobileAppSection t={t} />
-      <Footer />
     </div>
   );
 
