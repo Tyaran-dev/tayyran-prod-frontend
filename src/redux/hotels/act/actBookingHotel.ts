@@ -49,7 +49,6 @@ const actBookingHotel = createAsyncThunk<
     try {
       const BaseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-      console.log(bookingData, "here is payload");
 
       const response = await axios.post(
         `${BaseUrl}/hotels/BookRoom`,

@@ -96,6 +96,8 @@ export default function PaymentForm({
 
       const formattedHotelData = formatGuestDataForAPI();
 
+      console.log(formattedHotelData,"check if the user is there")
+
       return {
         ...basePayload,
         hotelData: formattedHotelData,
@@ -140,7 +142,7 @@ export default function PaymentForm({
       currencyCode: "SAR",
       amount: finalPrice,
       containerId: "embedded-payment",
-      paymentOptions: ["ApplePay", "Card"],
+      paymentOptions: ["Card"],
       callback: async (resp) => {
         if (!resp.isSuccess) {
           alert("Payment authorization failed. Please check your card details.");
@@ -156,10 +158,7 @@ export default function PaymentForm({
           // Prepare the correct payload based on booking type
           const paymentPayload = preparePaymentPayload(session.SessionId);
 
-          console.log("Sending payment payload:", {
-            type: detectedBookingType,
-            payload: paymentPayload
-          });
+        
 
           // Call backend to execute payment & store booking data
           const response = await api.post(

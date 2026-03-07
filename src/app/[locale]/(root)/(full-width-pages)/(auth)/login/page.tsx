@@ -108,7 +108,6 @@ export default function LoginPage() {
           // Save the access token
           localStorage.setItem("accessToken", data.accessToken);
 
-          console.log(data, "data object")
 
           // Save raw user if returned
           if (data.user) {

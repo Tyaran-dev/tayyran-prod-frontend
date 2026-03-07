@@ -13,6 +13,7 @@ interface PriceRangeProps {
     unit: string; // Unit of measurement (e.g., USD, SAR)
     value?: [number, number]; // Initial range value
     onChange?: (newValue: [number, number]) => void; // Callback for value changes
+    onChangeComplete?: (newValue: [number, number]) => void; // Callback when value change completes
     setPeopleCount?: (newRange: { min: number; max: number }) => void; // Optional additional handler
 }
 
@@ -23,6 +24,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({
     unit,
     value = [min, max], // Default value to full range if not provided
     onChange,
+    onChangeComplete,
     setPeopleCount,
 }) => {
     const [rangeValues, setRangeValues] = React.useState<[number, number]>(value);
@@ -41,6 +43,13 @@ const PriceRange: React.FC<PriceRangeProps> = ({
             }
         }
     };
+
+    const handleSliderChangeComplete = (newValue: number | number[]) => {
+        if (Array.isArray(newValue) && newValue.length === 2 && onChangeComplete) {
+            onChangeComplete(newValue as [number, number]);
+        }
+    };
+
     return (
         <div className="mb-4">
             {title && <h3 className="font-semibold">{title}</h3>}
@@ -52,6 +61,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({
                     max={max}
                     value={rangeValues}
                     onChange={handleSliderChange}
+                    onChangeComplete={handleSliderChangeComplete}
                     className="w-full"
                     trackStyle={[{ backgroundColor: "#026C34" }]}
                     handleStyle={[

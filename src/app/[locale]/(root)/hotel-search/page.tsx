@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import actGetHotels from "@/redux/hotels/act/actGetHotels";
 import { clearHotels } from "@/redux/hotels/hotelsSlice";
 import { useTranslations, useLocale } from "next-intl";
@@ -36,6 +36,13 @@ const DEFAULT_PAGING: Paging = {
   totalPages: 0,
 };
 
+const convertRatingToNumber = (rating: string | undefined): number => {
+  const ratingMap: { [key: string]: number } = {
+    'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'All': 0,
+  };
+  return rating ? (ratingMap[rating] ?? 0) : 0;
+};
+
 export default function Page() {
   const dispatch = useAppDispatch();
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,20 +55,83 @@ export default function Page() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  // ── Server-side filter / sort / search state ──────────────────────────────
+  const [sortBy, setSortBy] = useState<
+    "price-asc" | "price-desc" | "star-asc" | "star-desc" | "none"
+  >("none");
+  const [nameSearch, setNameSearch] = useState("");
+  const [debouncedNameSearch, setDebouncedNameSearch] = useState("");
+  const [debouncedPriceRange, setDebouncedPriceRange] = useState<[number, number]>([10, 10000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([10, 10000]);
+  const [starRatings, setStarRatings] = useState<string[]>([]);
+  const [accumulatedStarOptions, setAccumulatedStarOptions] = useState<{ label: string, value: string }[]>([]);
+
+  // Debounce nameSearch by 500ms so we don't fire on every keystroke
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedNameSearch(nameSearch), 500);
+    return () => clearTimeout(timer);
+  }, [nameSearch]);
+  // ─────────────────────────────────────────────────────────────────────────
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log(priceRange, "priceRange");
+      console.log(debouncedPriceRange, "debouncedPriceRange")
+      setDebouncedPriceRange(priceRange);
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(timer);
+  }, [priceRange]);
+
   // Local, flattened state that the UI can rely on
   const [hotelsData, setHotelsData] = useState<HotelsData>({
     hotels: [],
     pagination: DEFAULT_PAGING,
   });
 
+  // Helper: reset page to 1 and re-fire with updated filter/sort/search
+  const handleFilterChange = (updates: {
+    sortBy?: typeof sortBy;
+    nameSearch?: string;
+    priceRange?: [number, number];
+    starRatings?: string[];
+  }) => {
+    if (updates.sortBy !== undefined) setSortBy(updates.sortBy);
+    if (updates.nameSearch !== undefined) setNameSearch(updates.nameSearch);
+    if (updates.priceRange !== undefined) setPriceRange(updates.priceRange);
+    if (updates.starRatings !== undefined) setStarRatings(updates.starRatings);
+    setCurrentPage(1); // always reset to page 1 on filter/sort/search change
+  };
+
+  const handleResetFilters = () => {
+    setSortBy("none");
+    setNameSearch("");
+    setDebouncedNameSearch("");
+    setPriceRange([10, 10000]);
+    setStarRatings([]);
+    setCurrentPage(1);
+  };
+
+
+
   const fullParams = useMemo(() => {
     if (!searchParamsData) return null;
+    const hasPriceFilter =
+      debouncedPriceRange[0] !== 10 || debouncedPriceRange[1] !== 10000;
+
+    console.log(debouncedPriceRange, "debouncedPriceRange")
     return {
       ...searchParamsData,
       Language: locale,
-      page: currentPage, // Pass current page to API
+      page: currentPage,
+      // Include server-side filter/sort/search params
+      sortBy,
+      nameSearch: debouncedNameSearch.trim() || undefined,
+      minPrice: hasPriceFilter ? debouncedPriceRange[0] : undefined,
+      maxPrice: hasPriceFilter ? debouncedPriceRange[1] : undefined,
+      starRatings: starRatings.length > 0 ? starRatings : undefined,
     };
-  }, [searchParamsData, currentPage, locale]);
+  }, [searchParamsData, currentPage, locale, sortBy, debouncedNameSearch, debouncedPriceRange, starRatings]);
 
   // Fetch on params change
   useEffect(() => {
@@ -69,7 +139,10 @@ export default function Page() {
       return; // don't fire until params are ready
     }
 
+    console.log(fullParams, "fullParams ")
+
     dispatch(clearHotels());
+    console.log(fullParams, "fullParams before send it ")
     dispatch(actGetHotels(fullParams));
   }, [fullParams, dispatch]);
 
@@ -77,14 +150,22 @@ export default function Page() {
   useEffect(() => {
     if (!hotels) return;
 
-    console.log("RAW HOTELS FROM REDUX:", JSON.stringify(hotels, null, 2));
-
     const h: any = hotels;
     const normalizedHotels: HotelInterface[] = Array.isArray(h)
       ? h
       : Array.isArray(h?.data)
         ? h.data
         : h?.data?.hotels ?? h?.hotels ?? [];
+
+    setAccumulatedStarOptions(prev => {
+      const newRatings = Array.from(new Set(normalizedHotels.map(hotel => hotel?.star_rating).filter(Boolean)));
+      const newOptions = newRatings.map((r: any) => ({ label: `${convertRatingToNumber(r)} Stars`, value: r }));
+      const map = new Map(prev.map(p => [p.value, p]));
+      newOptions.forEach(opt => map.set(opt.value, opt));
+      return Array.from(map.values()).sort(
+        (a, b) => convertRatingToNumber(a.value) - convertRatingToNumber(b.value)
+      );
+    });
 
     const normalizedPagination: Paging =
       h?.data?.pagination ?? h?.pagination ?? DEFAULT_PAGING;
@@ -99,9 +180,6 @@ export default function Page() {
       setCurrentPage(normalizedPagination.page);
     }
   }, [hotels]);
-
-  console.log("HOTELS DATA:", hotelsData);
-  console.log("CURRENT PAGE:", currentPage);
 
   const noResults =
     loading === "succeeded" && hotelsData.hotels.length === 0 || loading === "failed";
@@ -136,32 +214,33 @@ export default function Page() {
 
       {loading === "succeeded" && (
         <>
-          {noResults && (
-            <div className="min-h-[50vh] flex items-center justify-center">
-              <p className="text-center text-gray-500">{t("noHotelsFound")}</p>
-            </div>
-          )}
+          <Hotel
+            hotels={hotelsData.hotels}
+            pagination={hotelsData.pagination}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+            // filter / sort / search props
+            sortBy={sortBy}
+            onSortChange={(v) => handleFilterChange({ sortBy: v })}
+            nameSearch={nameSearch}
+            onNameSearchChange={(v) => handleFilterChange({ nameSearch: v })}
+            priceRange={priceRange}
+            onPriceRangeChange={(v) => handleFilterChange({ priceRange: v })}
+            starRatings={starRatings}
+            onStarRatingsChange={(v) => handleFilterChange({ starRatings: v })}
+            onResetFilters={handleResetFilters}
+            availableStarOptions={accumulatedStarOptions}
+          />
 
-          {!noResults && (
-            <>
-              <Hotel
-                hotels={hotelsData.hotels}
-                pagination={hotelsData.pagination}
+          {/* Show server-side pagination if available */}
+          {hotelsData.pagination.totalPages > 1 && (
+            <div className="mt-8">
+              {/* <Pagination
                 currentPage={currentPage}
+                totalPages={hotelsData.pagination.totalPages}
                 onPageChange={setCurrentPage}
-              />
-
-              {/* Show server-side pagination if available */}
-              {hotelsData.pagination.totalPages > 1 && (
-                <div className="mt-8">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={hotelsData.pagination.totalPages}
-                    onPageChange={setCurrentPage}
-                  />
-                </div>
-              )}
-            </>
+              /> */}
+            </div>
           )}
         </>
       )}

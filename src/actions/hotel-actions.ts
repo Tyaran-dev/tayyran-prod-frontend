@@ -21,7 +21,6 @@ const tboApi = axios.create({
 export async function getCountries() {
   try {
     const response = await tboApi.get("/CountryList");
-    // console.log(response.data)
     return response.data;
   } catch (error: any) {
     console.error("Error fetching countries:", error);
@@ -32,7 +31,6 @@ export async function getCountries() {
 export async function getHotelCode() {
   try {
     const response = await tboApi.get("/hotelcodelist");
-    // console.log(response.data)
     return response.data.HotelCodes;
   } catch (error: any) {
     console.error("Error fetching countries:", error);
@@ -46,7 +44,6 @@ export async function getCities(countryCode: string) {
     const response = await tboApi.post("/CityList", {
       CountryCode: countryCode,
     });
-    // console.log(response.data)
     return response.data;
   } catch (error: any) {
     console.error("Error fetching cities:", error);
@@ -56,11 +53,9 @@ export async function getCities(countryCode: string) {
 
 // Search hotels
 export async function searchHotels(searchParams: any) {
-  // console.log(searchParams)
 
   try {
     const response = await tboApi.post("/HotelSearch", searchParams);
-    // console.log(response.data.HotelSearchResults)
 
     return response.data;
   } catch (error: any) {
@@ -70,14 +65,12 @@ export async function searchHotels(searchParams: any) {
 }
 
 export async function HotelDetailAction(hotelCode: string) {
-  // console.log(hotelCode)
 
   try {
     const response = await tboApi.post("/Hoteldetails", {
       Hotelcodes: hotelCode,
       Language: "en",
     });
-    // console.log(response.data)
 
     return response.data.HotelDetails[0];
   } catch (error: any) {
@@ -87,13 +80,11 @@ export async function HotelDetailAction(hotelCode: string) {
 }
 
 export async function AvailableHotelRooms(HotelBookingCode: any) {
-  console.log(HotelBookingCode);
 
   try {
     const response = await tboApi.post("/AvailableHotelRooms", {
       HotelBookingCode: HotelBookingCode,
     });
-    console.log(response.data);
 
     return response.data;
   } catch (error: any) {

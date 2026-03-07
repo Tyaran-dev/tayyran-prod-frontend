@@ -1,17 +1,15 @@
 // no images hotel 1010065 "1000057"
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdStar } from "react-icons/md";
-import { TiStarHalf } from "react-icons/ti";
 import emptyImg from "@/../public/assets/emptyImg.png";
 import Image from "next/image";
-import HotelSearch from "../home/components/hotel-search-form";
 import Link from "next/link";
 import Filters from "./Filters";
 import Pagination from "../../shared/Pagination";
 import { useTranslations } from "next-intl";
-import { Hotel as HotelType } from "@/redux/hotels/hotelsSlice";
+import { Hotel as HotelType, Pagination as PaginationType } from "@/redux/hotels/hotelsSlice";
 import Section from "../../shared/section";
 import logo from "/public/assets/logo/ras.png";
 import { useLocale } from "next-intl";
@@ -26,40 +24,63 @@ import {
   FaCheck
 } from 'react-icons/fa';
 
-interface Props {
-  hotels: { data: HotelType[] } | HotelType[];
-  pages?: number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-}
-
-const convertRatingToNumber = (rating: string): number => {
+const convertRatingToNumber = (rating: string | undefined): number => {
   const ratingMap: { [key: string]: number } = {
     'One': 1,
     'Two': 2,
     'Three': 3,
     'Four': 4,
     'Five': 5,
-    'All': 0, // Unrated
+    'All': 0,
   };
+  return rating ? (ratingMap[rating] ?? 0) : 0;
+};
 
-  return ratingMap[rating]
+// Derive unique star options directly from the hotels list for the Filters sidebar
+const getStarOptions = (hotels: any[]) => {
+  const ratings = [...new Set(hotels.map((h: any) => h?.star_rating).filter(Boolean))];
+  return ratings
+    .map(r => ({ label: `${convertRatingToNumber(r)} Stars`, value: r }))
+    .sort((a, b) => convertRatingToNumber(a.value) - convertRatingToNumber(b.value));
+};
+
+interface Props {
+  hotels: HotelType[];
+  pagination: PaginationType;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  // Server-side filter / sort / search callbacks (owned by page.tsx)
+  sortBy: "price-asc" | "price-desc" | "star-asc" | "star-desc" | "none";
+  onSortChange: (v: "price-asc" | "price-desc" | "star-asc" | "star-desc" | "none") => void;
+  nameSearch: string;
+  onNameSearchChange: (v: string) => void;
+  priceRange: [number, number];
+  onPriceRangeChange: (v: [number, number]) => void;
+  starRatings: string[];
+  onStarRatingsChange: (v: string[]) => void;
+  onResetFilters: () => void;
+  availableStarOptions?: { label: string, value: string }[];
 }
-const Hotel = ({ hotels, pages }: Props) => {
+
+const Hotel = ({
+  hotels,
+  pagination,
+  currentPage,
+  onPageChange,
+  sortBy,
+  onSortChange,
+  nameSearch,
+  onNameSearchChange,
+  priceRange,
+  onPriceRangeChange,
+  starRatings,
+  onStarRatingsChange,
+  onResetFilters,
+  availableStarOptions,
+}: Props) => {
   const locale = useLocale();
-  const [searchQuery, setSearchQuery] = useState("");
-  const hotelData = Array.isArray(hotels) ? hotels : hotels.data;
   const t = useTranslations("HotelPage");
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] = useState('none');
-  const [starRatingMap, setStarRatingMap] = useState<number[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([10, 10000]);
-  const [selectedHotelOptions, setSelectedHotelOptions] = useState<string[]>(
-    []
-  );
-  const [selectedStarRatingOptions, setSelectedStarRatingOptions] = useState<
-    string[]
-  >([]);
+  const [isSortOpen, setIsSortOpen] = React.useState(false);
 
   const sortOptions = [
     {
@@ -94,84 +115,18 @@ const Hotel = ({ hotels, pages }: Props) => {
     },
   ];
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hotelsPerPage] = useState(50);
+  const getSelectedSortOption = () =>
+    sortOptions.find(opt => opt.value === sortBy) || sortOptions[0];
 
-  const handleSortSelect = (value: string) => {
-    setSelectedSortOption(value);
-    setIsSortOpen(false);
-    setCurrentPage(1); // Reset to first page
-  };
+  const [starOptions, setStarOptions] = React.useState<{ label: string, value: string }[]>([]);
 
-  const getSelectedSortOption = () => {
-    return sortOptions.find(opt => opt.value === selectedSortOption) || sortOptions[0];
-  };
-
-  const filterHotels = (
-    hotels: any[],
-    priceRange: [number, number],
-    selectedStarRatingOptions: string[],
-  ) => {
-    return hotels?.filter((hotel) => {
-      const price = hotel.MinHotelPrice || 0;
-      const name = hotel?.HotelName ?? "";
-
-      const isInPriceRange =
-        priceRange[0] === 10 && priceRange[1] === 10000
-          ? true
-          : price >= priceRange[0] && price <= priceRange[1];
-
-      const isStarRatingMatch =
-        selectedStarRatingOptions.length === 0 ||
-        selectedStarRatingOptions.includes(String(convertRatingToNumber(hotel?.star_rating) || 0));
-
-      const isNameMatch = searchQuery.trim() === "" || hotel?.name.toLowerCase().includes(searchQuery.toLowerCase());
-
-      return isInPriceRange && isStarRatingMatch && isNameMatch;
-    });
-  };
-
-  const filteredHotels = filterHotels(
-    hotelData,
-    priceRange,
-    selectedStarRatingOptions,
-  );
-
-  const uniqueRatings = React.useMemo(() => {
-    const ratings = [...new Set(hotelData.map((h: any) => convertRatingToNumber(h?.star_rating) || 0))];
-    return ratings.sort((a, b) => a - b);
-  }, [hotelData]);
-
-  useEffect(() => {
-    setStarRatingMap(uniqueRatings);
-  }, [uniqueRatings]);
-
-  const sortedHotels = [...filteredHotels].sort((a, b) => {
-    switch (selectedSortOption) {
-      case "price-asc":
-        return (a.MinHotelPrice || 0) - (b.MinHotelPrice || 0);
-
-      case "price-desc":
-        return (b.MinHotelPrice || 0) - (a.MinHotelPrice || 0);
-
-      case "star-asc":
-        return (convertRatingToNumber(a?.star_rating) || 0) - (convertRatingToNumber(b?.star_rating) || 0);
-
-      case "star-desc":
-        return (convertRatingToNumber(b?.star_rating) || 0) - (convertRatingToNumber(a?.star_rating) || 0);
-
-      default:
-        return 0;
+  React.useEffect(() => {
+    if (availableStarOptions && availableStarOptions.length > 0) {
+      setStarOptions(availableStarOptions);
+    } else if (hotels && hotels.length > 0) {
+      setStarOptions(getStarOptions(hotels));
     }
-  });
-
-  const totalPages = Math.ceil(filteredHotels?.length / hotelsPerPage);
-  const indexOfLastHotel = currentPage * hotelsPerPage;
-  const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
-  const currentHotels = sortedHotels?.slice(
-    indexOfFirstHotel,
-    indexOfLastHotel
-  );
+  }, [availableStarOptions, hotels]);
 
   return (
     <Section>
@@ -179,21 +134,19 @@ const Hotel = ({ hotels, pages }: Props) => {
         <div className="w-full flex flex-col lg:flex-row items-start gap-4 md:gap-6 my-2 md:my-4 lg:my-8">
           <Filters
             priceRange={priceRange}
-            onPriceRangeChange={setPriceRange}
-            selectedHotelOptions={selectedHotelOptions}
-            onHotelOptionsChange={setSelectedHotelOptions}
-            selectedStarRatingOptions={selectedStarRatingOptions}
-            onStarRatingOptionsChange={setSelectedStarRatingOptions}
-            starOptions={starRatingMap.map(r => ({
-              label: `${r} Stars`,
-              value: String(r)
-            }))}
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
+            onPriceRangeChange={onPriceRangeChange}
+            selectedHotelOptions={[]}
+            onHotelOptionsChange={() => { }}
+            selectedStarRatingOptions={starRatings}
+            onStarRatingOptionsChange={onStarRatingsChange}
+            starOptions={starOptions}
+            searchQuery={nameSearch}
+            onSearchQueryChange={onNameSearchChange}
+            onResetFilters={onResetFilters}
           />
 
           <div className="w-full">
-            {/* Results Header - Made responsive */}
+            {/* Results Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-6 p-3 md:p-4 bg-white rounded-lg md:rounded-xl shadow-sm border border-slate-200">
               <div className="flex items-center gap-2">
                 <div className="p-1.5 md:p-2 rounded-lg bg-emerald-50">
@@ -203,13 +156,13 @@ const Hotel = ({ hotels, pages }: Props) => {
                   <h2 className="text-base md:text-lg font-semibold text-slate-800">{t("searchResults")}</h2>
                   <p className="text-xs md:text-sm text-slate-600">
                     {t("showing")}{" "}
-                    <span className="font-bold text-emerald-600">{filteredHotels?.length}</span>{" "}
+                    <span className="font-bold text-emerald-600">{pagination.total}</span>{" "}
                     {t("places")}
                   </p>
                 </div>
               </div>
 
-              {/* Enhanced Sort Dropdown - Made responsive */}
+              {/* Sort Dropdown */}
               <div className="relative w-full sm:w-auto">
                 <button
                   onClick={() => setIsSortOpen(!isSortOpen)}
@@ -235,19 +188,22 @@ const Hotel = ({ hotels, pages }: Props) => {
                       {sortOptions.map((option) => (
                         <button
                           key={option.value}
-                          onClick={() => handleSortSelect(option.value)}
-                          className={`flex items-center gap-2 md:gap-3 w-full px-2 md:px-3 py-2 md:py-3 rounded-md md:rounded-lg text-left transition-all ${selectedSortOption === option.value
+                          onClick={() => {
+                            onSortChange(option.value as any);
+                            setIsSortOpen(false);
+                          }}
+                          className={`flex items-center gap-2 md:gap-3 w-full px-2 md:px-3 py-2 md:py-3 rounded-md md:rounded-lg text-left transition-all ${sortBy === option.value
                             ? 'bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-100'
                             : 'hover:bg-slate-50'
                             }`}
                         >
-                          <div className={`p-1.5 md:p-2 rounded-md md:rounded-lg ${selectedSortOption === option.value ? 'bg-white shadow-sm' : 'bg-slate-50'} ${option.color}`}>
+                          <div className={`p-1.5 md:p-2 rounded-md md:rounded-lg ${sortBy === option.value ? 'bg-white shadow-sm' : 'bg-slate-50'} ${option.color}`}>
                             {option.icon}
                           </div>
-                          <span className={`flex-1 font-medium text-sm md:text-base ${selectedSortOption === option.value ? 'text-emerald-700' : 'text-slate-700'}`}>
+                          <span className={`flex-1 font-medium text-sm md:text-base ${sortBy === option.value ? 'text-emerald-700' : 'text-slate-700'}`}>
                             {option.label}
                           </span>
-                          {selectedSortOption === option.value && (
+                          {sortBy === option.value && (
                             <FaCheck className="w-3 h-3 md:w-4 md:h-4 text-emerald-500" />
                           )}
                         </button>
@@ -256,7 +212,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                     <div className="border-t border-slate-200 p-2 md:p-3 bg-slate-50">
                       <button
                         onClick={() => {
-                          setSelectedSortOption('none');
+                          onResetFilters();
                           setIsSortOpen(false);
                         }}
                         className="w-full text-center text-xs md:text-sm text-slate-600 hover:text-slate-800 font-medium py-1.5 md:py-2 rounded-lg hover:bg-slate-100 transition-colors"
@@ -271,14 +227,14 @@ const Hotel = ({ hotels, pages }: Props) => {
 
             {/* Hotels Grid */}
             <div className="grid grid-cols-1 gap-3 md:gap-4 lg:gap-6">
-              {currentHotels.length > 0 ? (
-                currentHotels.map((hotel, i) => (
+              {hotels.length > 0 ? (
+                hotels.map((hotel, i) => (
                   <div
                     key={i}
                     className="flex flex-col md:flex-row items-stretch shadow-lg md:shadow-xl border border-slate-200 p-3 md:p-4 lg:p-6 bg-white gap-3 md:gap-4 lg:gap-6 w-full rounded-lg md:rounded-xl lg:rounded-2xl hover:shadow-xl md:hover:shadow-2xl transition-shadow duration-300"
                     style={{ boxShadow: "0px 4px 16px 0px #1122110D" }}
                   >
-                    {/* Hotel Image - Made responsive */}
+                    {/* Hotel Image */}
                     <div className="w-full md:w-[40%] lg:w-[30%] h-48 md:h-52 lg:h-64 flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-xl">
                       {hotel?.image_urls ? (
                         <Image
@@ -287,7 +243,6 @@ const Hotel = ({ hotels, pages }: Props) => {
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 30vw"
                         />
-
                       ) : (
                         <Image
                           alt={t("noImage")}
@@ -297,7 +252,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 30vw"
                         />
                       )}
-                      {/* Rating Badge - Made responsive */}
+                      {/* Rating Badge */}
                       <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg flex items-center gap-1">
                         <FaStar className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
                         <span className="font-bold text-slate-800 text-sm md:text-base">{convertRatingToNumber(hotel?.star_rating) || 0}</span>
@@ -307,16 +262,15 @@ const Hotel = ({ hotels, pages }: Props) => {
 
                     {/* Hotel Content */}
                     <div className="w-full flex-1 flex flex-col justify-between">
-                      {/* Top Section - Made responsive */}
+                      {/* Top Section */}
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4 mb-3 md:mb-4 w-full">
                         <div className="flex-1 w-full">
-                          {/* Hotel Name - Made responsive */}
+                          {/* Hotel Name – Desktop */}
                           <div className="hidden md:flex flex-col md:flex-row justify-between items-start md:items-center mb-2 md:mb-3 w-full gap-2 md:gap-3">
                             <div className="flex-1">
                               <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-slate-900 mb-1 md:mb-2 line-clamp-2">
                                 {hotel?.name}
                               </h2>
-                              {/* Address - Made responsive */}
                               <div className="hidden md:flex items-start gap-1 md:gap-2 mb-2 md:mb-3">
                                 <FaLocationDot className="text-red-500 mt-0.5 md:mt-1 flex-shrink-0 w-3 h-3 md:w-4 md:h-4" />
                                 <p className="text-xs md:text-sm lg:text-base text-slate-700 line-clamp-2">
@@ -325,7 +279,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                               </div>
                             </div>
 
-                            {/* Price Section - Made responsive */}
+                            {/* Price – Desktop */}
                             <div className="hidden md:block bg-emerald-50 border border-emerald-100 rounded-lg md:rounded-xl p-2 md:p-3 lg:p-4 w-full md:w-auto min-w-[150px] md:min-w-[180px] text-center mt-2 md:mt-0">
                               <p className="text-[10px] md:text-xs text-slate-500 mb-0.5 md:mb-1">
                                 {t("startingFrom")}
@@ -352,7 +306,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                             </div>
                           </div>
 
-                          {/* Mobile Price Badge */}
+                          {/* Hotel Name + Price – Mobile */}
                           <div className="md:hidden flex justify-between items-start">
                             <div>
                               <h2 className="text-lg font-bold text-slate-900 mb-1 line-clamp-1">
@@ -387,7 +341,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                             </div>
                           </div>
 
-                          {/* Amenities & Rating - Made responsive */}
+                          {/* Amenities & Rating – Desktop */}
                           <div className="hidden md:flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 md:gap-4 mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-100">
                             <div className="flex items-center gap-1 md:gap-2">
                               <div className="flex items-center gap-0.5 md:gap-1">
@@ -409,12 +363,11 @@ const Hotel = ({ hotels, pages }: Props) => {
                         </div>
                       </div>
 
-
-                      {/* Mobile Amenities & Rating */}
+                      {/* Amenities & Rating – Mobile */}
                       <div className="md:hidden flex flex-col gap-3 mt-3 pt-3 border-t border-slate-100">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1">
-                            {[...Array(Math.floor(parseFloat(convertRatingToNumber(hotel?.star_rating)) || 0))].map((_, index) => (
+                            {[...Array(Math.floor(convertRatingToNumber(hotel?.star_rating) || 0))].map((_, index) => (
                               <MdStar
                                 className="text-amber-500"
                                 key={index}
@@ -430,7 +383,7 @@ const Hotel = ({ hotels, pages }: Props) => {
                         </div>
                       </div>
 
-                      {/* CTA Button - Made responsive */}
+                      {/* CTA Button */}
                       <div className="w-full border-t pt-3 md:pt-4 flex justify-end">
                         <Link
                           href={`/${locale}/hotel-details/${hotel.HotelCode}`}
@@ -455,12 +408,12 @@ const Hotel = ({ hotels, pages }: Props) => {
             </div>
 
             {/* Pagination */}
-            {totalPages > 1 && currentHotels?.length > 0 && (
+            {pagination.totalPages > 1 && hotels.length > 0 && (
               <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-slate-200">
                 <Pagination
                   currentPage={currentPage}
-                  totalPages={Math.ceil(filteredHotels?.length / hotelsPerPage)}
-                  onPageChange={(page) => setCurrentPage(page)}
+                  totalPages={pagination.totalPages}
+                  onPageChange={onPageChange}
                 />
               </div>
             )}

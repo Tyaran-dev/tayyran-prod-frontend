@@ -221,7 +221,6 @@ export default function BookingPage() {
   }>({});
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const { user, logout } = useAuthContext();
-  console.log(user)
 
 
 
@@ -238,9 +237,6 @@ export default function BookingPage() {
   const vat = Number((commision * presentageVat) / 100);
   const finalPrice = totalFare + tax + commision + vat;
   const hotelCode = hotel?.data?.hotel?.[0].HotelCode;
-
-  console.log(roomsGuestData, "roomsGuestData");
-
 
   // ✅ Top-level guard: no hotel data (similar to flight booking)
   if (!selectedRoom || !hotel) {
@@ -684,7 +680,6 @@ export default function BookingPage() {
         });
         setPreBookedRoom(response.data?.data.HotelResult[0]);
       } catch (error) {
-        console.error("Error during pre-booking:", error);
         setPreBookError("Failed to pre-book room. Please try again.");
       } finally {
         setIsLoadingPreBook(false);

@@ -1,9 +1,10 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 interface Option {
     label: string;
+    value: string; // Add value property to the interface
 }
 
 interface CheckboxGroupProps {
@@ -26,11 +27,11 @@ const HotelCheckBox: React.FC<CheckboxGroupProps> = ({ title, options, selectedO
     };
 
     // Function to handle checkbox change
-    const handleCheckboxChange = (label: string) => {
-        if (selectedOptions.includes(label)) {
-            onChange(selectedOptions.filter(option => option !== label));
+    const handleCheckboxChange = (value: string) => {
+        if (selectedOptions.includes(value)) {
+            onChange(selectedOptions.filter(option => option !== value));
         } else {
-            onChange([...selectedOptions, label]);
+            onChange([...selectedOptions, value]);
         }
     };
 
@@ -59,8 +60,8 @@ const HotelCheckBox: React.FC<CheckboxGroupProps> = ({ title, options, selectedO
                                 <input
                                     type="checkbox"
                                     className="mr-2 w-5 h-5 accent-green"
-                                    defaultChecked={selectedOptions.includes(option.label)}
-                                    onChange={() => handleCheckboxChange(option.value)}
+                                    checked={selectedOptions.includes(option.value)} // Use checked instead of defaultChecked
+                                    onChange={() => handleCheckboxChange(option.value)} // Use option.value
                                 />
                                 <span className="text-sm">{option.label}</span>
                             </div>

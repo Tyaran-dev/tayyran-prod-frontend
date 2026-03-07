@@ -24,6 +24,11 @@ export interface Hotel {
   CountryCode: string;
   CheckInTime: string;
   CheckOutTime: string;
+  // Snake_case fields from the backend DB + TBO merge
+  name?: string;
+  address?: string;
+  star_rating?: string;
+  image_urls?: string[];
 }
 
 export interface Pagination {
@@ -63,6 +68,12 @@ export interface HotelSearchData {
   ResponseTime?: number | undefined;
   IsDetailedResponse?: boolean | undefined;
   Filters?: SearchFilters | undefined;
+  // Server-side filter / sort / search params
+  nameSearch?: string;
+  sortBy?: "price-asc" | "price-desc" | "star-asc" | "star-desc" | "none";
+  minPrice?: number;
+  maxPrice?: number;
+  starRatings?: string[];
 }
 
 export interface PaxRoom {
@@ -125,6 +136,7 @@ export const hotelDataSlice = createSlice({
       state.error = null;
     },
     setHotelSearchData: (state, action: PayloadAction<HotelSearchData>) => {
+      console.log(action.payload, "action.payload here4")
       state.searchParamsData = action.payload;
     },
     setHotelFormData: (state, action: PayloadAction<HotelFormData>) => {

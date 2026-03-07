@@ -32,7 +32,6 @@ const data = {
 
 const FlightDetails = () => {
     const flightData = useSelector((state:any)=>state.data.value)
-    console.log("fl",flightData)
 
     return (
         <div>

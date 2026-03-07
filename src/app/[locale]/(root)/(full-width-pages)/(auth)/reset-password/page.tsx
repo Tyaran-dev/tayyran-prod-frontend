@@ -99,7 +99,6 @@ function ResetPasswordContent() {
         }
       });
 
-      console.log('API Response:', response); // Debug log
 
       // Dismiss loading toast
       toast.dismiss(loadingToastId);

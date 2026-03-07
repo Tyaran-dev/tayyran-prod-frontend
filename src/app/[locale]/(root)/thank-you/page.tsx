@@ -27,7 +27,6 @@ export default function ThankYouPage() {
         const res = await axios.post(`${baseUrl}/payment/bookingStatus`, {
           paymentId,
         });
-        console.log(res.data, "check");
         setBookingType(res.data.order.bookingType);
 
         if (res.data.status === "CONFIRMED") {
@@ -46,7 +45,6 @@ export default function ThankYouPage() {
     return () => clearInterval(interval);
   }, [paymentId, baseUrl]);
 
-  console.log(bookingType, "bookingType");
 
   // ✅ Separate effect — runs only after order is set and email not sent yet
   useEffect(() => {
@@ -60,14 +58,12 @@ export default function ThankYouPage() {
         try {
           const to =
             order?.order.orderData?.data?.travelers?.[0]?.contact?.emailAddress;
-          console.log("Sending email to:", to);
 
           await axios.post(`${FrontEndUrl}/api/flights-email`, {
             ticketInfo: order.order,
             to,
           });
 
-          console.log("Email sent successfully");
           setEmailSent(true);
         } catch (err) {
           console.error("Error sending email:", err);

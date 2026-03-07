@@ -49,7 +49,6 @@ export default function ProfilePage() {
 
             toast.success(t("profileUpdated") || "Profile updated successfully");
         } catch (error: any) {
-            console.error("Update error:", error);
             toast.error(
                 error?.response?.data?.message || "Failed to update profile"
             );
@@ -65,7 +64,6 @@ export default function ProfilePage() {
         setLoading(false);
     }, [user]);
 
-    console.log(userData, "user data")
 
     const [editProfileOpen, setEditProfileOpen] = useState(false);
     const [editContactOpen, setEditContactOpen] = useState(false);

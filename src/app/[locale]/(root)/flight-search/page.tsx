@@ -86,7 +86,6 @@ const Page: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  console.log(slectedData, "slectedData")
 
   // Filter Flights Function
   const filteredFlights = flights?.filter((flight) => {
@@ -453,7 +452,6 @@ const Page: React.FC = () => {
                 filterAirlines={filters.airlines}
                 filterBaggage={[]}
                 onBaggageChange={(baggage: string[]) => {
-                  console.log("Baggage updated:", baggage);
                 }}
               />
             </div>
