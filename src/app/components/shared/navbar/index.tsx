@@ -14,10 +14,10 @@ import { useAuthContext } from "@/context/AuthContext";
 
 const menuItems = [
   { key: "home", url: "/" },
-  { key: "milecoin", url: "/milecoin" },
+  // { key: "milecoin", url: "/milecoin" },
   { key: "aboutUs", url: "/about-us" },
-  { key: "packages", url: "/packages" },
-  { key: "tayyranBusiness", url: "/tayyran-Business" },
+  // { key: "packages", url: "/packages" },
+  // { key: "tayyranBusiness", url: "/tayyran-Business" },
 ];
 
 const Navbar = () => {

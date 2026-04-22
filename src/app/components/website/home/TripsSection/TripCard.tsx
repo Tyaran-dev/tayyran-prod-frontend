@@ -80,8 +80,8 @@ const TripCard: React.FC<TripCardProps> = ({
                     <h4 className="text-sm font-semibold text-black mb-2">
                         {t("trips.includes") || "يشمل"}
                     </h4>
-                    <ul className="space-y-1">
-                        {advantages.slice(0, 3).map((advantage, index) => (
+                    {/* <ul className="space-y-1">
+                        {advantages?.slice(0, 3).map((advantage, index) => (
                             <li key={index} className="flex items-center gap-2">
                                 <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -94,7 +94,7 @@ const TripCard: React.FC<TripCardProps> = ({
                                 +{advantages.length - 3} {t("trips.more") || "المزيد"}
                             </li>
                         )}
-                    </ul>
+                    </ul> */}
                 </div>
 
                 <div className="border-t pt-4">

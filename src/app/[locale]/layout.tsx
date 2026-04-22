@@ -101,7 +101,7 @@ export default async function RootLayout({
                 {/* <GoogleTranslate /> */}
                 <NextIntlClientProvider>
                   <Navbar />
-                  <FloatingChatButton />
+                  {/* <FloatingChatButton /> */}
                   {children}
                   <Footer />
                 </NextIntlClientProvider>

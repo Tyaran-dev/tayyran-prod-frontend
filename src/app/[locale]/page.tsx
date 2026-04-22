@@ -46,7 +46,7 @@ export default function Home() {
       <div className="sticky top-0 left-0 z-50">
       </div>
       <HeroSection />
-      <Milecoin />
+      {/* <Milecoin /> */}
       <TopHotels t={t} />
       <BestOffer t={t} />
       {/* {locale === "ar" && ( */}
