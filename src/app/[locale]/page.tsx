@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import BestOffer from "../components/website/home/best-offer";
 import HeroSection from "../components/website/home/hero-section";
+import TrendyDestantions from "../components//website/home/TrendyDestantions";
 import TopHotels from "../components/website/home/top-hotels";
 import TripsSection from "../components/website/home/TripsSection";
+import RecomndedOffers from "../components/website/home/recomended-offers/RecomndedOffers";
 import Footer from "../components/shared/footer/Footer";
 import TopFlights from "../components/website/home/popular-fligts";
 import MobileAppSection from "../components/website/home/mobile-app-section";
@@ -46,13 +48,15 @@ export default function Home() {
       <div className="sticky top-0 left-0 z-50">
       </div>
       <HeroSection />
+      <TrendyDestantions />
       {/* <Milecoin /> */}
+      <TripsSection t={t} />
       <TopHotels t={t} />
+      <RecomndedOffers />
       <BestOffer t={t} />
       {/* {locale === "ar" && ( */}
-        <TripsSection t={t} />
       {/* )} */}
-      <TopFlights t={t} />
+      {/* <TopFlights t={t} /> */}
       <MobileAppSection t={t} />
     </div>
   );

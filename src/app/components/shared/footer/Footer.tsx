@@ -167,8 +167,8 @@ const Footer = () => {
 
           <p className="text-slate-400">
             {t('poweredBy')}{' '}
-            <Link href="https://vanhard.com" className="text-white font-semibold">
-              Vanhard
+            <Link href="https://7armstech.com" className="text-white font-semibold">
+              7armsTech
             </Link>
           </p>
         </div>

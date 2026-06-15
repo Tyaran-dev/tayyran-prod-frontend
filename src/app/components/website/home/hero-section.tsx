@@ -277,7 +277,11 @@ const HeroSection = () => {
                         defaultChecked={flightFormData.flightType === type}
                         onClick={() => handleFlightTypeChange(type)}
                       />
-                      <p>{type.replace("-", " ")}</p>
+                      <p>      {type === "roundtrip"
+                        ? t("tripTypes.roundtrip")
+                        : type === "oneway"
+                          ? t("tripTypes.oneway")
+                          : t("tripTypes.multiplecities")}</p>
                     </div>
                   ))}
                 </div>
@@ -469,17 +473,17 @@ const HeroSection = () => {
                   </button>
                 </div>
               </div>
-            )  : (
-            // user ? (
-            <div className="">
-              <HotelSearch />
-            </div>
-            // ) : (
-            // <div className="p-4 text-center text-gray-500">
-            //   Please log in to search for hotels
-            // </div>
-            // )  
-                )}
+            ) : (
+              // user ? (
+              <div className="">
+                <HotelSearch />
+              </div>
+              // ) : (
+              // <div className="p-4 text-center text-gray-500">
+              //   Please log in to search for hotels
+              // </div>
+              // )  
+            )}
           </div>
         </div>
       </Section>

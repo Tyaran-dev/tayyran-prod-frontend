@@ -43,13 +43,16 @@ const FlightCard = ({
   const searchParams = useSearchParams();
   const travelersParam = searchParams.get("adult") || "1";
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
+  const presentageCommission = useSelector((state: any) => state.flightData.presentageCommission);
+  const vat = useSelector((state: any) => state.flightData.presentageVat);
   const dispatch = useDispatch();
   useEffect(() => {
     if (from === "selection") {
       setIsOpenDetails(true);
     }
   }, [from]);
+
+  console.log(vat, "f");
 
   function formatDateToDayMonth(isoString: string) {
     const date = new Date(isoString);
@@ -259,8 +262,10 @@ const FlightCard = ({
                   <span className="text-sm">{flight?.currency}</span>
                 )}
                 <span className="text-2xl font-bold ">
-                  {flight?.basePrice}
-                </span>
+                  {(
+                    Number(flight?.price || 0) +
+                    (Number(flight?.price || 0) * presentageCommission) / 100 + ((Number(flight?.price || 0) * presentageCommission) / 100 * (vat / 100))
+                  ).toFixed(2)}                </span>
               </div>
               {/* 🚩 Banner */}
               <div className="w-full text-xs text-center bg-yellow-100 text-yellow-800  font-semibold p-2 rounded-lg mt-1 ">
@@ -443,7 +448,10 @@ const FlightCard = ({
                   ) : (
                     flight?.currency
                   )}
-                  <p className="text-2xl font-bold ml-2">{flight?.basePrice}</p>
+                  <p className="text-2xl font-bold ml-2">      {(
+                    Number(flight?.price || 0) +
+                    (Number(flight?.price || 0) * presentageCommission) / 100 + ((Number(flight?.price || 0) * presentageCommission) / 100 * (vat / 100))
+                  ).toFixed(2)} </p>
                 </div>
 
                 {/* 🚩 Banner */}

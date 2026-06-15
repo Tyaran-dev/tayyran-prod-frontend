@@ -244,6 +244,7 @@ const Page: React.FC = () => {
 
     const persistedData = getPersistedFlightData();
     if (persistedData?.searchParamsData) {
+      console.log("persistedData",persistedData)
       dispatch(setSearchData({
         ...persistedData.searchParamsData,
         departure: new Date(persistedData.searchParamsData.departure).toISOString(),

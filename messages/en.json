@@ -46,6 +46,11 @@
         "hotelCheckOutDate": "Check-Out"
       }
     },
+    "tripTypes": {
+      "roundtrip": "Roundtrip",
+      "oneway": "Oneway",
+      "multiplecities": "Multicity"
+    },
     "flightClassOptions": {
       "economy": "Economy",
       "premiumEconomy": "Premium Economy",
@@ -104,6 +109,14 @@
       "bestOfferText": "Members save 10% or more on over 100,000 hotels worldwide when signed in",
       "bestOfferButton": "Sign in now"
     },
+    "OffersSlider": {
+      "title": "Exclusive Offers",
+      "subtitle": "Limited-time deals just for you",
+      "viewAll": "View All",
+      "previousOffer": "Previous offer",
+      "nextOffer": "Next offer",
+      "goToOffer": "Go to offer {index}"
+    },
     "topHotels": {
       "topHotelsHeading": "Top Hotels",
       "perNight": "perNight",
@@ -157,6 +170,32 @@
       "exprensHeading": "Experience Convenience at Your Fingertips",
       "subHeading": "Explore our curated list of the best countries to visit in 2024 and discover incredible destinations waiting to be explored",
       "downloadButton": "Download Now"
+    },
+    "trendyDestinations": {
+      "heading": "Popular Destinations",
+      "viewAll": "View all destinations",
+      "startingFrom": "Starting from",
+      "sar": "SAR",
+      "coolSummer": {
+        "title": "Cool Your Summer",
+        "subtitle": "Escape the summer heat to the most beautiful temperate destinations",
+        "bosnia": "Bosnia",
+        "azerbaijan": "Azerbaijan",
+        "georgia": "Georgia",
+        "austria": "Austria",
+        "switzerland": "Switzerland"
+      },
+      "cities": {
+        "londonRiyadh": "London → Riyadh",
+        "cairoJeddah": "Cairo → Jeddah",
+        "dammamBaku": "Dammam → Baku",
+        "istanbulJeddah": "Istanbul → Jeddah",
+        "riyadhDubai": "Riyadh → Dubai",
+        "jeddahSharm": "Jeddah → Sharm El Sheikh",
+        "riyadhKuwait": "Riyadh → Kuwait",
+        "dammamCairo": "Dammam → Cairo",
+        "medinaIstanbul": "Medina → Istanbul"
+      }
     }
   },
   "about-us": {

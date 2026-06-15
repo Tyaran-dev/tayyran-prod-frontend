@@ -46,6 +46,11 @@
         "hotelCheckOutDate": "تاريخ المغادرة"
       }
     },
+    "tripTypes": {
+      "roundtrip": "ذهاب وعودة",
+      "oneway": "ذهاب فقط",
+      "multiplecities": "مدن متعددة"
+    },
     "flightClassOptions": {
       "economy": "الاقتصادية",
       "premiumEconomy": "الاقتصادية المتميزة",
@@ -104,6 +109,14 @@
       "bestOfferText": "الأعضاء يوفرون 10٪ أو أكثر على أكثر من 100,000 فندق حول العالم عند تسجيل الدخول",
       "bestOfferButton": "سجّل الدخول الآن"
     },
+    "OffersSlider": {
+      "title": "عروض حصرية",
+      "subtitle": "عروض لفترة محدودة فقط لك",
+      "viewAll": "عرض الكل",
+      "previousOffer": "العرض السابق",
+      "nextOffer": "العرض التالي",
+      "goToOffer": "الذهاب إلى العرض {index}"
+    },
     "topHotels": {
       "topHotelsHeading": "أفضل الفنادق",
       "perNight": "للليلة الواحدة",
@@ -153,6 +166,32 @@
       "exprensHeading": "جرّب الراحة بين يديك",
       "subHeading": "استكشف قائمتنا المختارة لأفضل الدول للزيارة في عام 2024 واكتشف وجهات مذهلة بانتظارك",
       "downloadButton": "حمّل الآن"
+    },
+    "trendyDestinations": {
+      "heading": "الوجهات الرائجة",
+      "viewAll": "عرض جميع الوجهات",
+      "startingFrom": "ابتداءً من",
+      "sar": "ر.س",
+      "coolSummer": {
+        "title": "برد صيفك",
+        "subtitle": "اهرب من حرارة الصيف إلى أجمل الوجهات المعتدلة",
+        "bosnia": "البوسنة",
+        "azerbaijan": "أذربيجان",
+        "georgia": "جورجيا",
+        "austria": "النمسا",
+        "switzerland": "سويسرا"
+      },
+      "cities": {
+        "londonRiyadh": "لندن ← الرياض",
+        "cairoJeddah": "القاهرة ← جدة",
+        "dammamBaku": "الدمام ← باكو",
+        "istanbulJeddah": "إسطنبول ← جدة",
+        "riyadhDubai": "الرياض ← دبي",
+        "jeddahSharm": "جدة ← شرم الشيخ",
+        "riyadhKuwait": "الرياض ← الكويت",
+        "dammamCairo": "الدمام ← القاهرة",
+        "medinaIstanbul": "المدينة ← إسطنبول"
+      }
     }
   },
   "about-us": {
@@ -1340,20 +1379,3 @@
     "hotelSearchAlert": "يرجى اختيار المدينة وتواريخ تسجيل الوصول والمغادرة."
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
