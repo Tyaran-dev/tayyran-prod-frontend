@@ -7,7 +7,7 @@ import { useState, useTransition } from "react";
 import Image from "next/image";
 
 const locales = [
-  { code: "en", label: "English", flag: "/assets/images/usa.png" },
+  { code: "en", label: "EN", flag: "/assets/images/usa.png" },
   { code: "ar", label: "العربية", flag: "/assets/images/ksa.png" },
 ];
 
@@ -41,7 +41,7 @@ export default function LanguageSwitcher() {
     <div className="relative inline-block text-left">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2  hover:text-white px-4 py-2 rounded-lg border border-emerald-800 hover:bg-greenGradient"
+        className="flex items-center gap-2 border border-[#1d1068] hover:text-white px-4 py-2 rounded-lg  hover:bg-greenGradient"
         disabled={isPending}
       >
         {currentLocale && (

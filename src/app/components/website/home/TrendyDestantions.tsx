@@ -226,55 +226,58 @@ const TrendyDestantions: React.FC = () => {
         </div>
       </div>
 
-      {/* Cool Summer Banner Section */}
-      <div 
-        className="mt-10 relative w-full rounded-2xl overflow-hidden shadow-md group/banner cursor-pointer"
-        dir={isRtl ? "rtl" : "ltr"}
-      >
-        {/* Aspect ratio container */}
-        <div className="relative w-full h-[140px] md:h-[210px]">
-          {/* Banner Background Image */}
-          <Image
-            src="/assets/flights/cool_summer_banner.png"
-            alt={t("coolSummer.title")}
-            fill
-            className="object-cover transition-transform duration-700 group-hover/banner:scale-105"
-            priority
-          />
-
-          {/* overlay filter */}
-          <div className="absolute inset-0 bg-black/35 group-hover/banner:bg-black/30 transition-all duration-300" />
-
-          {/* Dynamic Content overlay */}
-          <div className="absolute  inset-0 flex flex-col md:flex-row items-center justify-between px-6 py-4 md:px-10 gap-3 md:gap-6 text-white select-none">
-            {/* Title / Description */}
-            <div className="flex flex-col items-center md:items-start text-center md:text-start">
-              <h3 className="text-xl md:text-2xl font-extrabold flex items-center gap-2 drop-shadow-md">
-                {t("coolSummer.title")}
-                <span className="animate-pulse">❄️</span>
-              </h3>
-              <p className="text-[11px] md:text-xs text-white/90 font-light drop-shadow">
-                {t("coolSummer.subtitle")}
-              </p>
-            </div>
-
-            {/* Destination flags list */}
-            <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-2 md:gap-x-3 gap-y-1 text-xs md:text-sm font-semibold bg-white/10 backdrop-blur-md py-1.5 px-4 rounded-full border border-white/15 drop-shadow">
-              <span>{t("coolSummer.bosnia")} 🇧🇦</span>
-              <span className="text-white/50 text-[10px]">•</span>
-              <span>{t("coolSummer.azerbaijan")} 🇦🇿</span>
-              <span className="text-white/50 text-[10px]">•</span>
-              <span>{t("coolSummer.georgia")} 🇬🇪</span>
-              <span className="text-white/50 text-[10px]">•</span>
-              <span>{t("coolSummer.austria")} 🇦🇹</span>
-              <span className="text-white/50 text-[10px]">•</span>
-              <span>{t("coolSummer.switzerland")} 🇨🇭</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  
     </Section>
   );
 };
 
 export default TrendyDestantions;
+
+
+    {/* Cool Summer Banner Section */}
+      // <div 
+      //   className="mt-10 relative w-full rounded-2xl overflow-hidden shadow-md group/banner cursor-pointer"
+      //   dir={isRtl ? "rtl" : "ltr"}
+      // >
+      //   {/* Aspect ratio container */}
+      //   <div className="relative w-full h-[140px] md:h-[210px]">
+      //     {/* Banner Background Image */}
+      //     <Image
+      //       src="/assets/flights/cool_summer_banner.png"
+      //       alt={t("coolSummer.title")}
+      //       fill
+      //       className="object-cover transition-transform duration-700 group-hover/banner:scale-105"
+      //       priority
+      //     />
+
+      //     {/* overlay filter */}
+      //     <div className="absolute inset-0 bg-black/35 group-hover/banner:bg-black/30 transition-all duration-300" />
+
+      //     {/* Dynamic Content overlay */}
+      //     <div className="absolute  inset-0 flex flex-col md:flex-row items-center justify-between px-6 py-4 md:px-10 gap-3 md:gap-6 text-white select-none">
+      //       {/* Title / Description */}
+      //       <div className="flex flex-col items-center md:items-start text-center md:text-start">
+      //         <h3 className="text-xl md:text-2xl font-extrabold flex items-center gap-2 drop-shadow-md">
+      //           {t("coolSummer.title")}
+      //           <span className="animate-pulse">❄️</span>
+      //         </h3>
+      //         <p className="text-[11px] md:text-xs text-white/90 font-light drop-shadow">
+      //           {t("coolSummer.subtitle")}
+      //         </p>
+      //       </div>
+
+      //       {/* Destination flags list */}
+      //       <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-2 md:gap-x-3 gap-y-1 text-xs md:text-sm font-semibold bg-white/10 backdrop-blur-md py-1.5 px-4 rounded-full border border-white/15 drop-shadow">
+      //         <span>{t("coolSummer.bosnia")} 🇧🇦</span>
+      //         <span className="text-white/50 text-[10px]">•</span>
+      //         <span>{t("coolSummer.azerbaijan")} 🇦🇿</span>
+      //         <span className="text-white/50 text-[10px]">•</span>
+      //         <span>{t("coolSummer.georgia")} 🇬🇪</span>
+      //         <span className="text-white/50 text-[10px]">•</span>
+      //         <span>{t("coolSummer.austria")} 🇦🇹</span>
+      //         <span className="text-white/50 text-[10px]">•</span>
+      //         <span>{t("coolSummer.switzerland")} 🇨🇭</span>
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>

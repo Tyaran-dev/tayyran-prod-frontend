@@ -96,10 +96,8 @@ const Navbar = () => {
             {!user ? (
               <Link
                 href="/signup"
-                className="group inline-flex items-center justify-center py-3 px-6 lg:px-8 lg:text-base font-medium text-white rounded-2xl shadow hover:shadow-md transition-all duration-300"
-                style={{
-                  background: 'linear-gradient(135deg, #016733, #1c1466)',
-                }}
+                className="group text-[#1d1068] border border-[#1d1068] inline-flex items-center justify-center py-3 px-6 lg:px-8 lg:text-base font-medium text-white rounded-2xl shadow hover:shadow-md transition-all duration-300"
+            
               >
                 {t(`registerButton`)}
 

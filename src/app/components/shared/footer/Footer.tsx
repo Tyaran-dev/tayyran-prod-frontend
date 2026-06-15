@@ -25,7 +25,7 @@ const Footer = () => {
   const [email, setEmail] = useState('');
 
   const links = [
-    { href: 'milecoin', label: t('company.milecoin') },
+    // { href: 'milecoin', label: t('company.milecoin') },
     { href: 'aboutUs', label: t('company.about') },
     { href: '#', label: t('company.order') },
     { href: '#', label: t('company.contact') },
