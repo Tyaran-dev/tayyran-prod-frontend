@@ -768,7 +768,7 @@ const Page: React.FC = () => {
                     setIsFlightSelected={setIsFlightSelected}
                     flight={flight}
                     setIsSideMenuOpen={setIsSideMenuOpen}
-                    airlineName={flight?.airLineName}
+                    airlineNames={carriers}
                   />
                 ))
                 }

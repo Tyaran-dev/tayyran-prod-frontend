@@ -52,7 +52,7 @@ const FlightCard = ({
     }).format(date);
   }
 
-  const airLineName = airlineNames.filter(
+  const airLineName = airlineNames?.filter(
     (airline) => airline.airLineCode.toLowerCase() === flight.itineraries_formated[0]
       .segments[0].carrierCode?.toLowerCase()
   );
@@ -329,7 +329,7 @@ const FlightCard = ({
                         className="rounded object-contain"
                       />
                       <span className="text-sm font-medium text-gray-600">
-                        {locale === "ar" ? airLineName[0].airlineNameAr : airLineName[0].airLineName}
+                        {locale === "ar" ? airLineName[0]?.airlineNameAr : airLineName[0]?.airLineName}
                       </span>
                     </div>
                     <div className="flex justify-between items-center  my-2 gap-5 flex-wrap">
@@ -578,7 +578,7 @@ const FlightCard = ({
                                 className="rounded-2xl mr-3 object-contain"
                               />
                               <div className="flex flex-col">
-                                <p className="font-semibold">{airLineName}</p>
+                                <p className="font-semibold">{locale === "ar" ? airLineName[0]?.airlineNameAr : airLineName[0]?.airLineName}</p>
                                 <p className="text-slate-500 text-sm">
                                   {flight.cabinClass}
                                 </p>
