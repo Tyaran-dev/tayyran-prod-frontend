@@ -85,6 +85,7 @@ const RoomChoices = ({ rooms, presentageCommission }: { rooms: Room[], presentag
             data={getCurrentRooms()}
             showCancellationBadge={activeTab === "all"}
             showMealTypeBadge={activeTab === "all"}
+            presentageVat={15}
             presentageCommission={presentageCommission}
           />
         ) : (

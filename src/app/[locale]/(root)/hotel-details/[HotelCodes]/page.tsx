@@ -54,6 +54,8 @@ export default function HotelPage() {
   const availableRooms = hotel?.data?.availableRooms ?? [];
   const presentageCommission = hotel?.data.presentageCommission;
 
+  console.log(hotel?.data, "here hashim")
+
 
 
   useEffect(() => {

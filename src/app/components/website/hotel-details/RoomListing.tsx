@@ -31,6 +31,7 @@ interface RoomListingProps {
   showCancellationBadge?: boolean;
   showMealTypeBadge?: boolean;
   presentageCommission?: number;
+  presentageVat?: number
 }
 
 const RoomListing = ({
@@ -38,6 +39,7 @@ const RoomListing = ({
   showCancellationBadge = false,
   showMealTypeBadge = false,
   presentageCommission,
+  presentageVat
 }: RoomListingProps) => {
   const [expandedSections, setExpandedSections] = useState<
     Record<string, boolean>
@@ -240,6 +242,8 @@ const RoomListing = ({
                             {(() => {
                               const totalWithTax = +room.TotalFare + +room.TotalTax;
                               const totalWithFees = totalWithTax + (totalWithTax * +presentageCommission / 100);
+                              const totalVat = (totalWithTax * +presentageCommission / 100) * (presentageVat / 100);
+                              const finalPrice = totalWithFees + totalVat;
 
                               return (
                                 <div className="text-xl font-bold text-gray-900 flex gap-2">
@@ -251,7 +255,7 @@ const RoomListing = ({
                                     unoptimized
                                     className="object-contain"
                                   />
-                                  {totalWithFees.toFixed(2)}
+                                  {finalPrice.toFixed(2)}
                                 </div>
                               );
                             })()}
