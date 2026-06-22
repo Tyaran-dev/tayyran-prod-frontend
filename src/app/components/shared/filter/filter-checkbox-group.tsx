@@ -17,7 +17,6 @@ interface CheckboxGroupProps {
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ title, options, selectedOptions, onChange }) => {
     const handleCheckboxChange = (code?: string) => {
         if (!code) return; // or throw an error if this should never happen
-        console.log(code,"codeeeeeeeeeeeeeeee")
 
         if (selectedOptions.includes(code)) {
             onChange(selectedOptions.filter((option) => option !== code));

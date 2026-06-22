@@ -4,11 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Food, Plane, Seat, Time, Wifi } from "@/app/svg/flight-feature-svg";
 import {
   getAirportByIATA,
-  calculateTotalDuration,
-  getFlightNames,
   calculateTotalDurationShort,
-  calculateTotalDurationShortNew,
-  calculateDurationSimple,
 } from "@/utils/airports-helper";
 import logo from "/public/assets/logo/ras.png";
 import route from "/public/assets/planeRoute.png";
@@ -17,42 +13,36 @@ import { CiLocationOn } from "react-icons/ci";
 import { LuClock8 } from "react-icons/lu";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { TiTick } from "react-icons/ti";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setData } from "@/redux/store";
 import { AirlinesData } from "@/app/data/airlines";
 import axios from "axios";
 import { addFlightData, selectFlight, setCommission } from "@/redux/flights/flightSlice";
-import { scrollToTop } from "@/utils";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const FlightCard = ({
   flight,
-  airlineName,
+  airlineNames,
   isFlightSelected,
-  setIsFlightSelected,
   from,
   setIsSideMenuOpen,
-  returnFlights,
 }: any) => {
   const t = useTranslations("FlightCard");
   const feature = [<Plane />, <Wifi />, <Time />, <Food />, <Seat />];
   const [isOpenDetails, setIsOpenDetails] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const travelersParam = searchParams.get("adult") || "1";
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const presentageCommission = useSelector((state: any) => state.flightData.presentageCommission);
   const vat = useSelector((state: any) => state.flightData.presentageVat);
   const dispatch = useDispatch();
+  const locale = useLocale();
   useEffect(() => {
     if (from === "selection") {
       setIsOpenDetails(true);
     }
   }, [from]);
 
-  console.log(vat, "f");
+
+
 
   function formatDateToDayMonth(isoString: string) {
     const date = new Date(isoString);
@@ -62,9 +52,12 @@ const FlightCard = ({
     }).format(date);
   }
 
-  const filteredAirline = AirlinesData.find(
-    (airline) => airline.name.toLowerCase() === airlineName?.toLowerCase()
+  const airLineName = airlineNames.filter(
+    (airline) => airline.airLineCode.toLowerCase() === flight.itineraries_formated[0]
+      .segments[0].carrierCode?.toLowerCase()
   );
+
+  console.log(airLineName)
 
   function getNumberOfStops(itinerary: any) {
     const stopCount = itinerary.segments.length;
@@ -116,6 +109,7 @@ const FlightCard = ({
       );
     }
   }
+
 
   const FlightOfferSearch = async (flight: any) => {
     const response = await axios.post(
@@ -335,7 +329,7 @@ const FlightCard = ({
                         className="rounded object-contain"
                       />
                       <span className="text-sm font-medium text-gray-600">
-                        {itinerary.segments[0].airlineName}
+                        {locale === "ar" ? airLineName[0].airlineNameAr : airLineName[0].airLineName}
                       </span>
                     </div>
                     <div className="flex justify-between items-center  my-2 gap-5 flex-wrap">
@@ -370,7 +364,7 @@ const FlightCard = ({
                       {/* Route */}
                       <div className="flex flex-col justify-center items-center relative">
                         <p className="py-0">{itinerary.duration}</p>
-                        <Image src={route} alt="Flight Route" />
+                        <Image src={route} alt="Flight Route" className="rtl:rotate-180" />
                         <div className="py-0 text-sm group">
                           <p>{getNumberOfStops(itinerary)}</p>
                           {getStopDetails(itinerary) && (
@@ -490,7 +484,7 @@ const FlightCard = ({
 
           {/* Bottom features */}
           <div className="flex justify-between font-medium items-center gap-5 flex-wrap">
-            <p className="py-2">{flight.numberOfBookableSeats} seats remaining</p>
+            <p className="py-2 text-red-500 font-bold">{flight.numberOfBookableSeats} {t("seatsRemaining")}</p>
             <div className="flex items-center gap-4">
               {feature.map((item, i) => (
                 <div key={i} className="py-2 px-4 border-r-2 border-[#D7E2EE]">
@@ -584,7 +578,7 @@ const FlightCard = ({
                                 className="rounded-2xl mr-3 object-contain"
                               />
                               <div className="flex flex-col">
-                                <p className="font-semibold">{airlineName}</p>
+                                <p className="font-semibold">{airLineName}</p>
                                 <p className="text-slate-500 text-sm">
                                   {flight.cabinClass}
                                 </p>

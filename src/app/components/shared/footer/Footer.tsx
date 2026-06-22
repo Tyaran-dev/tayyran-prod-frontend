@@ -26,17 +26,16 @@ const Footer = () => {
 
   const links = [
     // { href: 'milecoin', label: t('company.milecoin') },
-    { href: 'aboutUs', label: t('company.about') },
-    { href: '#', label: t('company.order') },
-    { href: '#', label: t('company.contact') },
-    { href: '#', label: t('company.faq') },
+    { href: 'about-us', label: t('company.about') },
+    // { href: '#', label: t('company.order') },
+    // { href: '#', label: t('company.contact') },
+    // { href: '#', label: t('company.faq') },
   ];
 
   const legalLinks = [
     { href: 'termsandconditions', label: t('legal.terms') },
     { href: 'privacypolicy', label: t('legal.privacy') },
-    { href: '#', label: t('legal.cookies') },
-    { href: '#', label: t('legal.developers') },
+    { href: 'cookiespolicy', label: t('legal.cookies') },
   ];
 
   const socialLinks = [

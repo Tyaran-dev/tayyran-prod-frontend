@@ -48,6 +48,9 @@ const Page: React.FC = () => {
     hasHydrated
   } = useSearchflights();
 
+  console.log(carriers,"carriers zeft")
+
+
   const locale = useLocale();
   const t = useTranslations("filters");
   const tFlightCard = useTranslations("FlightCard");
@@ -244,7 +247,7 @@ const Page: React.FC = () => {
 
     const persistedData = getPersistedFlightData();
     if (persistedData?.searchParamsData) {
-      console.log("persistedData",persistedData)
+      console.log("persistedData", persistedData)
       dispatch(setSearchData({
         ...persistedData.searchParamsData,
         departure: new Date(persistedData.searchParamsData.departure).toISOString(),
@@ -693,7 +696,7 @@ const Page: React.FC = () => {
                     from="card"
                     key={flight.id}
                     flight={flight}
-                    airlineName={carriers[flight.airLineName]}
+                    airlineNames={carriers}
                     isFlightSelected={isFlightSelected}
                     setIsFlightSelected={setIsFlightSelected}
                     setIsSideMenuOpen={setIsSideMenuOpen}
@@ -722,7 +725,7 @@ const Page: React.FC = () => {
                     setIsFlightSelected={setIsFlightSelected}
                     flight={flight}
                     setIsSideMenuOpen={setIsSideMenuOpen}
-                    airlineName={carriers[flight.airline]}
+                    airlineNames={carriers}
                   />
                 ))}
               </div>

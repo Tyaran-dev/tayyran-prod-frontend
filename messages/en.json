@@ -604,6 +604,23 @@
       }
     }
   },
+  "CookiesPolicy": {
+    "title": "Cookie Policy",
+    "subtitle": "We use cookies to enhance your experience on our website",
+    "lastUpdated": "Last Updated: June 2026",
+    "cardTitle": "Cookie Policy",
+    "cardDescription": "We believe in transparency about how we use cookies and similar technologies",
+    "content": "The website uses cookies to improve user experience and personalize content and services.\n* Cookies are used to remember user preferences and settings.\n* Cookies help analyze site performance and understand how visitors use our services.\n* We may use third-party cookies for analytics, advertising, and service improvement purposes.\n* Users can control or disable cookies through their browser settings.\n* Disabling some cookies may affect the performance of certain site features or services.\n* By continuing to use the site, users agree to the use of cookies in accordance with this policy.",
+    "manageTitle": "Manage Your Cookie Preferences",
+    "manageDescription": "You can customize your cookie preferences at any time. Choose which types of cookies you want to allow.",
+    "preferencesBtn": "Cookie Preferences",
+    "acceptBtn": "Accept All Cookies",
+    "contactTitle": "Questions About Our Cookie Policy?",
+    "contactDescription": "If you have any questions or concerns about our use of cookies, please don't hesitate to contact us.",
+    "companyAddress": "Dubai, United Arab Emirates",
+    "privacyPolicyLink": "Privacy Policy",
+    "termsLink": "Terms of Service"
+  },
   "ResetPassword": {
     "title": "Reset Password",
     "subtitle": "Enter the code we sent to",
@@ -774,6 +791,7 @@
   },
   "FlightCard": {
     "direct": "Direct",
+    "seatsRemaining": "seats remaining",
     "fareAmenities": "Fare Amenities",
     "included": "Included",
     "notIncluded": "Not Included",
