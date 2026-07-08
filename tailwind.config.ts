@@ -37,6 +37,13 @@ const config: Config = {
         Cgreen: "#8DD3BB",
         gray2: "#737373",
         grayBorder: "#D8D8D8",
+        // Blog specific colors
+        blog: {
+          primary: "#016733",
+          secondary: "#1c1466",
+          accent: "#FFD54F",
+          bg: "#F8FAFC",
+        }
       },
       fontFamily: {
         // cairo: ["var(--font-cairo)", "sans-serif"],
@@ -48,6 +55,8 @@ const config: Config = {
         heroHotelsBanner: "url('/assets/hero-flights.webp')",
         greenGradient:
           "linear-gradient(58.16deg, #016733 -6.21%, #1C1466 103.2%)",
+        blogGradient:
+          "linear-gradient(58.16deg, #016733 -6.21%, #1c1466 103.2%)",
         heroCard: "url('/assets/images/hero-card.png')",
         footerBanner: "url('/assets/images/footer-banner.png')",
       },

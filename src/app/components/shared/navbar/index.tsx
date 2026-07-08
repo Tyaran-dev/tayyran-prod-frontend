@@ -16,7 +16,7 @@ const menuItems = [
   { key: "home", url: "/" },
   // { key: "milecoin", url: "/milecoin" },
   { key: "aboutUs", url: "/about-us" },
-  // { key: "packages", url: "/packages" },
+  { key: "blog", url: "/blog" },
   // { key: "tayyranBusiness", url: "/tayyran-Business" },
 ];
 

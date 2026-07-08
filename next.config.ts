@@ -7,7 +7,14 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['assets.wego.com', "api.tbotechnology.in", "www.tboholidays.com", "qessatravel.com"],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'assets.wego.com' },
+      { protocol: 'https', hostname: 'api.tbotechnology.in' },
+      { protocol: 'https', hostname: 'www.tboholidays.com' },
+      { protocol: 'https', hostname: 'qessatravel.com' },
+      { protocol: 'https', hostname: 'articles.tayyran.com' },
+      { protocol: 'https', hostname: 'secure.gravatar.com' },
+    ],
   },
 
 };

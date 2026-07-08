@@ -337,3 +337,92 @@ iframe.skiptranslate {
   background-color: #f1f1f1;
   /* Corner between scrollbars (on overflow) */
 }
+
+/* =========================================
+   WordPress Blog Content Styles (.prose-blog)
+   ========================================= */
+.prose-blog {
+  @apply text-gray-800 text-lg leading-relaxed;
+}
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4,
+.prose-blog h5,
+.prose-blog h6 {
+  @apply text-blog-secondary font-bold mb-4 mt-8;
+}
+.prose-blog h1 { @apply text-3xl md:text-4xl; }
+.prose-blog h2 { @apply text-2xl md:text-3xl; }
+.prose-blog h3 { @apply text-xl md:text-2xl; }
+.prose-blog h4 { @apply text-lg md:text-xl; }
+
+.prose-blog p {
+  @apply mb-6;
+}
+
+.prose-blog a {
+  @apply text-blog-primary underline decoration-blog-primary/30 underline-offset-4 hover:decoration-blog-primary transition-all;
+}
+
+.prose-blog ul {
+  @apply list-disc list-outside mb-6 rtl:mr-6 ltr:ml-6;
+}
+.prose-blog ol {
+  @apply list-decimal list-outside mb-6 rtl:mr-6 ltr:ml-6;
+}
+.prose-blog li {
+  @apply mb-2 pl-2;
+}
+.prose-blog li > p {
+  @apply mb-2 inline-block;
+}
+
+.prose-blog blockquote {
+  @apply border-blog-primary bg-blog-bg p-6 mb-6 rounded-lg italic text-gray-700 rtl:border-r-4 ltr:border-l-4;
+}
+
+.prose-blog img {
+  @apply w-full h-auto rounded-xl my-8 shadow-sm;
+}
+.prose-blog figure {
+  @apply my-8;
+}
+.prose-blog figcaption {
+  @apply text-center text-sm text-gray-500 mt-2 italic;
+}
+
+.prose-blog iframe {
+  @apply w-full aspect-video rounded-xl my-8 shadow-sm;
+}
+
+.prose-blog pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto mb-6 text-sm rtl:text-left dir-ltr;
+}
+.prose-blog code {
+  @apply bg-gray-100 text-blog-secondary px-1.5 py-0.5 rounded text-sm font-mono;
+}
+.prose-blog pre code {
+  @apply bg-transparent text-inherit p-0 text-sm;
+}
+
+.prose-blog table {
+  @apply w-full mb-6 border-collapse overflow-hidden rounded-lg border border-gray-200 block md:table overflow-x-auto whitespace-nowrap md:whitespace-normal;
+}
+.prose-blog thead {
+  @apply bg-gray-50 border-b border-gray-200 text-blog-secondary text-right;
+}
+.prose-blog th,
+.prose-blog td {
+  @apply p-4 border-b border-gray-200;
+}
+.prose-blog th {
+  @apply font-semibold;
+}
+.prose-blog tr:last-child td {
+  @apply border-b-0;
+}
+
+.dir-ltr {
+  direction: ltr;
+}

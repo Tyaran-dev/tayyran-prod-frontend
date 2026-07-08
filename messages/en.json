@@ -2,13 +2,61 @@
   "header": {
     "navItems": {
       "home": "Home",
-      "milecoin": "Milecoin",
       "aboutUs": "About Us",
-      "packages": "Packages",
-      "tayyranBusiness": "Tayyran Business",
+      "blog": "Blog",
       "corporate": "Corporate"
     },
     "registerButton": "Register"
+  },
+  "blog": {
+    "hero": {
+      "title": "Tayyran Magazine",
+      "subtitle": "Discover new destinations, travel tips, and aviation news in one place."
+    },
+    "articleHero": {
+      "breadcrumb": {
+        "home": "Home",
+        "blog": "Blog"
+      },
+      "readingTime": "{minutes} min read"
+    },
+    "authorCard": {
+      "byline": "Writer at Tayyran Magazine",
+      "role": "Author"
+    },
+    "categoryTabs": {
+      "all": "All"
+    },
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "subtitle": "Get the latest travel articles, destination tips, and best deals straight to your inbox.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe now",
+      "note": "We won't share your email with third parties. You can unsubscribe anytime."
+    },
+    "postGrid": {
+      "noPostsTitle": "No posts",
+      "noPostsText": "Sorry, we couldn't find any posts matching your search right now. Please try again later."
+    },
+    "relatedPosts": {
+      "title": "Related Posts"
+    },
+    "searchBox": {
+      "placeholder": "Search articles, destinations, or travel tips..."
+    },
+    "tableOfContents": {
+      "title": "Article contents"
+    },
+    "sidebar": {
+      "latestPosts": "Latest Posts",
+      "categories": "Categories",
+      "newsletterTitle": "Newsletter",
+      "newsletterSubtitle": "Subscribe to get the latest travel updates"
+    },
+    "shareButtons": {
+      "label": "Share:",
+      "copyTitle": "Copy link"
+    }
   },
   "Stepper": {
     "flightSteps": {

@@ -2,13 +2,61 @@
   "header": {
     "navItems": {
       "home": "الرئيسية",
-      "milecoin": "مايل كوين",
       "aboutUs": "من نحن",
-      "packages": "الباقات",
-      "tayyranBusiness": "طيّران بزنس",
+      "blog": "المدونة",
       "corporate": "الشركات"
     },
     "registerButton": " التسجيل"
+  },
+  "blog": {
+    "hero": {
+      "title": "مجلة طيران",
+      "subtitle": "اكتشف وجهات جديدة، نصائح سفر، وأخبار الطيران في مكان واحد."
+    },
+    "articleHero": {
+      "breadcrumb": {
+        "home": "الرئيسية",
+        "blog": "المدونة"
+      },
+      "readingTime": "{minutes} دقائق قراءة"
+    },
+    "authorCard": {
+      "byline": "كاتب في مجلة طيران",
+      "role": "الكاتب"
+    },
+    "categoryTabs": {
+      "all": "الكل"
+    },
+    "newsletter": {
+      "title": "اشترك في نشرتنا البريدية",
+      "subtitle": "احصل على أحدث مقالات السفر، ونصائح الوجهات، وأفضل العروض مباشرة في بريدك الإلكتروني.",
+      "placeholder": "أدخل بريدك الإلكتروني",
+      "button": "اشترك الآن",
+      "note": "لن نشارك بريدك الإلكتروني مع أي طرف ثالث. يمكنك إلغاء الاشتراك في أي وقت."
+    },
+    "postGrid": {
+      "noPostsTitle": "لا توجد مقالات",
+      "noPostsText": "عذراً، لم نتمكن من العثور على أي مقالات تطابق بحثك حالياً. يرجى المحاولة مرة أخرى لاحقاً."
+    },
+    "relatedPosts": {
+      "title": "مقالات ذات صلة"
+    },
+    "searchBox": {
+      "placeholder": "ابحث عن مقالات، وجهات، أو نصائح سفر..."
+    },
+    "tableOfContents": {
+      "title": "محتويات المقال"
+    },
+    "sidebar": {
+      "latestPosts": "أحدث المقالات",
+      "categories": "التصنيفات",
+      "newsletterTitle": "النشرة البريدية",
+      "newsletterSubtitle": "اشترك ليصلك كل جديد في عالم السفر"
+    },
+    "shareButtons": {
+      "label": "مشاركة:",
+      "copyTitle": "نسخ الرابط"
+    }
   },
   "Stepper": {
     "flightSteps": {
