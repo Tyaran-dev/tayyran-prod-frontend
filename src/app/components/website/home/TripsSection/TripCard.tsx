@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { Star, Clock3, Plane } from 'lucide-react';
 
 interface TripCardProps {
@@ -30,12 +31,13 @@ export default function TripCard({
   const image =
     gallery?.[0] || '/assets/default-trip.jpg';
 
+  const locale = useLocale();
   const isFeatured =
     featured?.includes('featured');
 
   return (
     <Link
-      href={`/trip/${id}`}
+      href={`/ar/trips/${id}`}
       className="relative w-[260px] md:w-[280px] h-[380px] rounded-3xl overflow-hidden flex-shrink-0 cursor-pointer group shadow-md hover:shadow-xl transition-all duration-300"
     >
       <Image

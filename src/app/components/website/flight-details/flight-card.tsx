@@ -263,7 +263,7 @@ const FlightCard = ({
               </div>
               {/* 🚩 Banner */}
               <div className="w-full text-xs text-center bg-yellow-100 text-yellow-800  font-semibold p-2 rounded-lg mt-1 ">
-                {t("priceWithoutTax")}
+                {t("priceWithTax")}
               </div>
             </div>
           </div>
@@ -450,7 +450,7 @@ const FlightCard = ({
 
                 {/* 🚩 Banner */}
                 <div className="w-full text-xs text-center bg-yellow-100 text-yellow-800  font-semibold p-2 rounded-lg mt-1 ">
-                  {t("priceWithoutTax")}
+                  {t("priceWithTax")}
                 </div>
               </div>
 

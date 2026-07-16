@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface ArticleContentProps {
   content: string;
@@ -12,122 +12,141 @@ export default function ArticleContent({ content }: ArticleContentProps) {
   useEffect(() => {
     if (!contentRef.current) return;
 
-    // --- 1. Handle custom 'saudi-faq-item' FAQ structure ---
-    const customFaqItems = contentRef.current.querySelectorAll('.saudi-faq-item');
-    customFaqItems.forEach((item) => {
-      // Prevent double initialization
-      if (item.hasAttribute('data-faq-initialized')) return;
-      item.setAttribute('data-faq-initialized', 'true');
+    const root = contentRef.current;
 
-      const question = item.querySelector('.saudi-faq-question');
-      if (question) {
+    // -----------------------------
+    // Generic FAQ Initializer
+    // -----------------------------
+    const initFaq = (
+      itemSelector: string,
+      questionSelector: string,
+      answerSelector: string,
+      useActiveClass = false
+    ) => {
+      const items = root.querySelectorAll<HTMLElement>(itemSelector);
+
+      items.forEach((item) => {
+        if (item.dataset.faqInitialized) return;
+        item.dataset.faqInitialized = 'true';
+
+        const question = item.querySelector<HTMLElement>(questionSelector);
+        const answer = item.querySelector<HTMLElement>(answerSelector);
+
+        if (!question || !answer) return;
+
+        // -----------------------------------
+        // Generic Styling
+        // -----------------------------------
+
+        item.style.border = '1px solid #e5e7eb';
+        item.style.borderRadius = '12px';
+        item.style.marginBottom = '16px';
+        item.style.overflow = 'hidden';
+        item.style.background = '#fff';
+
+        question.style.cursor = 'pointer';
+        question.style.display = 'flex';
+        question.style.justifyContent = 'space-between';
+        question.style.alignItems = 'center';
+        question.style.padding = '20px';
+        question.style.background = '#f8fafc';
+        question.style.fontWeight = '600';
+        question.style.transition = 'background .25s';
+
+        answer.style.maxHeight = '0';
+        answer.style.overflow = 'hidden';
+        answer.style.opacity = '0';
+        answer.style.padding = '0 20px';
+        answer.style.transition =
+          'max-height .35s ease, opacity .35s ease, padding .35s ease';
+
+        const chevron = document.createElement('span');
+        chevron.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        `;
+
+        chevron.style.transition = 'transform .3s';
+        question.appendChild(chevron);
+
+        let open = false;
+
         question.addEventListener('click', () => {
-          const isActive = item.classList.contains('active');
+          items.forEach((other) => {
+            if (other === item) return;
 
-          // Optional: close other items (accordion behavior)
-          customFaqItems.forEach((otherItem) => {
-            if (otherItem !== item) {
-              otherItem.classList.remove('active');
+            const otherAnswer = other.querySelector<HTMLElement>(
+              answerSelector
+            );
+
+            const otherQuestion = other.querySelector<HTMLElement>(
+              questionSelector
+            );
+
+            if (!otherAnswer || !otherQuestion) return;
+
+            other.classList.remove('active');
+
+            otherAnswer.style.maxHeight = '0';
+            otherAnswer.style.opacity = '0';
+            otherAnswer.style.padding = '0 20px';
+
+            const icon = otherQuestion.querySelector('span');
+            if (icon) {
+              (icon as HTMLElement).style.transform = 'rotate(0deg)';
             }
           });
 
-          if (isActive) {
-            item.classList.remove('active');
-          } else {
-            item.classList.add('active');
+          open = !open;
+
+          if (useActiveClass) {
+            item.classList.toggle('active', open);
           }
-        });
-      }
-    });
 
-    // --- 2. Handle standard Yoast and RankMath FAQ blocks ---
-    const faqSections = contentRef.current.querySelectorAll('.schema-faq-section, .rank-math-list-item, .rank-math-faq-item');
-    faqSections.forEach((section) => {
-      // Prevent double initialization
-      if (section.hasAttribute('data-faq-initialized')) return;
-      section.setAttribute('data-faq-initialized', 'true');
-
-      // Style the section wrapper
-      const sectionEl = section as HTMLElement;
-      sectionEl.style.border = '1px solid #e5e7eb';
-      sectionEl.style.borderRadius = '0.75rem';
-      sectionEl.style.marginBottom = '1rem';
-      sectionEl.style.overflow = 'hidden';
-      sectionEl.style.backgroundColor = '#ffffff';
-
-      // Find the specific question and answer within this item
-      const question = section.querySelector('.schema-faq-question, .rank-math-question');
-      const answer = section.querySelector('.schema-faq-answer, .rank-math-answer');
-
-      if (question && answer) {
-        const qEl = question as HTMLElement;
-        const aEl = answer as HTMLElement;
-
-        // Check if there's already an inner wrapper in the answer, if not, we can still animate maxHeight
-        // But first let's set up the question element styles
-        qEl.style.cursor = 'pointer';
-        qEl.style.display = 'flex';
-        qEl.style.justifyContent = 'space-between';
-        qEl.style.alignItems = 'center';
-        qEl.style.padding = '1.25rem';
-        qEl.style.margin = '0';
-        qEl.style.backgroundColor = '#f9fafb';
-        qEl.style.fontSize = '1.125rem';
-        qEl.style.fontWeight = '600';
-        qEl.style.color = '#1f2937';
-        qEl.style.transition = 'background-color 0.2s ease';
-
-        // Add a simple chevron icon
-        const chevron = document.createElement('span');
-        chevron.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-        chevron.style.transition = 'transform 0.3s ease';
-        chevron.style.flexShrink = '0';
-        chevron.style.marginLeft = '1rem';
-        qEl.appendChild(chevron);
-
-        // Hover effect
-        qEl.addEventListener('mouseenter', () => { qEl.style.backgroundColor = '#f3f4f6'; });
-        qEl.addEventListener('mouseleave', () => { qEl.style.backgroundColor = '#f9fafb'; });
-
-        // Initial setup for the answer
-        aEl.style.maxHeight = '0';
-        aEl.style.opacity = '0';
-        aEl.style.overflow = 'hidden';
-        aEl.style.padding = '0 1.25rem';
-        aEl.style.margin = '0';
-        aEl.style.transition = 'all 0.3s ease-in-out';
-
-        // Remove bottom margin of last paragraph in answer to prevent extra spacing
-        const lastChild = aEl.lastElementChild as HTMLElement;
-        if (lastChild && lastChild.style) {
-          lastChild.style.marginBottom = '0';
-        }
-
-        let isOpen = false;
-
-        // Toggle logic
-        qEl.addEventListener('click', () => {
-          isOpen = !isOpen;
-
-          if (isOpen) {
-            // Open
-            qEl.style.borderBottom = '1px solid #e5e7eb';
-            // Set maxHeight to scrollHeight plus some extra padding to ensure it fits
-            aEl.style.maxHeight = aEl.scrollHeight + 60 + 'px';
-            aEl.style.padding = '1.25rem';
-            aEl.style.opacity = '1';
+          if (open) {
+            answer.style.maxHeight = answer.scrollHeight + 80 + 'px';
+            answer.style.opacity = '1';
+            answer.style.padding = '20px';
             chevron.style.transform = 'rotate(180deg)';
           } else {
-            // Close
-            qEl.style.borderBottom = 'none';
-            aEl.style.maxHeight = '0';
-            aEl.style.padding = '0 1.25rem';
-            aEl.style.opacity = '0';
+            answer.style.maxHeight = '0';
+            answer.style.opacity = '0';
+            answer.style.padding = '0 20px';
             chevron.style.transform = 'rotate(0deg)';
           }
         });
-      }
-    });
+      });
+    };
+
+    // ------------------------------------------------
+    // Custom AI FAQ
+    // Matches:
+    // saudi-faq-item
+    // egyptair-faq-item
+    // emirates-faq-item
+    // etc...
+    // ------------------------------------------------
+
+    initFaq(
+      '[class$="-faq-item"]',
+      '[class$="-faq-question"]',
+      '[class$="-faq-answer"]',
+      true
+    );
+
+    // ------------------------------------------------
+    // Rank Math / Yoast FAQ
+    // ------------------------------------------------
+
+    initFaq(
+      '.schema-faq-section, .rank-math-list-item, .rank-math-faq-item',
+      '.schema-faq-question, .rank-math-question',
+      '.schema-faq-answer, .rank-math-answer'
+    );
   }, [content]);
 
   return (

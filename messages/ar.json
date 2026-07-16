@@ -856,7 +856,9 @@
     "checking": "جاري التحقق...",
     "bookNow": "احجز الآن",
     "select": " اختر الرحلة",
-    "priceWithoutTax": "* السعر لا يشمل الضريبة"
+    "priceWithoutTax": "* السعر لا يشمل الضريبة",
+    "priceWithTax": "* السعر يشمل الضريبة"
+
   },
   "FlightBooking": {
     "bookingConfirmed": "تم تأكيد الحجز!",
