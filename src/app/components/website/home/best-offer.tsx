@@ -18,7 +18,7 @@ const BestOffer = (props: Props) => {
                         <SubHeading>{t("bestOffer.bestOfferHeading")}</SubHeading>
                         <ParaHeading>{t("bestOffer.bestOfferText")}</ParaHeading>
                     </div>
-                    <CustomLink label={t("bestOffer.bestOfferButton")} href='/signup' className="!bg-orange" />
+                    <CustomLink label={t("bestOffer.bestOfferButton")} href='/packages' className="!bg-orange" />
                 </div>
             </Section>
         </div>

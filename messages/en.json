@@ -155,9 +155,9 @@
       }
     },
     "bestOffer": {
-      "bestOfferHeading": "Best Offer",
-      "bestOfferText": "Members save 10% or more on over 100,000 hotels worldwide when signed in",
-      "bestOfferButton": "Sign in now"
+      "bestOfferHeading": "Free Ticket",
+      "bestOfferText": "Book a tour package and get a free flight ticket worth up to 1,500 SAR.",
+      "bestOfferButton": "Book Now"
     },
     "OffersSlider": {
       "title": "Exclusive Offers",
