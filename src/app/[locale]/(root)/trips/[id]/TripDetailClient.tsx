@@ -18,6 +18,8 @@ import {
   Images,
 } from 'lucide-react';
 
+
+
 type Trip = {
   id: number;
   title: string;
@@ -35,9 +37,21 @@ type Trip = {
     gallery: string[];
     featured: string[];
     'trip-type': string;
-    'suggested-hotels': Array<{ text: string }>;
+    'suggested-hotel': Array<{ text: string }>;
     faq_code: string;
   };
+  countries?: Array<{
+    term_id: number;
+    name: string;
+    slug: string;
+    term_group: number;
+    term_taxonomy_id: number;
+    taxonomy: string;
+    description: string;
+    parent: number;
+    count: number;
+    filter: string;
+  }>;
 };
 
 interface TripDetailClientProps {
@@ -75,6 +89,7 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
   const heroImage = galleryImages[0] || '/assets/default-trip.jpg';
   const price = Number(trip.acf.price || '0').toLocaleString();
   const duration = trip.acf.duration || '0';
+  const countries = trip.acf.countries || [];
   const description = stripHtml(trip.description || '');
   const excerpt = stripHtml(trip.excerpt || '');
   const rate = Number(trip.acf.rate || '0');
@@ -83,6 +98,9 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
   const days = trip.acf.days ?? [];
   const hotels = trip.acf['suggested-hotels'] ?? [];
   const tripType = trip.acf['trip-type'] || 'رحلة جماعية';
+
+
+  console.log(countries, "countries")
 
   const openLightbox = useCallback((index: number) => setLightboxIndex(index), []);
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
@@ -238,7 +256,25 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
               {tripType}
             </div>
             <div>
-              <p className="text-md text-slate-200/90">{destination}</p>
+              <div className="flex flex-wrap items-center gap-2">
+                {/* <p className="text-md text-slate-200/90">{destination}</p> */}
+                {countries && countries.length > 0 && (
+                  <>
+                    <span className="text-slate-400">•</span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {countries.map((country, idx) => (
+                        <span
+                          key={country.term_id}
+                          className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-xs backdrop-blur-sm"
+                        >
+                          {country.name}
+                          {idx < countries.length - 1 && <span className="text-slate-400">,</span>}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
               <h1 className="mt-2 text-3xl font-bold md:text-4xl">{trip.title}</h1>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-md text-slate-100">
@@ -298,7 +334,52 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
         <div className="grid gap-8 xl:grid-cols-[360px_1fr]">
           {/* Sidebar */}
           <aside className="space-y-6 rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-sm">
-            <div className="space-y-3">
+ 
+
+            <div className="rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] p-4">
+              <h3 className="mb-3 text-lg flex gap-2 font-semibold text-[#016733]">مميزات البرنامج                     <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
+</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-md text-slate-700">
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
+                  <span>شامل ضريبة القيمة المضافة</span>
+                </li>
+                {includeItems.map((item, index) => (
+                  <li key={`include-${index}`} className="flex items-start gap-3 text-md text-slate-700">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-3xl border border-[#E5E7EB] bg-white p-4">
+              <h3 className="mb-3 text-lg flex gap-2 font-semibold text-[#1c1466]"> البرنامج لا يشمل                    <X className="mt-1 h-4 w-4 shrink-0 text-red-500" /></h3>
+              <ul className="space-y-3">
+                {excludeItems.map((item, index) => (
+                  <li key={`exclude-${index}`} className="flex items-start gap-3 text-md text-slate-700">
+                    <X className="mt-1 h-4 w-4 shrink-0 text-red-500" />
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {hotels.length > 0 && (
+              <div className=" rounded-3xl border border-[#E5E7EB] bg-white p-4">
+                <h3 className="mb-3 text-lg font-semibold text-[#016733]">الفنادق المقترحة</h3>
+                <ul className="dir-ltr space-y-2 text-md text-slate-700">
+                  {hotels.map((hotel, index) => (
+                    <li key={`hotel-${index}`} className="flex items-center gap-2">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#016733]" />
+                      {hotel.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+                       <div className="space-y-3">
               <h2 className="text-xl font-semibold text-[#016733]">ملخص الرحلة</h2>
               <p className="text-md leading-7 text-slate-600">{excerpt}</p>
             </div>
@@ -328,44 +409,6 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
               <Download className={`h-4 w-4 ${isPdfLoading ? 'animate-bounce' : ''}`} />
               {isPdfLoading ? 'جاري التحميل...' : 'تحميل برنامج الرحلة PDF'}
             </button>
-
-            <div className="rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] p-4">
-              <h3 className="mb-3 text-lg font-semibold text-[#016733]">البرنامج يشمل</h3>
-              <ul className="space-y-3">
-                {includeItems.map((item, index) => (
-                  <li key={`include-${index}`} className="flex items-start gap-3 text-md text-slate-700">
-                    <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-3xl border border-[#E5E7EB] bg-white p-4">
-              <h3 className="mb-3 text-lg font-semibold text-[#1c1466]">البرنامج لا يشمل</h3>
-              <ul className="space-y-3">
-                {excludeItems.map((item, index) => (
-                  <li key={`exclude-${index}`} className="flex items-start gap-3 text-md text-slate-700">
-                    <X className="mt-1 h-4 w-4 shrink-0 text-red-500" />
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {hotels.length > 0 && (
-              <div className=" rounded-3xl border border-[#E5E7EB] bg-white p-4">
-                <h3 className="mb-3 text-lg font-semibold text-[#016733]">الفنادق المقترحة</h3>
-                <ul className="dir-ltr space-y-2 text-md text-slate-700">
-                  {hotels.map((hotel, index) => (
-                    <li key={`hotel-${index}`} className="flex items-center gap-2">
-                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#016733]" />
-                      {hotel.text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
 
             <div className="rounded-3xl border border-[#E5E7EB] bg-white p-4">
               <h3 className="mb-3 text-lg font-semibold text-[#016733]">روابط مفيدة</h3>

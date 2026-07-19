@@ -62,9 +62,7 @@ export default function TripCard({
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-        <p className="text-sm text-white/80 mb-1">
-          {destination}
-        </p>
+
 
         <h3 className="font-bold text-lg line-clamp-2 mb-3">
           {title}

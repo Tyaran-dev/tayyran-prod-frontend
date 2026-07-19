@@ -5,6 +5,7 @@ import AuthorCard from './AuthorCard';
 import ShareButtons from './ShareButtons';
 import Breadcrumb from './Breadcrumb';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 interface ArticleHeroProps {
   post: WPPost;
@@ -36,6 +37,8 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
     url: `/blog/${post.slug}`,
   });
 
+  console.log(categories,"categories")
+
   return (
     <header className="relative w-full mb-12">
       {/* Background Image Header */}
@@ -62,9 +65,9 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
                 {categories.map(cat => (
-                  <span key={cat.id} className="bg-blog-accent text-blog-secondary px-4 py-1.5 text-sm font-bold rounded-full shadow-md">
+                  <Link key={cat.id} href={`/blog/category/${cat.slug}`} className="bg-blog-accent text-blog-secondary px-4 py-1.5 text-sm font-bold rounded-full shadow-md">
                     {cat.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             )}

@@ -113,7 +113,7 @@ export function getAuthor(post: {
 }): { name: string; avatar: string; bio: string } {
   const author = post._embedded?.author?.[0];
   return {
-    name: author?.name || 'طيران',
+    name: 'Tayyran',
     avatar: author?.avatar_urls?.['96'] || author?.avatar_urls?.['48'] || '',
     bio: author?.description || '',
   };

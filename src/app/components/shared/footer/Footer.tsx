@@ -52,11 +52,11 @@ const Footer = () => {
 
         {/* TOP */}
         <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-4 justify-center px-4 md:px-0 md:grid-cols-2 lg:grid-cols-12 gap-12">
 
             {/* LOGO + DESC */}
-            <div className="lg:col-span-4">
-              <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+            <div className="col-span-4 flex flex-col items-center justify-center">
+              <Link href="/" className="inline-flex  gap-3 mb-6 group">
 
                 <Image
                   src="/assets/icons/footer-logo.svg"
@@ -68,7 +68,7 @@ const Footer = () => {
                 />
               </Link>
 
-              <p className="text-slate-400 leading-relaxed mb-8 text-sm">
+              <p className="text-slate-400 leading-relaxed mb-8 text-sm text-center">
                 {t('description')}
               </p>
 
@@ -87,7 +87,7 @@ const Footer = () => {
             </div>
 
             {/* COMPANY */}
-            <div className="lg:col-span-2">
+            <div className="col-span-2 lg:col-span-2 w-[48%] ">
               <h3 className="text-md font-bold uppercase mb-6">
                 {t('titles.company')}
               </h3>
@@ -104,7 +104,7 @@ const Footer = () => {
             </div>
 
             {/* LEGAL */}
-            <div className="lg:col-span-3">
+            <div className="col-span-2 lg:col-span-3  w-[48%] ">
               <h3 className="text-md font-bold uppercase mb-6">
                 {t('titles.legal')}
               </h3>
@@ -121,7 +121,7 @@ const Footer = () => {
             </div>
 
             {/* CONTACT */}
-            <div className="lg:col-span-3">
+            <div className="col-span-4 lg:col-span-3">
               <h3 className="text-md font-bold uppercase mb-6">
                 {t('titles.contact')}
               </h3>
@@ -159,7 +159,7 @@ const Footer = () => {
         </div>
 
         {/* BOTTOM */}
-        <div className="border-t border-white/5 py-8 flex flex-col md:flex-row justify-between text-sm">
+        <div className="border-t border-white/5 py-8 flex flex-col md:flex-row justify-between text-sm text-center">
           <p className="text-slate-500">
             © {new Date().getFullYear()} Tayyran. {t('copyright')}
           </p>

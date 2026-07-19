@@ -26,7 +26,7 @@ export async function getRankMathSEO(url: string): Promise<RankMathSEOHead | nul
  */
 function parseRankMathHead(headString: string): Partial<ParsedSEOMeta> {
   const meta: Partial<ParsedSEOMeta> = {};
-  
+
   // Very basic regex parsing for key SEO elements
   const titleMatch = headString.match(/<title>(.*?)<\/title>/i);
   if (titleMatch) meta.title = titleMatch[1];
@@ -56,7 +56,7 @@ export async function generateArticleMetadata(post: WPPost): Promise<Metadata> {
   // Try to get RankMath SEO data
   const postUrl = `https://articles.tayyran.com/${post.slug}`;
   const rmData = await getRankMathSEO(postUrl);
-  
+
   let rmParsed: Partial<ParsedSEOMeta> = {};
   if (rmData && rmData.success && rmData.head) {
     rmParsed = parseRankMathHead(rmData.head);
@@ -105,7 +105,7 @@ export async function generateArticleMetadata(post: WPPost): Promise<Metadata> {
 export function generateArticleJsonLd(post: WPPost) {
   const title = stripHtml(post.title.rendered);
   const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || `${SITE_URL}/assets/images/blog-placeholder.jpg`;
-  const authorName = post._embedded?.author?.[0]?.name || 'Tayraan';
+  const authorName = 'Tayyran';
 
   return {
     '@context': 'https://schema.org',

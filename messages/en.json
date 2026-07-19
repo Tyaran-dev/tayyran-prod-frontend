@@ -246,6 +246,160 @@
       }
     }
   },
+  "FreeTicket": {
+    "dir": "rtl",
+    "brand": "قصة للسياحة",
+    "metadata": {
+      "title": "تذكرة طيران مجانية - قصة للسياحة",
+      "description": "عرض تذكرة طيران مجانية بقيمة 1,500 ريال سعودي عند حجز برنامج سياحي لشخصين أو أكثر من قصة للسياحة"
+    },
+    "nav": {
+      "home": "الرئيسية",
+      "trips": "الرحلات",
+      "freeTicket": "تذكرة مجانية",
+      "bookNow": "احجز الآن"
+    },
+    "hero": {
+      "badge": "عرض محدود لأول 50 حجزًا",
+      "title": {
+        "part1": "تذكرة طيران",
+        "part2": "مجانية",
+        "part3": "مع برنامجك السياحي"
+      },
+      "description": "احجز برنامجًا سياحيًا لشخصين أو أكثر من خلال منصة طيران، واحصل على تذكرة طيران مجانية بقيمة تصل إلى 1,500 ريال سعودي.",
+      "cta": "اطلب العرض الآن",
+      "contact": "تواصل معنا"
+    },
+    "stats": {
+      "perBooking": "تذكرة مجانية لكل حجز",
+      "maxAmount": "ريال سعودي كحد أقصى",
+      "available": "حجزًا فقط المتاح",
+      "perPerson": "أشخاص لكل حجز"
+    },
+    "howItWorks": {
+      "subtitle": "كيف تستفيد من العرض",
+      "title": "ثلاث خطوات بسيطة"
+    },
+    "steps": {
+      "step1": {
+        "title": "احجز برنامجًا سياحيًا",
+        "desc": "اختر برنامجًا سياحيًا من منصة طيران لشخصين أو أكثر."
+      },
+      "step2": {
+        "title": "استوفِ الشروط",
+        "desc": "تأكد من أن حجزك ضمن أول 50 حجزًا المستوفية للشروط."
+      },
+      "step3": {
+        "title": "احصل على تذكرتك",
+        "desc": "استلم تذكرة طيران مجانية بقيمة تصل إلى 1,500 ريال سعودي."
+      }
+    },
+    "termsSection": {
+      "subtitle": "التفاصيل الكاملة",
+      "title": "الشروط والأحكام",
+      "description": "يرجى قراءة الشروط والأحكام التالية بعناية قبل الاستفادة من العرض."
+    },
+    "terms": {
+      "1": "يسري العرض على أول 50 حجزًا فقط.",
+      "2": "يشترط حجز برنامج سياحي من خلال منصة طيران للاستفادة من العرض.",
+      "3": "يشترط أن يكون حجز البرنامج السياحي لشخصين أو أكثر.",
+      "4": "يشمل العرض تذكرة طيران مجانية واحدة فقط لشخص واحد عن كل حجز مستوفٍ للشروط.",
+      "5": "قيمة تذكرة الطيران المجانية لا تتجاوز 1,500 ريال سعودي، وفي حال تجاوز قيمة التذكرة هذا المبلغ، يتحمل العميل فرق السعر.",
+      "6": "إذا كانت قيمة تذكرة الطيران أقل من 1,500 ريال سعودي، يُعاد فرق القيمة للعميل نقدًا أو كرصيد في منصة طيران، وفق ما تحدده طيران.",
+      "7": "لا يمكن استبدال التذكرة المجانية بمبلغ نقدي أو رصيد أو أي خدمة أو عرض آخر، باستثناء الحالة المنصوص عليها في البند (6).",
+      "8": "العرض غير قابل للجمع مع أي عروض أو خصومات أخرى، ما لم يُذكر خلاف ذلك.",
+      "9": "يخضع العرض لتوفر المقاعد وتوفر البرامج السياحية وقت الحجز.",
+      "10": "يسري العرض على الحجوزات الجديدة فقط، ولا يشمل الحجوزات التي تم تأكيدها قبل إطلاق العرض.",
+      "11": "في حال إلغاء البرنامج السياحي بعد إصدار تذكرة الطيران، يحق لـطيران خصم قيمة التذكرة الصادرة، وبحد أقصى 1,500 ريال سعودي، بالإضافة إلى أي رسوم أو غرامات مستحقة وفق سياسة الإلغاء والتعديل.",
+      "12": "تحتفظ طيران بحق تعديل أو إنهاء العرض في أي وقت، دون أن يؤثر ذلك على الحجوزات التي تم تأكيدها خلال فترة سريان العرض.",
+      "13": "تطبق جميع الشروط والأحكام الخاصة بالحجز، بما في ذلك سياسات التعديل والإلغاء."
+    },
+    "cta": {
+      "title": "جاهز للاستفادة من العرض؟",
+      "description": "احجز برنامجك السياحي الآن واحصل على تذكرتك المجانية.",
+      "button": "احجز الآن"
+    },
+    "footer": {
+      "rights": "جميع الحقوق محفوظة."
+    }
+  },
+  "FreeTicket": {
+    "dir": "ltr",
+    "brand": "Qissa for Tourism",
+    "metadata": {
+      "title": "Free Flight Ticket - Qissa for Tourism",
+      "description": "Free flight ticket offer worth 1,500 SAR when booking a tour package for 2 or more people from Qissa for Tourism"
+    },
+    "nav": {
+      "home": "Home",
+      "trips": "Trips",
+      "freeTicket": "Free Ticket",
+      "bookNow": "Book Now"
+    },
+    "hero": {
+      "badge": "Limited offer for first 50 bookings",
+      "title": {
+        "part1": "Free",
+        "part2": "Flight Ticket",
+        "part3": "with Your Tour Package"
+      },
+      "description": "Book a tour package for 2 or more people through Tayaran platform and get a free flight ticket worth up to 1,500 SAR.",
+      "cta": "Claim Offer Now",
+      "contact": "Contact Us"
+    },
+    "stats": {
+      "perBooking": "Free ticket per booking",
+      "maxAmount": "SAR maximum",
+      "available": "Bookings only available",
+      "perPerson": "People per booking"
+    },
+    "howItWorks": {
+      "subtitle": "How to benefit from the offer",
+      "title": "Three Simple Steps"
+    },
+    "steps": {
+      "step1": {
+        "title": "Book a Tour Package",
+        "desc": "Choose a tour package from Tayaran platform for 2 or more people."
+      },
+      "step2": {
+        "title": "Meet the Conditions",
+        "desc": "Make sure your booking is among the first 50 bookings that meet the conditions."
+      },
+      "step3": {
+        "title": "Get Your Ticket",
+        "desc": "Receive a free flight ticket worth up to 1,500 SAR."
+      }
+    },
+    "termsSection": {
+      "subtitle": "Full Details",
+      "title": "Terms and Conditions",
+      "description": "Please read the following terms and conditions carefully before benefiting from the offer."
+    },
+    "terms": {
+      "1": "The offer applies to the first 50 bookings only.",
+      "2": "A tour package must be booked through the Tayaran platform to benefit from the offer.",
+      "3": "The tour package booking must be for 2 or more people.",
+      "4": "The offer includes only one free flight ticket for one person per booking that meets the conditions.",
+      "5": "The value of the free flight ticket does not exceed 1,500 SAR. If the ticket value exceeds this amount, the customer bears the price difference.",
+      "6": "If the flight ticket value is less than 1,500 SAR, the difference is refunded to the customer in cash or as credit on the Tayaran platform, as determined by Tayaran.",
+      "7": "The free ticket cannot be exchanged for cash, credit, or any other service or offer, except as stipulated in clause (6).",
+      "8": "The offer cannot be combined with any other offers or discounts, unless otherwise stated.",
+      "9": "The offer is subject to seat availability and availability of tour packages at the time of booking.",
+      "10": "The offer applies to new bookings only and does not include bookings confirmed before the offer launch.",
+      "11": "If the tour package is canceled after the flight ticket has been issued, Tayaran reserves the right to deduct the value of the issued ticket, up to a maximum of 1,500 SAR, in addition to any fees or penalties due according to the cancellation and modification policy.",
+      "12": "Tayaran reserves the right to modify or terminate the offer at any time, without affecting bookings confirmed during the offer period.",
+      "13": "All booking terms and conditions apply, including modification and cancellation policies."
+    },
+    "cta": {
+      "title": "Ready to Benefit from the Offer?",
+      "description": "Book your tour package now and get your free ticket.",
+      "button": "Book Now"
+    },
+    "footer": {
+      "rights": "All rights reserved."
+    }
+  },
   "about-us": {
     "title": "About Tayyran",
     "subtitle": "Your journey to seamless travel begins here",
