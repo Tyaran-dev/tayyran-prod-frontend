@@ -14,10 +14,11 @@ import { useAuthContext } from "@/context/AuthContext";
 
 const menuItems = [
   { key: "home", url: "/" },
-  // { key: "milecoin", url: "/milecoin" },
   { key: "aboutUs", url: "/about-us" },
   { key: "blog", url: "/blog" },
-  // { key: "tayyranBusiness", url: "/tayyran-Business" },
+  { key: "packages", url: "/packages" },
+  { key: "freeticket", url: "/free-ticket" },
+
 ];
 
 const Navbar = () => {
@@ -97,7 +98,7 @@ const Navbar = () => {
               <Link
                 href="/signup"
                 className="group  border border-[#1d1068] inline-flex items-center justify-center py-3 px-6 lg:px-8 lg:text-base font-medium  rounded-2xl shadow hover:shadow-md transition-all duration-300"
-            
+
               >
                 {t(`registerButton`)}
 

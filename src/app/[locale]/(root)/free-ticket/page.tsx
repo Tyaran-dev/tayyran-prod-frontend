@@ -1,7 +1,8 @@
 import { Ticket, Phone, Globe, Sparkles, ShieldCheck, Plane } from 'lucide-react';
 import type { Metadata } from 'next';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 // For metadata (server component)
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
@@ -15,6 +16,8 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 
 export default function FreeTicketPage() {
     const t = useTranslations('FreeTicket');
+    const locale = useLocale(); // Get the current locale
+    const dir = locale === "en" ? "ltr" : "rtl"; // Get direction from translations
 
     // Terms data with translations
     const terms = Array.from({ length: 13 }, (_, i) => ({
@@ -50,8 +53,7 @@ export default function FreeTicketPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-brand-bg" dir={t('dir') || 'rtl'}>
-    
+        <main className="min-h-screen bg-brand-bg" dir={dir}>
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-brand-navy to-[#2a1f8f]">
@@ -82,15 +84,17 @@ export default function FreeTicketPage() {
                             {t('hero.description')}
                         </p>
                         <div className="flex flex-wrap items-center gap-4">
-                            <a
-                                href="#terms"
+                            <Link
+                                href="/packages"
                                 className="inline-flex items-center gap-2 bg-brand-amber text-brand-navy font-bold px-7 py-3.5 rounded-xl hover:bg-yellow-400 transition-colors shadow-lg"
                             >
                                 <Ticket className="w-5 h-5" />
                                 {t('hero.cta')}
-                            </a>
+                            </Link>
                             <a
-                                href="tel:+966"
+                                href={`https://wa.me/966920032065?text=${encodeURIComponent(
+                                    "مرحباً، أرغب بالاستفسار عن عرض التذكرة المجانية"
+                                )}`}
                                 className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-white/20 transition-colors"
                             >
                                 <Phone className="w-5 h-5" />
@@ -130,11 +134,11 @@ export default function FreeTicketPage() {
                             key={s.step}
                             className="relative bg-white p-7 rounded-2xl border border-gray-100 hover:border-brand-green/30 hover:shadow-lg transition-all"
                         >
-                            <div className="absolute -top-5 right-7 w-11 h-11 rounded-full bg-brand-green text-white font-bold flex items-center justify-center text-lg shadow-md">
+                            <div className={`absolute -top-5 ${dir === 'rtl' ? 'right-7' : 'left-7'} w-11 h-11 rounded-full bg-brand-green text-white font-bold flex items-center justify-center text-lg shadow-md`}>
                                 {s.step}
                             </div>
-                            <h3 className="font-bold text-brand-navy text-lg mt-4 mb-2">{s.title}</h3>
-                            <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+                            <h3 className={`font-bold text-brand-navy text-lg mt-4 mb-2 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>{s.title}</h3>
+                            <p className={`text-sm text-gray-500 leading-relaxed ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>{s.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -151,53 +155,42 @@ export default function FreeTicketPage() {
                         </p>
                     </div>
 
+
                     <div className="relative">
                         {/* vertical line */}
                         <div className="absolute right-[22px] md:right-1/2 top-0 bottom-0 w-px bg-gray-200 md:translate-x-1/2" />
 
                         <ol className="space-y-5">
                             {terms.map((t) => (
+
                                 <li
                                     key={t.n}
                                     className="relative pr-14 md:pr-0 md:grid md:grid-cols-2 md:gap-8 md:items-center"
                                 >
                                     {/* number bubble */}
                                     <div
-                                        className={`absolute right-0 md:static md:flex md:justify-end top-0 ${t.n % 2 === 0 ? 'md:order-2 md:pl-14' : 'md:order-1 md:pr-14'
+                                        className={`md:static md:flex md:justify-end top-0 ${t.n % 2 === 0 ? 'md:order-2 md:pl-14' : 'md:order-1 md:pr-14'
                                             }`}
                                     >
-                                        <div className="w-11 h-11 rounded-full bg-brand-navy text-brand-amber font-bold flex items-center justify-center shadow-md ring-4 ring-white">
-                                            {t.n}
-                                        </div>
                                     </div>
                                     {/* card */}
                                     <div
-                                        className={`bg-brand-bg rounded-xl p-4 border border-gray-100 ${t.n % 2 === 0 ? 'md:order-1 md:pr-14' : 'md:order-2 md:pl-14'
+                                        className={`bg-brand-bg  gap-4 rounded-xl p-4  border border-gray-100 ${t.n % 2 === 0 ? 'md:order-1 md:pr-14' : 'md:order-2 md:pl-14'
                                             }`}
                                     >
+                                        <div className="w-11 h-11  rounded-full bg-brand-navy text-brand-amber font-bold flex items-center justify-center mb-2 shadow-md ring-4 ring-white">
+                                            {t.n}
+                                        </div>
                                         <p className="text-gray-700 leading-relaxed text-[15px]">{t.text}</p>
+
                                     </div>
                                 </li>
                             ))}
                         </ol>
                     </div>
-
-                    {/* CTA */}
-                    <div className="mt-14 bg-gradient-to-l from-brand-green to-green-700 rounded-2xl p-8 text-center shadow-lg">
-                        <h3 className="text-2xl font-extrabold text-white mb-2">{t('cta.title')}</h3>
-                        <p className="text-white/80 mb-6">{t('cta.description')}</p>
-                        <a
-                            href="tel:+966"
-                            className="inline-flex items-center gap-2 bg-brand-amber text-brand-navy font-bold px-8 py-3.5 rounded-xl hover:bg-yellow-400 transition-colors shadow-lg"
-                        >
-                            <Phone className="w-5 h-5" />
-                            {t('cta.button')}
-                        </a>
-                    </div>
                 </div>
-            </section>
+            </section >
 
-``
-        </main>
+        </main >
     );
 }

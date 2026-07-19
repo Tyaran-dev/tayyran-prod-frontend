@@ -4,7 +4,9 @@
       "home": "Home",
       "aboutUs": "About Us",
       "blog": "Blog",
-      "corporate": "Corporate"
+     "packages": "Tour Packages",
+      "freeticket": "Free Ticket",
+      "contactUs": "Contact Us"
     },
     "registerButton": "Register"
   },
@@ -399,6 +401,56 @@
     "footer": {
       "rights": "All rights reserved."
     }
+  },
+  "trips": {
+    "dir": "ltr",
+    "heading": "Tour Packages",
+    "noTrips": "No trips available at the moment",
+    "metadata": {
+      "title": "Tour Packages - Qissa for Tourism",
+      "description": "Discover the best tour packages with Qissa for Tourism. Complete packages with competitive prices and unforgettable experiences."
+    },
+    "hero": {
+      "badge": "Discover Your Perfect Package",
+      "title": {
+        "part1": "Discover",
+        "part2": "Your Perfect",
+        "part3": "Packages"
+      },
+      "description": "We offer a variety of tour packages to the best destinations. Choose your package and enjoy an unforgettable experience.",
+      "cta": "Explore Packages",
+      "contact": "Contact Us"
+    },
+    "stats": {
+      "destinations": "Destinations",
+      "trips": "Tour Packages",
+      "rating": "Customer Rating",
+      "years": "Years of Excellence"
+    },
+    "filters": {
+      "search": "Search for a package...",
+      "destination": "Destination",
+      "duration": "Duration",
+      "mecca": "Makkah",
+      "medina": "Medina",
+      "duration3to5": "3 - 5 Days",
+      "duration6to9": "6 - 9 Days",
+      "duration10plus": "10+ Days",
+      "searchButton": "Search"
+    },
+    "grid": {
+      "subtitle": "Choose Your Package",
+      "tripsFound": "packages available"
+    },
+    "cta": {
+      "title": "Ready to Book Your Package?",
+      "description": "Contact us now and book your perfect package with the best offers",
+      "button": "Book Now"
+    },
+    "featured": "Featured",
+    "days": "Days",
+    "startingFrom": "Starting From",
+    "currency": "SAR"
   },
   "about-us": {
     "title": "About Tayyran",
