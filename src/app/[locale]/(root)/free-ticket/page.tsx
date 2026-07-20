@@ -1,13 +1,11 @@
-import { Ticket, Phone, Globe, Sparkles, ShieldCheck, Plane } from 'lucide-react';
+import { Ticket, Phone, Globe, Sparkles, ShieldCheck, Plane, Users, Zap, AlertTriangle } from 'lucide-react';
 import type { Metadata } from 'next';
 import { useLocale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
-// For metadata (server component)
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations({ locale, namespace: 'FreeTicket' });
-
     return {
         title: t('metadata.title'),
         description: t('metadata.description'),
@@ -16,16 +14,18 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 
 export default function FreeTicketPage() {
     const t = useTranslations('FreeTicket');
-    const locale = useLocale(); // Get the current locale
-    const dir = locale === "en" ? "ltr" : "rtl"; // Get direction from translations
+    const locale = useLocale();
+    const dir = locale === "en" ? "ltr" : "rtl";
 
-    // Terms data with translations
+    const TOTAL_TICKETS = 50;
+    const BOOKED_TICKETS = 10;
+    const REMAINING_TICKETS = TOTAL_TICKETS - BOOKED_TICKETS;
+
     const terms = Array.from({ length: 13 }, (_, i) => ({
         n: i + 1,
         text: t(`terms.${i + 1}`)
     }));
 
-    // Stats data with translations
     const stats = [
         { icon: Ticket, value: '1', label: t('stats.perBooking') },
         { icon: ShieldCheck, value: '1,500', label: t('stats.maxAmount') },
@@ -33,23 +33,10 @@ export default function FreeTicketPage() {
         { icon: Sparkles, value: '+2', label: t('stats.perPerson') },
     ];
 
-    // Steps data with translations
     const steps = [
-        {
-            step: '1',
-            title: t('steps.step1.title'),
-            desc: t('steps.step1.desc')
-        },
-        {
-            step: '2',
-            title: t('steps.step2.title'),
-            desc: t('steps.step2.desc')
-        },
-        {
-            step: '3',
-            title: t('steps.step3.title'),
-            desc: t('steps.step3.desc')
-        },
+        { step: '1', title: t('steps.step1.title'), desc: t('steps.step1.desc') },
+        { step: '2', title: t('steps.step2.title'), desc: t('steps.step2.desc') },
+        { step: '3', title: t('steps.step3.title'), desc: t('steps.step3.desc') },
     ];
 
     return (
@@ -60,8 +47,7 @@ export default function FreeTicketPage() {
                 <div
                     className="absolute inset-0 opacity-20"
                     style={{
-                        backgroundImage:
-                            'url(https://images.pexels.com/photos/2026324/pexels-photo-2026324.jpeg?auto=compress&cs=tinysrgb&w=1600)',
+                        backgroundImage: 'url(https://images.pexels.com/photos/2026324/pexels-photo-2026324.jpeg?auto=compress&cs=tinysrgb&w=1600)',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
@@ -86,16 +72,14 @@ export default function FreeTicketPage() {
                         <div className="flex flex-wrap items-center gap-4">
                             <Link
                                 href="/packages"
-                                className="inline-flex items-center gap-2 bg-brand-amber text-brand-navy font-bold px-7 py-3.5 rounded-xl hover:bg-yellow-400 transition-colors shadow-lg"
+                                className="inline-flex items-center gap-2 bg-brand-amber text-brand-navy font-bold px-7 py-3.5 rounded-xl hover:bg-yellow-400 transition-colors shadow-lg active:scale-[0.97]"
                             >
                                 <Ticket className="w-5 h-5" />
                                 {t('hero.cta')}
                             </Link>
                             <a
-                                href={`https://wa.me/966920032065?text=${encodeURIComponent(
-                                    "مرحباً، أرغب بالاستفسار عن عرض التذكرة المجانية"
-                                )}`}
-                                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-white/20 transition-colors"
+                                href={`https://wa.me/966920032065?text=${encodeURIComponent("مرحباً، أرغب بالاستفسار عن عرض التذكرة المجانية")}`}
+                                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-white/20 transition-colors active:scale-[0.97]"
                             >
                                 <Phone className="w-5 h-5" />
                                 {t('hero.contact')}
@@ -122,8 +106,97 @@ export default function FreeTicketPage() {
                 </div>
             </section>
 
+            {/* 🔥 LIMITED TICKETS COUNTER — FOCUSED */}
+            <section className="relative mt-10 z-20 max-w-3xl mx-auto px-4 sm:px-6">
+                <div className="bg-white rounded-3xl shadow-2xl shadow-slate-900/20 border border-slate-100 overflow-hidden">
+                    {/* Top Urgency Strip */}
+                    <div className="bg-gradient-to-r from-red-500 to-red-600 px-6 py-3 flex items-center justify-center gap-2 text-white">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        <span className="text-sm font-bold tracking-wide">{t('counter.urgency')}</span>
+                    </div>
+
+                    <div className="p-8 md:p-10">
+                        {/* Three Big Numbers Side by Side */}
+                        <div className="grid grid-cols-3 gap-4 md:gap-8">
+                            {/* Total Tickets */}
+                            <div className="text-center relative">
+                                <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    <Ticket className="w-3.5 h-3.5" />
+                                    {t('counter.total')}
+                                </div>
+                                <div className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+                                    {TOTAL_TICKETS}
+                                </div>
+                                <div className="text-sm font-semibold text-slate-400 mt-1">{t('counter.totalTickets')}</div>
+
+                                {/* Subtle divider for mobile */}
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-16 bg-slate-200 hidden md:block" />
+                            </div>
+
+                            {/* Booked Tickets */}
+                            <div className="text-center relative">
+                                <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    <Users className="w-3.5 h-3.5" />
+                                    {t('counter.booked')}
+                                </div>
+                                <div className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+                                    {BOOKED_TICKETS}
+                                </div>
+                                <div className="text-sm font-semibold text-slate-400 mt-1">{t('counter.ticketsClaimed')}</div>
+
+                                {/* Subtle divider for mobile */}
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-16 bg-slate-200 hidden md:block" />
+                            </div>
+
+                            {/* Remaining Tickets */}
+                            <div className="text-center">
+                                <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 bg-red-50 rounded-full text-xs font-bold text-red-500 uppercase tracking-wider">
+                                    <Zap className="w-3.5 h-3.5" />
+                                    {t('counter.limited')}
+                                </div>
+                                <div className="text-4xl md:text-6xl font-black text-red-500 tracking-tight">
+                                    {REMAINING_TICKETS}
+                                </div>
+                                <div className="text-sm font-semibold text-red-400 mt-1">{t('counter.ticketsLeft')}</div>
+                            </div>
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="mt-8">
+                            <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
+                                <span>0</span>
+                                <span className="text-slate-900">{TOTAL_TICKETS} {t('counter.total')}</span>
+                            </div>
+                            <div className="h-5 bg-slate-100 rounded-full overflow-hidden relative">
+                                {/* Booked portion */}
+                                <div
+                                    className="h-full bg-slate-800 rounded-full transition-all duration-1000"
+                                    style={{ width: `${(BOOKED_TICKETS / TOTAL_TICKETS) * 100}%` }}
+                                />
+                                {/* Remaining portion (subtle) */}
+                                <div
+                                    className="absolute top-0 h-full bg-red-100 rounded-full transition-all duration-1000"
+                                    style={{
+                                        left: `${(BOOKED_TICKETS / TOTAL_TICKETS) * 100}%`,
+                                        width: `${(REMAINING_TICKETS / TOTAL_TICKETS) * 100}%`
+                                    }}
+                                />
+                            </div>
+                            <div className="flex justify-between mt-2">
+                                <span className="text-xs font-bold text-slate-700">
+                                    {Math.round((BOOKED_TICKETS / TOTAL_TICKETS) * 100)}% {t('counter.bookedPercentage')}
+                                </span>
+                                <span className="text-xs font-bold text-red-500">
+                                    {Math.round((REMAINING_TICKETS / TOTAL_TICKETS) * 100)}% {t('counter.remainingPercentage')}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* How it works */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
                 <div className="text-center mb-12">
                     <p className="text-brand-green font-semibold text-sm mb-1">{t('howItWorks.subtitle')}</p>
                     <h2 className="text-3xl font-extrabold text-brand-navy">{t('howItWorks.title')}</h2>
@@ -155,42 +228,29 @@ export default function FreeTicketPage() {
                         </p>
                     </div>
 
-
                     <div className="relative">
-                        {/* vertical line */}
                         <div className="absolute right-[22px] md:right-1/2 top-0 bottom-0 w-px bg-gray-200 md:translate-x-1/2" />
-
                         <ol className="space-y-5">
                             {terms.map((t) => (
-
                                 <li
                                     key={t.n}
                                     className="relative pr-14 md:pr-0 md:grid md:grid-cols-2 md:gap-8 md:items-center"
                                 >
-                                    {/* number bubble */}
-                                    <div
-                                        className={`md:static md:flex md:justify-end top-0 ${t.n % 2 === 0 ? 'md:order-2 md:pl-14' : 'md:order-1 md:pr-14'
-                                            }`}
-                                    >
+                                    <div className={`md:static md:flex md:justify-end top-0 ${t.n % 2 === 0 ? 'md:order-2 md:pl-14' : 'md:order-1 md:pr-14'}`}>
                                     </div>
-                                    {/* card */}
-                                    <div
-                                        className={`bg-brand-bg  gap-4 rounded-xl p-4  border border-gray-100 ${t.n % 2 === 0 ? 'md:order-1 md:pr-14' : 'md:order-2 md:pl-14'
-                                            }`}
-                                    >
-                                        <div className="w-11 h-11  rounded-full bg-brand-navy text-brand-amber font-bold flex items-center justify-center mb-2 shadow-md ring-4 ring-white">
+                                    <div className={`bg-brand-bg gap-4 rounded-xl p-4 border border-gray-100 ${t.n % 2 === 0 ? 'md:order-1 md:pr-14' : 'md:order-2 md:pl-14'}`}>
+                                        <div className="w-11 h-11 rounded-full bg-brand-navy text-brand-amber font-bold flex items-center justify-center mb-2 shadow-md ring-4 ring-white">
                                             {t.n}
                                         </div>
                                         <p className="text-gray-700 leading-relaxed text-[15px]">{t.text}</p>
-
                                     </div>
                                 </li>
                             ))}
                         </ol>
                     </div>
                 </div>
-            </section >
+            </section>
 
-        </main >
+        </main>
     );
 }

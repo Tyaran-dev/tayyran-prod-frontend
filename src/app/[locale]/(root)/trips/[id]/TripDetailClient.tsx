@@ -39,6 +39,7 @@ type Trip = {
     'trip-type': string;
     'suggested-hotel': Array<{ text: string }>;
     faq_code: string;
+    trip_code: string;
   };
   countries?: Array<{
     term_id: number;
@@ -93,6 +94,7 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
   const description = stripHtml(trip.description || '');
   const excerpt = stripHtml(trip.excerpt || '');
   const rate = Number(trip.acf.rate || '0');
+  const tripCode = trip.acf.trip_code || '';
   const includeItems = trip.acf.advantages ?? [];
   const excludeItems = trip.acf.disadvantages ?? [];
   const days = trip.acf.days ?? [];
@@ -334,11 +336,11 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
         <div className="grid gap-8 xl:grid-cols-[360px_1fr]">
           {/* Sidebar */}
           <aside className="space-y-6 rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-sm">
- 
+
 
             <div className="rounded-3xl border border-[#E5E7EB] bg-[#F8FAFC] p-4">
               <h3 className="mb-3 text-lg flex gap-2 font-semibold text-[#016733]">مميزات البرنامج                     <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
-</h3>
+              </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 text-md text-slate-700">
                   <Check className="mt-1 h-4 w-4 shrink-0 text-[#016733]" />
@@ -379,12 +381,16 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
               </div>
             )}
 
-                       <div className="space-y-3">
+            <div className="space-y-3">
               <h2 className="text-xl font-semibold text-[#016733]">ملخص الرحلة</h2>
               <p className="text-md leading-7 text-slate-600">{excerpt}</p>
             </div>
 
             <div className="grid gap-3 rounded-3xl bg-[#F8FAFC] p-4">
+              <div className="flex items-center justify-between gap-2 text-md text-slate-700">
+                <span>كود الرحلة</span>
+                <strong className="text-[#016733]">{tripCode}</strong>
+              </div>
               <div className="flex items-center justify-between gap-2 text-md text-slate-700">
                 <span>سعر الرحلة</span>
                 <strong className="text-[#016733]">{price} ريال</strong>

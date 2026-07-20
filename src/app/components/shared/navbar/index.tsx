@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import logo from "/public/assets/icons/logo.svg";
 import { usePathname } from "next/navigation";
 import { IoClose } from "react-icons/io5";
-import { BookOpen, ChevronDown, LogOut, Menu, MessageCircle, User } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronRight, LogOut, Menu, MessageCircle, User, UserPlus, X } from "lucide-react";
 import { WhatApps } from "@/app/svg";
 // import { LanguageSwitcher } from "../google-tranlator/language-switcher";
 import LanguageSwitcher from "../translate/LanguageSwitcher";
@@ -51,236 +51,347 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full  top-0 left-0   bg-white shadow-md text-primary">
+    <div className="w-full top-0 left-0 bg-white shadow-sm text-primary sticky z-50">
       <nav
-        className={`lg:px-24 md:px-16 px-5 max-w-[1800px] z-20 flex md:rounded-2xl justify-center mx-auto  py-2 items-start relative top-0 w-full  text-black bg-white`}
+        className="lg:px-20 md:px-12 px-5 max-w-[1800px] mx-auto py-3 flex items-center justify-between w-full bg-white"
       >
-        <div className="flex justify-between items-center flex-shrink-0 w-full">
-          <Link href="/">
-            <Image
-              src={logo}
-              alt=""
-              className=" hover:scale-105 w-24 duration-300 transition-all"
-            />
-          </Link>
-          <div className="lg:flex items-center hidden gap-3 xl:gap-10 ">
+        {/* Logo */}
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src={logo}
+            alt="Logo"
+            className="hover:scale-105 w-28 duration-300 transition-all"
+          />
+        </Link>
 
-
-
-            {menuItems.map((item) => (
-              <Link
-                key={item.key}
-                href={item.url}
-                className={`hover:scale-105 hover:text-secondary duration-300 transition-all text-base font-medium font-montserrat ${isActive(item.url)}`}
-                onClick={() => setIsModalOpen(false)} // only in mobile nav
-              >
-                {t(`navItems.${item.key}`)}
-              </Link>
-            ))}
-          </div>
-
-
-
-          <div className="lg:flex hidden items-center gap-4">
-            <LanguageSwitcher />
-
-            <Link
-              href="https://wa.me/966920032065"
-              className="flex gap-2 items-center lg:text-base font-medium"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5" />
-              966920032065
-            </Link>
-
-            {!user ? (
-              <Link
-                href="/signup"
-                className="group  border border-[#1d1068] inline-flex items-center justify-center py-3 px-6 lg:px-8 lg:text-base font-medium  rounded-2xl shadow hover:shadow-md transition-all duration-300"
-
-              >
-                {t(`registerButton`)}
-
-              </Link>
-            ) : (
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-2xl hover:bg-slate-50 transition-all duration-300 border border-transparent hover:border-slate-200 group"
-                >
-                  <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold ring-2 ring-slate-100 group-hover:ring-[#016733] transition-all duration-300">
-                      {user.first_name ? user.first_name.charAt(0).toUpperCase() : 'U'}
-                    </div>
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#016733] border-2 border-white rounded-full"></div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-slate-700 group-hover:text-slate-900 transition-colors capitalize">
-                      {user.first_name || 'User'}
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''
-                        }`}
-                    />
-                  </div>
-                </button>
-
-                <div
-                  className={`absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden transition-all duration-300 origin-top-right ${isProfileOpen
-                    ? 'opacity-100 scale-100 translate-y-0'
-                    : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                    }`}
-                >
-                  <div className="p-4 border-b border-slate-100 bg-gradient-to-br from-slate-50 to-white">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold text-lg ring-2 ring-slate-200">
-                        {user.first_name ? user.first_name.charAt(0).toUpperCase() : 'U'}
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-900">{`${user.first_name} ${user.last_name} ` || 'User'}</p>
-                        <p className="text-xs text-slate-500 truncate">{user.email || 'user@example.com'}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-2">
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-700 hover:text-[#016733] hover:bg-slate-50 rounded-xl transition-all duration-200 group"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-slate-100 group-hover:bg-[#016733]/10 flex items-center justify-center transition-colors duration-200">
-                        <User className="w-4 h-4 text-slate-600 group-hover:text-[#016733] transition-colors" />
-                      </div>
-                      <span>Profile</span>
-                    </Link>
-
-                    <Link
-                      href="my-bookings"
-                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-700 hover:text-[#1c1466] hover:bg-slate-50 rounded-xl transition-all duration-200 group"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-slate-100 group-hover:bg-[#1c1466]/10 flex items-center justify-center transition-colors duration-200">
-                        <BookOpen className="w-4 h-4 text-slate-600 group-hover:text-[#1c1466] transition-colors" />
-                      </div>
-                      <span>My Bookings</span>
-                    </Link>
-                  </div>
-
-                  <div className="p-2 border-t border-slate-100 bg-slate-50/50">
-                    <button
-                      onClick={() => {
-                        logout();
-                        setIsProfileOpen(false);
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center transition-colors duration-200">
-                        <LogOut className="w-4 h-4 text-red-600 transition-colors" />
-                      </div>
-                      <span>Logout</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div>
-          <button
-            onClick={() => setIsModalOpen(!isModalOpen)}
-            className="lg:hidden block py-2 "
-          >
-            {isModalOpen ? <IoClose size={25} /> : <Menu />}
-          </button>
-        </div>
-      </nav>
-
-      <div className={`bg-white absolute left-0  top-15 block lg:hidden w-full px-10 z-40 py-10 transition-all ease-in-out lg:min-h-0 min-h-screen duration-500 transform ${isModalOpen
-        ? "translate-y-0 opacity-100"
-        : "-translate-y-[110vh] opacity-40"
-        }`}>
-        <div className="flex flex-col justify-center gap-2 ">
+        {/* Desktop Nav Links */}
+        <div className="hidden lg:flex items-center gap-1">
           {menuItems.map((item) => (
             <Link
               key={item.key}
               href={item.url}
-              className={`hover:scale-105 hover:text-secondary duration-300 transition-all text-base font-medium font-montserrat ${isActive(item.url)}`}
-              onClick={() => setIsModalOpen(false)} // only in mobile nav
+              className={`
+            relative px-4 py-2 rounded-xl text-[15px] font-semibold font-montserrat
+            transition-all duration-300 ease-out
+            hover:bg-slate-50 hover:text-[#016733]
+            ${isActive(item.url)}
+          `}
             >
               {t(`navItems.${item.key}`)}
+              {/* Active indicator dot */}
+              <span
+                className={`
+              absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#016733]
+              transition-all duration-300
+              ${isActive(item.url) ? "opacity-100 scale-100" : "opacity-0 scale-0"}
+            `}
+              />
             </Link>
           ))}
+        </div>
 
-          <div className="flex flex-col  gap-4">
-            <Link
-              href="https://wa.me/966920032065"
-              className="flex gap-2 items-center lg:text-base font-medium"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5" />
-              966920032065
-            </Link>
+        {/* Desktop Right Actions */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/966920032065"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-all duration-300"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span className="hidden xl:inline">966920032065</span>
+          </a>
+
+          {/* Language Switcher */}
+          <div className="relative">
             <LanguageSwitcher />
+          </div>
 
-            {!user ? (
-              <Link
-                href="/signup"
-                className="py-3 px-5 text-white text-center rounded-2xl"
-                style={{
-                  background: 'linear-gradient(135deg, #016733, #1c1466)',
-                }}
+          {/* Divider */}
+          <div className="w-px h-8 bg-slate-200 mx-1" />
+
+          {/* Auth */}
+          {!user ? (
+            <Link
+              href="/signup"
+              className="group relative border border-[#016733] overflow-hidden inline-flex items-center justify-center gap-2 py-2.5 px-6 text-sm font-bold  rounded-xl shadow-lg shadow-indigo-900/15 hover:shadow-xl hover:shadow-indigo-900/20 active:scale-[0.97] transition-all duration-300"
+       
+            >
+              <span className="relative text-[#016733] z-10 flex items-center gap-2">
+                <UserPlus className="w-4 h-4 text-[#016733]" />
+                {t(`registerButton`)}
+              </span>
+            </Link>
+          ) : (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-3 pl-2 pr-4 py-2 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 border border-slate-100 hover:border-slate-200 active:scale-[0.98]"
               >
-                Register
-              </Link>
-            ) : (
-              <div className="flex flex-col gap-2 mt-4 p-4 bg-slate-50 rounded-2xl">
-                <div className="flex items-center gap-3 pb-4 border-b border-slate-200">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold text-lg ring-2 ring-slate-200">
-                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                <div className="relative">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold text-sm ring-2 ring-white shadow-md">
+                    {user.first_name ? user.first_name.charAt(0).toUpperCase() : 'U'}
                   </div>
-                  <div>
-                    <p className="font-semibold text-slate-900">{user.name || 'User'}</p>
-                    <p className="text-sm text-slate-500">{user.email || 'user@example.com'}</p>
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#016733] border-2 border-white rounded-full" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-slate-800 capitalize">
+                    {user.first_name || 'User'}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`}
+                  />
+                </div>
+              </button>
+
+              {/* Profile Dropdown */}
+              <div
+                className={`
+              absolute right-0 mt-3 w-72 bg-white/95 backdrop-blur-xl border border-slate-100 rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden transition-all duration-300 origin-top-right
+              ${isProfileOpen
+                    ? 'opacity-100 scale-100 translate-y-0'
+                    : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                  }
+            `}
+              >
+                {/* Header */}
+                <div className="p-5 bg-gradient-to-br from-slate-50 to-white border-b border-slate-100">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold text-lg ring-2 ring-slate-200 shadow-lg">
+                      {user.first_name ? user.first_name.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-900 truncate">
+                        {`${user.first_name || ''} ${user.last_name || ''}`.trim() || 'User'}
+                      </p>
+                      <p className="text-xs text-slate-500 truncate">{user.email || 'user@example.com'}</p>
+                    </div>
                   </div>
                 </div>
 
-                <Link
-                  href="/profile"
-                  className="flex items-center gap-3 py-3 px-3 font-medium text-slate-700 hover:bg-white rounded-xl transition-all"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <User className="w-5 h-5 text-[#016733]" />
-                  Profile
-                </Link>
+                {/* Menu Items */}
+                <div className="p-2">
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-700 hover:text-[#016733] hover:bg-slate-50 rounded-xl transition-all duration-200 group"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-slate-100 group-hover:bg-[#016733]/10 flex items-center justify-center transition-colors duration-200">
+                      <User className="w-4 h-4 text-slate-600 group-hover:text-[#016733] transition-colors" />
+                    </div>
+                    <span>Profile</span>
+                  </Link>
 
-                <Link
-                  href="/bookings"
-                  className="flex items-center gap-3 py-3 px-3 font-medium text-slate-700 hover:bg-white rounded-xl transition-all"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <BookOpen className="w-5 h-5 text-[#1c1466]" />
-                  My Bookings
-                </Link>
+                  <Link
+                    href="/my-bookings"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-700 hover:text-[#1c1466] hover:bg-slate-50 rounded-xl transition-all duration-200 group"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-slate-100 group-hover:bg-[#1c1466]/10 flex items-center justify-center transition-colors duration-200">
+                      <BookOpen className="w-4 h-4 text-slate-600 group-hover:text-[#1c1466] transition-colors" />
+                    </div>
+                    <span>My Bookings</span>
+                  </Link>
+                </div>
 
-                <button
-                  onClick={() => {
-                    logout();
-                    setIsModalOpen(false);
-                  }}
-                  className="flex items-center gap-3 py-3 px-3 text-red-600 font-medium text-left hover:bg-red-50 rounded-xl transition-all"
-                >
-                  <LogOut className="w-5 h-5" />
-                  Logout
-                </button>
+                {/* Logout */}
+                <div className="p-2 border-t border-slate-100 bg-slate-50/50">
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsProfileOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center transition-colors duration-200">
+                      <LogOut className="w-4 h-4 text-red-600" />
+                    </div>
+                    <span>Logout</span>
+                  </button>
+                </div>
               </div>
-            )}
+            </div>
+          )}
+        </div>
 
+        {/* Mobile Hamburger */}
+        <button
+          onClick={() => setIsModalOpen(!isModalOpen)}
+          className="lg:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
+        >
+          {isModalOpen ? <IoClose size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Bottom Sheet (from previous enhancement) */}
+      <div className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isModalOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+        <div
+          className={`
+    fixed inset-0 z-50 lg:hidden
+    transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
+    ${isModalOpen ? "pointer-events-auto" : "pointer-events-none"}
+  `}
+        >
+          {/* Backdrop with blur */}
+          <div
+            className={`
+      absolute inset-0 bg-slate-900/40 backdrop-blur-sm
+      transition-opacity duration-500
+      ${isModalOpen ? "opacity-100" : "opacity-0"}
+    `}
+            onClick={() => setIsModalOpen(false)}
+          />
+
+          {/* Slide-up panel */}
+          <div
+            className={`
+      absolute bottom-0 left-0 right-0
+      bg-white rounded-t-[2rem] shadow-2xl
+      transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
+      ${isModalOpen ? "translate-y-0" : "translate-y-full"}
+      max-h-[85vh] overflow-y-auto
+    `}
+          >
+            {/* Drag handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1.5 rounded-full bg-slate-300" />
+            </div>
+
+            {/* Close button */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+            >
+              <X className="w-5 h-5 text-slate-600" />
+            </button>
+
+            <div className="px-6 pb-8 pt-2">
+              {/* Navigation Links */}
+              <nav className="flex flex-col gap-1">
+                {menuItems.map((item, index) => (
+                  <Link
+                    key={item.key}
+                    href={item.url}
+                    onClick={() => setIsModalOpen(false)}
+                    className={`
+              group flex items-center justify-between
+              py-3.5 px-4 rounded-xl
+              text-base font-semibold font-montserrat
+              transition-all duration-300 ease-out
+              hover:bg-slate-50 active:scale-[0.98]
+              ${isActive(item.url)}
+            `}
+                    style={{
+                      transitionDelay: isModalOpen ? `${index * 40}ms` : "0ms",
+                      opacity: isModalOpen ? 1 : 0,
+                      transform: isModalOpen ? "translateX(0)" : "translateX(-20px)",
+                    }}
+                  >
+                    <span>{t(`navItems.${item.key}`)}</span>
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors" />
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Divider */}
+              <div className="my-4 h-px bg-slate-100" />
+
+              {/* WhatsApp & Language */}
+              <div className="flex flex-col gap-3 px-1">
+                <a
+                  href="https://wa.me/966920032065"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 py-3 px-4 rounded-xl bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
+                >
+                  <div className="p-2 rounded-lg bg-green-500 text-white">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <span className="font-semibold">966920032065</span>
+                </a>
+
+                <div className="py-2">
+                  <LanguageSwitcher />
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="my-4 h-px bg-slate-100" />
+
+              {/* Auth Section */}
+              {!user ? (
+                <Link
+                  href="/signup"
+                  onClick={() => setIsModalOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl text-white font-bold text-lg shadow-lg shadow-indigo-900/20 active:scale-[0.98] transition-all duration-200"
+                  style={{
+                    background: "linear-gradient(135deg, #016733, #1c1466)",
+                  }}
+                >
+                  <UserPlus className="w-5 h-5" />
+                  Register
+                </Link>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {/* User Card */}
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#016733] to-[#1c1466] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-900/20">
+                      {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-slate-900 truncate">
+                        {user.name || "User"}
+                      </p>
+                      <p className="text-sm text-slate-500 truncate">
+                        {user.email || "user@example.com"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* User Actions */}
+                  <div className="flex flex-col gap-1">
+                    <Link
+                      href="/profile"
+                      onClick={() => setIsModalOpen(false)}
+                      className="flex items-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.98] transition-all"
+                    >
+                      <div className="p-2 rounded-lg bg-[#016733]/10 text-[#016733]">
+                        <User className="w-4 h-4" />
+                      </div>
+                      Profile
+                    </Link>
+
+                    <Link
+                      href="/bookings"
+                      onClick={() => setIsModalOpen(false)}
+                      className="flex items-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.98] transition-all"
+                    >
+                      <div className="p-2 rounded-lg bg-[#1c1466]/10 text-[#1c1466]">
+                        <BookOpen className="w-4 h-4" />
+                      </div>
+                      My Bookings
+                    </Link>
+
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsModalOpen(false);
+                      }}
+                      className="flex items-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-red-600 hover:bg-red-50 active:scale-[0.98] transition-all text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-red-100">
+                        <LogOut className="w-4 h-4" />
+                      </div>
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   );
 };

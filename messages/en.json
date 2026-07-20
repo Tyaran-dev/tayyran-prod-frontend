@@ -4,7 +4,7 @@
       "home": "Home",
       "aboutUs": "About Us",
       "blog": "Blog",
-     "packages": "Tour Packages",
+      "packages": "Tour Packages",
       "freeticket": "Free Ticket",
       "contactUs": "Contact Us"
     },
@@ -249,88 +249,11 @@
     }
   },
   "FreeTicket": {
-    "dir": "rtl",
-    "brand": "قصة للسياحة",
-    "metadata": {
-      "title": "تذكرة طيران مجانية - قصة للسياحة",
-      "description": "عرض تذكرة طيران مجانية بقيمة 1,500 ريال سعودي عند حجز برنامج سياحي لشخصين أو أكثر من قصة للسياحة"
-    },
-    "nav": {
-      "home": "الرئيسية",
-      "trips": "الرحلات",
-      "freeTicket": "تذكرة مجانية",
-      "bookNow": "احجز الآن"
-    },
-    "hero": {
-      "badge": "عرض محدود لأول 50 حجزًا",
-      "title": {
-        "part1": "تذكرة طيران",
-        "part2": "مجانية",
-        "part3": "مع برنامجك السياحي"
-      },
-      "description": "احجز برنامجًا سياحيًا لشخصين أو أكثر من خلال منصة طيران، واحصل على تذكرة طيران مجانية بقيمة تصل إلى 1,500 ريال سعودي.",
-      "cta": "اطلب العرض الآن",
-      "contact": "تواصل معنا"
-    },
-    "stats": {
-      "perBooking": "تذكرة مجانية لكل حجز",
-      "maxAmount": "ريال سعودي كحد أقصى",
-      "available": "حجزًا فقط المتاح",
-      "perPerson": "أشخاص لكل حجز"
-    },
-    "howItWorks": {
-      "subtitle": "كيف تستفيد من العرض",
-      "title": "ثلاث خطوات بسيطة"
-    },
-    "steps": {
-      "step1": {
-        "title": "احجز برنامجًا سياحيًا",
-        "desc": "اختر برنامجًا سياحيًا من منصة طيران لشخصين أو أكثر."
-      },
-      "step2": {
-        "title": "استوفِ الشروط",
-        "desc": "تأكد من أن حجزك ضمن أول 50 حجزًا المستوفية للشروط."
-      },
-      "step3": {
-        "title": "احصل على تذكرتك",
-        "desc": "استلم تذكرة طيران مجانية بقيمة تصل إلى 1,500 ريال سعودي."
-      }
-    },
-    "termsSection": {
-      "subtitle": "التفاصيل الكاملة",
-      "title": "الشروط والأحكام",
-      "description": "يرجى قراءة الشروط والأحكام التالية بعناية قبل الاستفادة من العرض."
-    },
-    "terms": {
-      "1": "يسري العرض على أول 50 حجزًا فقط.",
-      "2": "يشترط حجز برنامج سياحي من خلال منصة طيران للاستفادة من العرض.",
-      "3": "يشترط أن يكون حجز البرنامج السياحي لشخصين أو أكثر.",
-      "4": "يشمل العرض تذكرة طيران مجانية واحدة فقط لشخص واحد عن كل حجز مستوفٍ للشروط.",
-      "5": "قيمة تذكرة الطيران المجانية لا تتجاوز 1,500 ريال سعودي، وفي حال تجاوز قيمة التذكرة هذا المبلغ، يتحمل العميل فرق السعر.",
-      "6": "إذا كانت قيمة تذكرة الطيران أقل من 1,500 ريال سعودي، يُعاد فرق القيمة للعميل نقدًا أو كرصيد في منصة طيران، وفق ما تحدده طيران.",
-      "7": "لا يمكن استبدال التذكرة المجانية بمبلغ نقدي أو رصيد أو أي خدمة أو عرض آخر، باستثناء الحالة المنصوص عليها في البند (6).",
-      "8": "العرض غير قابل للجمع مع أي عروض أو خصومات أخرى، ما لم يُذكر خلاف ذلك.",
-      "9": "يخضع العرض لتوفر المقاعد وتوفر البرامج السياحية وقت الحجز.",
-      "10": "يسري العرض على الحجوزات الجديدة فقط، ولا يشمل الحجوزات التي تم تأكيدها قبل إطلاق العرض.",
-      "11": "في حال إلغاء البرنامج السياحي بعد إصدار تذكرة الطيران، يحق لـطيران خصم قيمة التذكرة الصادرة، وبحد أقصى 1,500 ريال سعودي، بالإضافة إلى أي رسوم أو غرامات مستحقة وفق سياسة الإلغاء والتعديل.",
-      "12": "تحتفظ طيران بحق تعديل أو إنهاء العرض في أي وقت، دون أن يؤثر ذلك على الحجوزات التي تم تأكيدها خلال فترة سريان العرض.",
-      "13": "تطبق جميع الشروط والأحكام الخاصة بالحجز، بما في ذلك سياسات التعديل والإلغاء."
-    },
-    "cta": {
-      "title": "جاهز للاستفادة من العرض؟",
-      "description": "احجز برنامجك السياحي الآن واحصل على تذكرتك المجانية.",
-      "button": "احجز الآن"
-    },
-    "footer": {
-      "rights": "جميع الحقوق محفوظة."
-    }
-  },
-  "FreeTicket": {
     "dir": "ltr",
-    "brand": "Qissa for Tourism",
+    "brand": "Tayyran for Tourism",
     "metadata": {
-      "title": "Free Flight Ticket - Qissa for Tourism",
-      "description": "Free flight ticket offer worth 1,500 SAR when booking a tour package for 2 or more people from Qissa for Tourism"
+      "title": "Free Flight Ticket - Tayyran for Tourism",
+      "description": "Free flight ticket offer worth 1,500 SAR when booking a tour package for 2 or more people from Tayyran for Tourism"
     },
     "nav": {
       "home": "Home",
@@ -339,7 +262,7 @@
       "bookNow": "Book Now"
     },
     "hero": {
-      "badge": "Limited offer for first 50 bookings",
+      "badge": "Limited offer for first 50 Clients",
       "title": {
         "part1": "Free",
         "part2": "Flight Ticket",
@@ -355,6 +278,17 @@
       "available": "Bookings only available",
       "perPerson": "People per booking"
     },
+    "counter": {
+      "urgency": "HURRY — LIMITED FREE TICKETS AVAILABLE",
+      "total": "Total",
+      "totalTickets": "total tickets",
+      "booked": "Booked",
+      "ticketsClaimed": "tickets claimed",
+      "limited": "Limited",
+      "ticketsLeft": "tickets left",
+      "bookedPercentage": "Booked",
+      "remainingPercentage": "Remaining"
+    },
     "howItWorks": {
       "subtitle": "How to benefit from the offer",
       "title": "Three Simple Steps"
@@ -366,7 +300,7 @@
       },
       "step2": {
         "title": "Meet the Conditions",
-        "desc": "Make sure your booking is among the first 50 bookings that meet the conditions."
+        "desc": "Make sure you are among the first 50 Clients that meet the conditions."
       },
       "step3": {
         "title": "Get Your Ticket",

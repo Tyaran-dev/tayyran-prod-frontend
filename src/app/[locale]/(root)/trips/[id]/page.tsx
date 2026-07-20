@@ -17,6 +17,7 @@ type Trip = {
     'trip-type': string;
     'suggested-hotels': Array<{ text: string }>;
     faq_code: string;
+    trip_code: string;
   };
 };
 
