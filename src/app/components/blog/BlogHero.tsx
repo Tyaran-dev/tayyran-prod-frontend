@@ -14,7 +14,7 @@ export default function BlogHero() {
   const toggleHotelFlight = () => setIsHotel(!isHotel);
 
   return (
-    <div className="relative w-full  bg-blogGradient overflow-hidden rounded-b-[40px] shadow-lg mb-12 flex flex-col items-center justify-center p-4">
+    <div className="relative w-full  bg-blogGradient  rounded-b-[40px] shadow-lg mb-12 flex flex-col items-center justify-center p-4">
       {/* Decorative SVGs / Patterns */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
         <svg className="absolute top-10 left-10 w-32 h-32 animate-float-slow" fill="white" viewBox="0 0 24 24">
