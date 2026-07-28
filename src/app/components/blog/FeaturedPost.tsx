@@ -18,10 +18,9 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
 
   const wordCount = post.content.rendered.split(/\s+/).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-
   return (
     <div className="container mx-auto px-4 mb-16">
-      <Link href={`/blog/${post.slug}`} className="group relative block w-full rounded-[20px] overflow-hidden shadow-lg h-[450px] md:h-[500px]">
+      <Link href={`/blog/${categories[0]?.slug || 'uncategorized'}/${post.slug}`} className="group relative block w-full rounded-[20px] overflow-hidden shadow-lg h-[450px] md:h-[500px]">
 
         {/* Background Image */}
         <Image

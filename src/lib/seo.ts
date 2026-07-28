@@ -66,7 +66,7 @@ export async function generateArticleMetadata(post: WPPost): Promise<Metadata> {
   const title = rmParsed.title || stripHtml(post.title.rendered);
   const description = rmParsed.description || stripHtml(post.excerpt.rendered).substring(0, 160);
   const imageUrl = rmParsed.ogImage || post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/assets/images/blog-placeholder.jpg';
-  const url = rmParsed.canonical || `${SITE_URL}/blog/${post.slug}`;
+  const url = rmParsed.canonical || `${SITE_URL}/blog/${post._embedded?.['wp:term']?.[0]?.find(t => t.taxonomy === 'category')?.slug || 'uncategorized'}/${post.slug}`;
 
   return {
     title,

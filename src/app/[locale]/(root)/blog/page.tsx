@@ -1,12 +1,9 @@
 import { Metadata } from 'next';
-import { getPosts, getCategories } from '@/lib/wordpress';
+import { getPosts, getCategories, getPostsByCategoryIds } from '@/lib/wordpress';
 import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from '@/lib/seo';
 import BlogHero from '@/app/components/blog/BlogHero';
-import CategoryTabs from '@/app/components/blog/CategoryTabs';
-import FeaturedPost from '@/app/components/blog/FeaturedPost';
-import PostGrid from '@/app/components/blog/PostGrid';
-import Pagination from '@/app/components/blog/Pagination';
-import Newsletter from '@/app/components/blog/Newsletter';
+import RecentPosts from '@/app/components/blog/RecentPosts';
+import CategoryPostsSection from '@/app/components/blog/CategoryPostsSection';
 
 export const metadata: Metadata = {
   title: 'مجلة طيران | وجهات سياحية ونصائح سفر',
@@ -20,18 +17,19 @@ export default async function BlogPage(props: {
   const currentPage = Number(searchParams.page) || 1;
   const perPage = 9;
 
+  const categoryIds = [6, 12, 65];
   // Fetch data in parallel
-  const [postsResponse, categories] = await Promise.all([
+  const [postsResponse, categories, ...categoryResponses] = await Promise.all([
     getPosts(currentPage, perPage),
     getCategories(),
+    ...categoryIds.map((id) => getPostsByCategoryIds([id], 1, 6)),
   ]);
 
-  const { data: posts, totalPages } = postsResponse;
-
-  // First page shows the first post as featured, and the rest in the grid
-  const isFirstPage = currentPage === 1;
-  const featuredPost = isFirstPage && posts.length > 0 ? posts[0] : null;
-  const gridPosts = isFirstPage ? posts.slice(1) : posts;
+  const posts = postsResponse.data;
+  const featuredCategoryPosts = categoryIds.map((id, index) => ({
+    id,
+    posts: categoryResponses[index]?.data ?? [],
+  }));
 
   // SEO JSON-LD
   const jsonLdOrg = generateOrganizationJsonLd();
@@ -52,27 +50,29 @@ export default async function BlogPage(props: {
       />
 
       <BlogHero />
-      <CategoryTabs categories={categories} />
+      <div className="mt-4">
+        {featuredCategoryPosts.map(({ id, posts: sectionPosts }) => {
+          const category = categories.find((item) => item.id === id) ?? null;
 
-      {featuredPost && <FeaturedPost post={featuredPost} />}
-
-      {isFirstPage ? (
-        gridPosts.length > 0 && (
-          <PostGrid posts={gridPosts} title={isFirstPage ? 'أحدث المقالات' : `المقالات (صفحة ${currentPage})`} />
-        )
-      ) : (
-        <PostGrid posts={gridPosts} title={isFirstPage ? 'أحدث المقالات' : `المقالات (صفحة ${currentPage})`} />
-      )}
-
-      <Pagination
+          return (
+            <CategoryPostsSection
+              key={id}
+              category={category}
+              categoryId={id}
+              posts={sectionPosts}
+            />
+          );
+        })}
+      </div>
+      <RecentPosts
+        posts={posts}
+        categories={categories}
         currentPage={currentPage}
-        totalPages={totalPages}
-        baseUrl="/blog"
+        totalPages={postsResponse.totalPages}
+        featured={true}
       />
 
-      <div className="container mx-auto px-4 mt-20">
-        <Newsletter />
-      </div>
+
     </main>
   );
 }

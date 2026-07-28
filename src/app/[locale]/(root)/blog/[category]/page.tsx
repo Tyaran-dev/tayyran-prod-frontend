@@ -1,19 +1,21 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getPostsByCategory, getCategoryBySlug, getCategories } from '@/lib/wordpress';
+import { notFound, redirect } from 'next/navigation';
+import { getPostsByCategory, getCategoryBySlug, getCategories, getPostBySlug } from '@/lib/wordpress';
+import { getPostCategories } from '@/lib/utils';
 import BlogHero from '@/app/components/blog/BlogHero';
 import CategoryTabs from '@/app/components/blog/CategoryTabs';
 import PostGrid from '@/app/components/blog/PostGrid';
 import Pagination from '@/app/components/blog/Pagination';
 import Newsletter from '@/app/components/blog/Newsletter';
+import RecentPosts from '@/app/components/blog/RecentPosts';
 
 export async function generateMetadata(props: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const decodedSlug = decodeURIComponent(params.slug);
+  const decodedSlug = decodeURIComponent(params.category);
   const category = await getCategoryBySlug(decodedSlug);
-  
+
   if (!category) {
     return { title: 'تصنيف غير موجود | مجلة طيران' };
   }
@@ -25,19 +27,28 @@ export async function generateMetadata(props: {
 }
 
 export default async function CategoryPage(props: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string }>;
   searchParams: Promise<{ page?: string }>;
 }) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const decodedSlug = decodeURIComponent(params.slug);
+  const decodedSlug = decodeURIComponent(params.category);
   const currentPage = Number(searchParams.page) || 1;
   const perPage = 9;
 
-  // Fetch category first to get its ID
+  // Try to find a matching category first
   const category = await getCategoryBySlug(decodedSlug);
 
   if (!category) {
+    // No category found — check if this slug belongs to a post (legacy /blog/postSlug URL).
+    // If so, redirect to the canonical /blog/categorySlug/postSlug URL.
+    const post = await getPostBySlug(decodedSlug);
+    if (post) {
+      const postCategories = getPostCategories(post);
+      const primaryCategorySlug = postCategories[0]?.slug || 'uncategorized';
+      redirect(`/blog/${primaryCategorySlug}/${decodedSlug}`);
+    }
+
     notFound();
   }
 
@@ -52,22 +63,17 @@ export default async function CategoryPage(props: {
   return (
     <main className="bg-blog-bg min-h-screen pb-20">
       <BlogHero />
-      <CategoryTabs categories={allCategories} activeSlug={decodedSlug} />
-
-      <PostGrid 
-        posts={posts} 
-        title={`مقالات في: ${category.name}`} 
-      />
-      
-      <Pagination 
-        currentPage={currentPage} 
-        totalPages={totalPages} 
-        baseUrl={`/blog/category/${category.slug}`} 
+      <RecentPosts
+        posts={posts}
+        categories={allCategories}
+        currentPage={currentPage}
+        totalPages={postsResponse.totalPages}
+        featured={false}
+        baseUrl={`/blog/${decodedSlug}`}
       />
 
-      <div className="container mx-auto px-4 mt-20">
-        <Newsletter />
-      </div>
+
+
     </main>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import CategoryTree from './CategoryTree';
 
 interface WPCategory {
   id: number;
@@ -88,6 +89,8 @@ export default function CategoryTabs({
   // Show both arrows as a pair whenever any overflow exists; dim the inactive end
   const hasOverflow = canScrollLeft || canScrollRight;
 
+  console.log(categories, "categories")
+
   return (
     <div className="w-full mb-12 relative z-20">
       <div className="container mx-auto px-4">
@@ -96,16 +99,14 @@ export default function CategoryTabs({
 
           {/* ── Left fade + arrow ── */}
           <div
-            className={`absolute left-0 top-0 bottom-0 w-16 rounded-l-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-r from-white to-transparent ${
-              canScrollLeft ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute left-0 top-0 bottom-0 w-16 rounded-l-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-r from-white to-transparent ${canScrollLeft ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <button
             onClick={() => scrollTrack('left')}
             aria-label="Scroll left"
-            className={`absolute left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${
-              hasOverflow ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            } ${canScrollLeft ? 'text-gray-600 hover:text-gray-900 hover:shadow-md' : 'text-gray-300 cursor-default'}`}
+            className={`absolute left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${hasOverflow ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              } ${canScrollLeft ? 'text-gray-600 hover:text-gray-900 hover:shadow-md' : 'text-gray-300 cursor-default'}`}
           >
             <ChevronLeft size={16} />
           </button>
@@ -113,98 +114,30 @@ export default function CategoryTabs({
           {/* ── Scrollable track ─────────────────────────────────────────
               overflow-x:auto is isolated here. Dropdowns are rendered
               as siblings (outside this div) so they are never clipped. ── */}
-          <div
-            ref={scrollRef}
-            className="flex items-center gap-3 px-4 py-3"
-            style={{ overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {/* All tab */}
-            <Link
-              href={`${localePrefix}/blog`}
-              className={`flex-none px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
-                !activeSlug
-                  ? 'bg-blogGradient text-white shadow-md scale-105'
-                  : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              {allLabel}
-            </Link>
+          <div className="rounded-2xl bg-white shadow-lg border border-gray-100 p-4">
 
-            {categories.map((category) => (
-              <div
+            {categories.map(category => (
+
+              <CategoryTree
                 key={category.id}
-                className="flex-none"
-                onPointerEnter={(e) => {
-                  if (e.pointerType === 'touch') return;
-                  if (category.children?.length) openDropdown(category.id, e.currentTarget);
-                }}
-                onPointerLeave={(e) => {
-                  if (e.pointerType === 'touch') return;
-                  if (category.children?.length) scheduleClose();
-                }}
-              >
-                {category.children && category.children.length > 0 ? (
-                  <div className="flex items-center">
-                    <button
-                      onClick={(e) => {
-                        if (dropdown?.id === category.id) {
-                          setDropdown(null);
-                        } else {
-                          openDropdown(category.id, e.currentTarget.closest('.flex-none') as HTMLElement || e.currentTarget);
-                        }
-                      }}
-                      className={`px-3 py-2.5 rounded-l-xl transition-all flex items-center justify-center ${
-                        isActive(category.slug) || category.children.some((c) => isActive(c.slug))
-                          ? 'bg-blogGradient text-white shadow-md scale-105 opacity-90'
-                          : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      <ChevronDown
-                        size={18}
-                        className={`transition-transform ${
-                          dropdown?.id === category.id ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
-                    <Link
-                      href={`${localePrefix}/blog/category/${category.slug}`}
-                      className={`px-5 py-2.5 rounded-r-xl font-semibold whitespace-nowrap transition-all flex items-center border-l border-gray-200 ${
-                        isActive(category.slug) || category.children.some((c) => isActive(c.slug))
-                          ? 'bg-blogGradient text-white shadow-md scale-105'
-                          : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      {category.name}
-                    </Link>
-                  </div>
-                ) : (
-                  <Link
-                    href={`${localePrefix}/blog/category/${category.slug}`}
-                    className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all block ${
-                      isActive(category.slug)
-                        ? 'bg-blogGradient text-white shadow-md scale-105'
-                        : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    {category.name}
-                  </Link>
-                )}
-              </div>
+                category={category}
+                activeSlug={activeSlug}
+              />
+
             ))}
+
           </div>
 
           {/* ── Right fade + arrow ── */}
           <div
-            className={`absolute right-0 top-0 bottom-0 w-16 rounded-r-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-l from-white to-transparent ${
-              canScrollRight ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute right-0 top-0 bottom-0 w-16 rounded-r-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-l from-white to-transparent ${canScrollRight ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <button
             onClick={() => scrollTrack('right')}
             aria-label="Scroll right"
-            className={`absolute right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${
-              hasOverflow ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            } ${canScrollRight ? 'text-gray-600 hover:text-gray-900 hover:shadow-md' : 'text-gray-300 cursor-default'}`}
+            className={`absolute right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${hasOverflow ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              } ${canScrollRight ? 'text-gray-600 hover:text-gray-900 hover:shadow-md' : 'text-gray-300 cursor-default'}`}
           >
             <ChevronRight size={16} />
           </button>
@@ -222,12 +155,11 @@ export default function CategoryTabs({
               {activeDropdownCategory.children!.map((child) => (
                 <Link
                   key={child.id}
-                  href={`${localePrefix}/blog/category/${child.slug}`}
-                  className={`block px-4 py-3 text-sm font-medium transition-colors ${
-                    isActive(child.slug)
-                      ? 'bg-blog-bg text-blog-primary'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-blog-primary'
-                  }`}
+                  href={`${localePrefix}/blog/${child.slug}`}
+                  className={`block px-4 py-3 text-sm font-medium transition-colors ${isActive(child.slug)
+                    ? 'bg-blog-bg text-blog-primary'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-blog-primary'
+                    }`}
                 >
                   {child.name}
                 </Link>

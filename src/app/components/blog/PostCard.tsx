@@ -23,7 +23,7 @@ export default function PostCard({ post }: PostCardProps) {
   return (
     <article className="group bg-white rounded-[20px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 flex flex-col h-full">
       {/* Image Container */}
-      <Link href={`/blog/${post.slug}`} className="relative h-56 w-full overflow-hidden block shrink-0">
+      <Link href={`/blog/${categories[0]?.slug}/${post.slug}`} className="relative h-56 w-full overflow-hidden block shrink-0">
         <Image
           src={imageUrl}
           alt={post.title.rendered.replace(/<[^>]+>/g, '')}
@@ -44,7 +44,7 @@ export default function PostCard({ post }: PostCardProps) {
 
       {/* Content Container */}
       <div className="p-6 flex flex-col grow">
-        <Link href={`/blog/${post.slug}`} className="block mb-3">
+        <Link href={`/blog/${categories[0]?.slug || 'uncategorized'}/${post.slug}`} className="block mb-3">
           <h2
             className="text-xl font-bold text-blog-secondary line-clamp-2 group-hover:text-blog-primary transition-colors leading-snug"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}

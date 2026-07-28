@@ -73,25 +73,35 @@ export async function getCategories(): Promise<WPCategory[]> {
 
   try {
     const res = await fetch(url, fetchOptions);
-    if (!res.ok) throw new Error(`WordPress API error: ${res.status}`);
+
+    if (!res.ok) {
+      throw new Error(`WordPress API error: ${res.status}`);
+    }
 
     const categories: WPCategory[] = await res.json();
 
-    // Filter out "Uncategorized"
+    // Remove Uncategorized
     const filtered = categories.filter(
-      (cat) => cat.slug !== 'uncategorized' && cat.name !== 'Uncategorized'
+      (cat) =>
+        cat.slug !== "uncategorized" &&
+        cat.name !== "Uncategorized"
     );
 
-    // Build hierarchy: attach children to parents
-    const parentCategories = filtered.filter((cat) => cat.parent === 0);
-    const childCategories = filtered.filter((cat) => cat.parent !== 0);
+    /**
+     * Build tree recursively
+     */
+    const buildTree = (parentId: number): WPCategory[] => {
+      return filtered
+        .filter((cat) => cat.parent === parentId)
+        .map((cat) => ({
+          ...cat,
+          children: buildTree(cat.id),
+        }));
+    };
 
-    return parentCategories.map((parent) => ({
-      ...parent,
-      children: childCategories.filter((child) => child.parent === parent.id),
-    }));
+    return buildTree(0);
   } catch (error) {
-    console.error('Failed to fetch categories:', error);
+    console.error("Failed to fetch categories:", error);
     return [];
   }
 }
@@ -144,6 +154,38 @@ export async function getPostsByCategory(
     return { data, totalPages, totalPosts, currentPage: page };
   } catch (error) {
     console.error('Failed to fetch posts by category:', error);
+    return { data: [], totalPages: 0, totalPosts: 0, currentPage: page };
+  }
+}
+
+/**
+ * Fetch posts by multiple category IDs with pagination.
+ */
+export async function getPostsByCategoryIds(
+  categoryIds: number[],
+  page: number = 1,
+  perPage: number = 6
+): Promise<WPPaginatedResponse<WPPost>> {
+  const categoriesParam = categoryIds.join(',');
+  const url = `${WP_API_BASE}/posts?_embed&categories=${categoriesParam}&page=${page}&per_page=${perPage}`;
+
+  try {
+    const res = await fetch(url, fetchOptions);
+
+    if (!res.ok) {
+      if (res.status === 400) {
+        return { data: [], totalPages: 0, totalPosts: 0, currentPage: page };
+      }
+      throw new Error(`WordPress API error: ${res.status}`);
+    }
+
+    const data: WPPost[] = await res.json();
+    const totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1', 10);
+    const totalPosts = parseInt(res.headers.get('X-WP-Total') || '0', 10);
+
+    return { data, totalPages, totalPosts, currentPage: page };
+  } catch (error) {
+    console.error('Failed to fetch posts by category IDs:', error);
     return { data: [], totalPages: 0, totalPosts: 0, currentPage: page };
   }
 }

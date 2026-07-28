@@ -408,7 +408,7 @@ const Page: React.FC = () => {
           <Stepper currentStep={currentStep} stepsType="flightSteps" />
         </div>
         <div className=" p-4">
-          <FlightSearchForm />
+          <FlightSearchForm type="detailsPage" />
         </div>
         <div className="flex items-center md:items-start flex-nowrap flex-col md:flex-row justify-center md:justify-between gap-2 py-10">
           {/* Filter Sidebar */}

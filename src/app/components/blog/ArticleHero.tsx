@@ -19,6 +19,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
 
   const wordCount = post.content.rendered.split(/\s+/).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  const primaryCategorySlug = categories[0]?.slug || 'uncategorized';
 
   const breadcrumbItems = [
     { name: t('articleHero.breadcrumb.home'), url: '/' },
@@ -28,16 +29,16 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
   if (categories.length > 0) {
     breadcrumbItems.push({
       name: categories[0].name,
-      url: `/blog/category/${categories[0].slug}`,
+      url: `/blog/${categories[0].slug}`,
     });
   }
 
   breadcrumbItems.push({
     name: post.title.rendered.replace(/<[^>]+>/g, ''),
-    url: `/blog/${post.slug}`,
+    url: `/blog/${primaryCategorySlug}/${post.slug}`,
   });
 
-  console.log(categories,"categories")
+  console.log(categories, "categories")
 
   return (
     <header className="relative w-full mb-12">
@@ -65,7 +66,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
                 {categories.map(cat => (
-                  <Link key={cat.id} href={`/blog/category/${cat.slug}`} className="bg-blog-accent text-blog-secondary px-4 py-1.5 text-sm font-bold rounded-full shadow-md">
+                  <Link key={cat.id} href={`/blog/${cat.slug}`} className="bg-blog-accent text-blog-secondary px-4 py-1.5 text-sm font-bold rounded-full shadow-md">
                     {cat.name}
                   </Link>
                 ))}
@@ -101,7 +102,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
               </div>
 
               <div className="shrink-0">
-                <ShareButtons url={`https://tayyran.com/blog/${post.slug}`} title={post.title.rendered.replace(/<[^>]+>/g, '')} theme="light" />
+                <ShareButtons url={`https://tayyran.com/blog/${primaryCategorySlug}/${post.slug}`} title={post.title.rendered.replace(/<[^>]+>/g, '')} theme="light" />
               </div>
 
             </div>

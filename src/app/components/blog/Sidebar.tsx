@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { WPPost, WPCategory } from '@/types/wordpress';
-import { getFeaturedImageUrl, formatDate } from '@/lib/utils';
+import { getFeaturedImageUrl, formatDate, getPostCategories } from '@/lib/utils';
 import TableOfContents from './TableOfContents';
 import { useTranslations } from 'next-intl';
 
@@ -27,7 +27,7 @@ export default function Sidebar({ latestPosts, categories }: SidebarProps) {
             {latestPosts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${getPostCategories(post)[0]?.slug || 'uncategorized'}/${post.slug}`}
                 className="group flex gap-4 items-center"
               >
                 <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
@@ -63,7 +63,7 @@ export default function Sidebar({ latestPosts, categories }: SidebarProps) {
             {categories.slice(0, 8).map((cat) => (
               <Link
                 key={cat.id}
-                href={`/blog/category/${cat.slug}`}
+                href={`/blog/${cat.slug}`}
                 className="flex items-center justify-between p-3 rounded-xl hover:bg-blog-bg transition-colors group"
               >
                 <span className="text-gray-700 font-medium group-hover:text-blog-primary transition-colors">

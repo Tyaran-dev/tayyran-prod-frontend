@@ -13,7 +13,11 @@
   "blog": {
     "hero": {
       "title": "Tayyran Magazine",
-      "subtitle": "Discover new destinations, travel tips, and aviation news in one place."
+      "subtitle": "Discover new destinations, travel tips, and aviation news in one place.",
+      "searchForm": {
+        "formTypeFlights": "Flights",
+        "formTypeHotels": "Hotels"
+      }
     },
     "articleHero": {
       "breadcrumb": {
