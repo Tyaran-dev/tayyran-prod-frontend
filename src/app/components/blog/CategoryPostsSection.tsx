@@ -23,7 +23,7 @@ export default function CategoryPostsSection({
     }
 
     return (
-        <section className="container mx-auto px-4 py-8 md:py-12">
+        <section className="container mx-auto px-4 py-8 md:py-16">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-8">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-blog-secondary">
@@ -34,18 +34,24 @@ export default function CategoryPostsSection({
                     </p>
                 </div>
 
+
+            </div>
+
+            <div className="content flex flex-col gap-16">
+
+
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    {visiblePosts.map((post) => (
+                        <PostCard key={post.id} post={post} />
+                    ))}
+                </div>
                 <Link
                     href={categoryHref}
-                    className="inline-flex items-center justify-center rounded-full bg-blog-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blog-secondary"
+                    className="inline-flex self-center items-center  justify-center rounded-full w-48 bg-blog-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blog-secondary"
                 >
                     قراءة المزيد
                 </Link>
-            </div>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {visiblePosts.map((post) => (
-                    <PostCard key={post.id} post={post} />
-                ))}
             </div>
         </section>
     );

@@ -19,6 +19,7 @@ import ClientLayout from "./client-layout";
 import Navbar from "../components/shared/navbar";
 import Footer from "../components/shared/footer/Footer";
 import { FloatingChatButton } from "../components/shared/floating-chat/FloatingChatButton";
+import { organizationSchema } from "@/lib/schema";
 const inter = Inter({
   subsets: ['latin'], // you can specify ['latin', 'cyrillic', etc.]
   display: 'swap',    // optional, but good for performance
@@ -93,6 +94,10 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body>

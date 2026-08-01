@@ -27,31 +27,30 @@ const RecentPosts = ({ posts, categories, currentPage, totalPages, featured, bas
     const gridPosts = isFirstPage ? posts.slice(1) : posts;
 
     return (
-        <Section className="recent-posts-container flex">
-            <div className="filter w-[25%]">
-                <CategoryTabs categories={categories} />
-            </div>
-
-            <div className="posts">
+        <Section className="recent-posts-container flex  justify-center items-center flex-col gap-8 py-8">
+            <div className="">
 
 
-                {featured && featuredPost && <FeaturedPost post={featuredPost} />}
+                <div className="posts">
+                    {featured && featuredPost && <FeaturedPost post={featuredPost} />}
+                    {gridPosts.length > 0 && (
+                        <PostGrid
+                            posts={gridPosts}
+                            title={isFirstPage ? 'أحدث المقالات ' : `المقالات (صفحة ${currentPage})`}
+                        />
+                    )}
 
-
-                {gridPosts.length > 0 && (
-                    <PostGrid
-                        posts={gridPosts}
-                        title={isFirstPage ? 'أحدث المقالات' : `المقالات (صفحة ${currentPage})`}
-                    />
-                )}
-
-                <Pagination
+                    {/* <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
                     baseUrl={baseUrl}
-                />
-            </div>
+                /> */}
+                </div>
 
+            </div>
+            <div className="filter w-[100%]">
+                <CategoryTabs categories={categories} />
+            </div>
         </Section>
     );
 };
