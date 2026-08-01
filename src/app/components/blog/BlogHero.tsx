@@ -35,11 +35,11 @@ export default function BlogHero() {
       </div>
 
       {/* Search Card with Toggle */}
-      <div className="relative z-10 bg-white w-full max-w-[780px] rounded-3xl shadow-2xl shadow-slate-900/20">
+      <div className="relative z-10 bg-white w-full max-w-[1200px] rounded-3xl shadow-2xl shadow-slate-900/20">
         {/* Decorative top gradient line */}
         <div className="h-1.5 w-full bg-gradient-to-r from-[#016733] via-[#1c1466] to-[#016733]" />
 
-        <div className="p-5 md:p-8">
+        <div className="p-2 ">
           {/* Toggle Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function BlogHero() {
             </button>
           </div>
 
-          {isHotel ? <HotelSearch /> : <FlightSearchForm />}
+          {isHotel ? <HotelSearch type="blog" /> : <FlightSearchForm type="blog" />}
         </div>
       </div>
     </div>
