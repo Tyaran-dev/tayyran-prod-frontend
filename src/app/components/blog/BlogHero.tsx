@@ -7,14 +7,19 @@ import { AiroplanIcon, BedIcon } from '@/app/svg';
 import FlightSearchForm from '../website/flight-search/search-form';
 import HotelSearch from '../website/hotel-search/HotelSearch';
 
-export default function BlogHero() {
+interface BlogHeroProps {
+  variant?: 'default' | 'post';
+}
+
+export default function BlogHero({ variant = 'default' }: BlogHeroProps) {
   const t = useTranslations('blog');
   const [isHotel, setIsHotel] = useState(false);
+  const isPost = variant === 'post';
 
   const toggleHotelFlight = () => setIsHotel(!isHotel);
 
   return (
-    <div className="relative w-full  bg-blogGradient  rounded-b-[40px] shadow-lg mb-12 flex flex-col items-center justify-center p-4">
+    <div className={`relative w-full bg-blogGradient rounded-b-[40px] shadow-lg mb-12 flex flex-col items-center justify-center p-4 ${isPost ? 'pt-10 pb-12' : ''}`}>
       {/* Decorative SVGs / Patterns */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
         <svg className="absolute top-10 left-10 w-32 h-32 animate-float-slow" fill="white" viewBox="0 0 24 24">
@@ -25,17 +30,19 @@ export default function BlogHero() {
         </svg>
       </div>
 
-      <div className="relative z-10 text-center max-w-3xl mx-auto mt-16">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight drop-shadow-md">
-          {t('hero.title')}
-        </h1>
-        <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto font-medium">
-          {t('hero.subtitle')}
-        </p>
-      </div>
+      {!isPost && (
+        <div className="relative z-10 text-center max-w-3xl mx-auto mt-16">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight drop-shadow-md">
+            {t('hero.title')}
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto font-medium">
+            {t('hero.subtitle')}
+          </p>
+        </div>
+      )}
 
       {/* Search Card with Toggle */}
-      <div className="relative z-10 bg-white w-full max-w-[1200px] rounded-3xl shadow-2xl shadow-slate-900/20">
+      <div className={`relative z-10 bg-white w-full max-w-[1200px] rounded-3xl shadow-2xl shadow-slate-900/20 ${isPost ? 'mt-8' : ''}`}>
         {/* Decorative top gradient line */}
         <div className="h-1.5 w-full bg-gradient-to-r from-[#016733] via-[#1c1466] to-[#016733]" />
 

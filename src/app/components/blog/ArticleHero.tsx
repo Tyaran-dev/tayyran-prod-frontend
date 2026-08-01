@@ -1,3 +1,6 @@
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { WPPost } from '@/types/wordpress';
 import { getFeaturedImageUrl, getPostCategories, getAuthor, formatDate } from '@/lib/utils';
@@ -6,6 +9,10 @@ import ShareButtons from './ShareButtons';
 import Breadcrumb from './Breadcrumb';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { ArrowRightLeft } from 'lucide-react';
+import { AiroplanIcon, BedIcon } from '@/app/svg';
+import FlightSearchForm from '../website/flight-search/search-form';
+import HotelSearch from '../website/hotel-search/HotelSearch';
 
 interface ArticleHeroProps {
   post: WPPost;
@@ -13,6 +20,7 @@ interface ArticleHeroProps {
 
 export default function ArticleHero({ post }: ArticleHeroProps) {
   const t = useTranslations('blog');
+  const [isHotel, setIsHotel] = useState(false);
   const imageUrl = getFeaturedImageUrl(post, 'full');
   const categories = getPostCategories(post);
   const author = getAuthor(post);
@@ -38,7 +46,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
     url: `/blog/${primaryCategorySlug}/${post.slug}`,
   });
 
-  console.log(categories, "categories")
+  const toggleHotelFlight = () => setIsHotel(!isHotel);
 
   return (
     <header className="relative w-full mb-12">
@@ -52,6 +60,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
           sizes="100vw"
           className="object-cover"
         />
+
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-blog-secondary/95 via-blog-secondary/60 to-black/20" />
 
@@ -78,7 +87,7 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
               dangerouslySetInnerHTML={{ __html: post.title.rendered }}
             />
 
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-t border-white/20 pt-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-t mb-16 border-white/20 pt-6">
 
               <div className="flex items-center gap-6">
                 <AuthorCard author={author} variant="inline-light" />
@@ -109,6 +118,38 @@ export default function ArticleHero({ post }: ArticleHeroProps) {
           </div>
         </div>
       </div>
+
+      <div className="relative z-20 -mt-20 mx-auto w-full max-w-[1200px] px-4 lg:px-0">
+        <div className="bg-white/95 backdrop-blur rounded-3xl shadow-2xl shadow-slate-900/20 p-4 lg:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5">
+            <div className="flex items-center gap-3">
+              <div className={`p-3 rounded-2xl ${isHotel ? 'bg-emerald-100 text-emerald-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                {isHotel ? <BedIcon color="currentColor" /> : <AiroplanIcon color="currentColor" />}
+              </div>
+              <div>
+                <p className="text-base font-semibold text-slate-900">
+                  {isHotel ? t('hero.searchForm.formTypeHotels') : t('hero.searchForm.formTypeFlights')}
+                </p>
+                <p className="text-sm text-slate-500">
+                  {isHotel ? t('hero.searchForm.formTypeHotels') : t('hero.searchForm.formTypeFlights')}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={toggleHotelFlight}
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+            >
+              <ArrowRightLeft className="w-4 h-4" />
+              {isHotel ? t('hero.searchForm.formTypeFlights') : t('hero.searchForm.formTypeHotels')}
+            </button>
+          </div>
+
+          {isHotel ? <HotelSearch type="blog" /> : <FlightSearchForm type="blog" />}
+        </div>
+      </div>
+
     </header>
   );
 }
