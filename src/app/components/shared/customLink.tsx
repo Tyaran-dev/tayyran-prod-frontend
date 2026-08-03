@@ -21,7 +21,7 @@ const CustomLink: React.FC<LinkWithIconProps> = ({
   return (
     <Link
       href={href}
-      className={` flex gap-2 items-center bg-green rounded-2xl md:py-3 py-2 cursor-pointer hover:scale-105 duration-300 transition-all md:px-7 px-5 ${className}`}
+      className={` flex gap-2 items-center justify-center bg-green rounded-2xl md:py-3 py-2 cursor-pointer hover:scale-105 duration-300 transition-all md:px-7 px-5 ${className}`}
     >
       <p className={`text-base  text-white ${style}`}>{label}</p>
       {/* <IoMdArrowForward className="text-white text-xl" /> */}

@@ -23,17 +23,17 @@ const MobileAppSection = (props: Props) => {
             <Section>
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 items-center justify-between">
                     <div className="space-y-5 lg:w-3/4">
-                        <SubHeading className='!text-grayText'>{t("mobileAppSection.heading")}</SubHeading>
+                        <SubHeading className='!text-grayText !text-lg my-2'>{t("mobileAppSection.heading")}</SubHeading>
                         <ParaHeading className='!text-black !font-bold'>  {t("mobileAppSection.exprensHeading")} </ParaHeading>
                         <SubHeading className='!text-grayText'>{t("mobileAppSection.subHeading")}</SubHeading>
                         <Button label={t("mobileAppSection.downloadButton")} style="!bg-orange" />
                         <div className="flex gap-5 p-8 items-center">
                             <Link href="https://play.google.com/store/apps/details?id=com.tayyran.tayyran_app" className="hover:scale-105 duration-300 transition-all">
-                                <Image src={playstore} alt='' className='' />
+                                <Image src={playstore} alt='' className='min-w-32' />
                             </Link>
 
                             <Link href="https://apps.apple.com/sa/app/tayyran/id6756125501" className="hover:scale-105 duration-300 transition-all">
-                                <Image src={appstore} alt='' className='' />
+                                <Image src={appstore} alt='' className='w-32' />
                             </Link>
                         </div>
 

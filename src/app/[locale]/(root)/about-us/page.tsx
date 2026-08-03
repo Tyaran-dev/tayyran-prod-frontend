@@ -15,6 +15,14 @@ import {
 } from 'react-icons/fa';
 import { CiPlane } from "react-icons/ci";
 
+import type { Metadata } from 'next';
+
+// Add metadata for this page
+export const metadata: Metadata = {
+    title: 'عن منصة طيران | وجهتك الأولى لحجز رحلات الطيران بكل سهولة',
+    description: 'تعرّف على منصة طيران، المنصة الرائدة في تقديم حلول حجز رحلات الطيران ومقارنة الأسعار. نلتزم بتوفير أسهل تجربة حجز، خيارات دفع آمنة، ودعم عملاء متكامل على مدار الساعة.'
+
+}
 
 export default function Home() {
     const t = useTranslations('about-us');
