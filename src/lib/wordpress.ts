@@ -135,7 +135,7 @@ export async function getPostsByCategory(
   page: number = 1,
   perPage: number = 9
 ): Promise<WPPaginatedResponse<WPPost>> {
-  const url = `${WP_API_BASE}/posts?_embed&categories=${categoryId}&page=${page}&per_page=${perPage}`;
+  const url = `${WP_API_BASE}/posts?_embed&categories=${categoryId}`;
 
   try {
     const res = await fetch(url, fetchOptions);
@@ -188,6 +188,44 @@ export async function getPostsByCategoryIds(
     console.error('Failed to fetch posts by category IDs:', error);
     return { data: [], totalPages: 0, totalPosts: 0, currentPage: page };
   }
+}
+
+/**
+ * Fetch all posts for the given category IDs across every page.
+ */
+export async function getAllPostsByCategoryIds(
+  categoryIds: number[]
+): Promise<WPPost[]> {
+  if (categoryIds.length === 0) return [];
+
+  const categoriesParam = categoryIds.join(',');
+  const perPage = 100;
+  let page = 1;
+  let allPosts: WPPost[] = [];
+  let totalPages = 1;
+
+  while (page <= totalPages) {
+    const url = `${WP_API_BASE}/posts?_embed&categories=${categoriesParam}&page=${page}&per_page=${perPage}`;
+    try {
+      const res = await fetch(url, fetchOptions);
+      if (!res.ok) {
+        if (res.status === 400) break;
+        throw new Error(`WordPress API error: ${res.status}`);
+      }
+
+      const data: WPPost[] = await res.json();
+      totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1', 10);
+      allPosts = allPosts.concat(data);
+
+      if (data.length === 0) break;
+      page += 1;
+    } catch (error) {
+      console.error('Failed to fetch all posts by category IDs:', error);
+      break;
+    }
+  }
+
+  return allPosts;
 }
 
 /**

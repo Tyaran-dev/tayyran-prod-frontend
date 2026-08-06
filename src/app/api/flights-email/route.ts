@@ -347,7 +347,7 @@ export async function POST(req: Request) {
   try {
     // ✅ `react:` expects a React element, so this is correct
     const { data, error } = await resend.emails.send({
-      from: "Tayyran.com <info@primespa.site>",
+      from: "Tayyran.com <info@tayyran.com>",
       to: to,
       subject: `Tayyran.com - Booking Done - ${ticketInfo.orderData.data.associatedRecords[0].reference}`,
       react: React.createElement(TayyranTicketEmail, {

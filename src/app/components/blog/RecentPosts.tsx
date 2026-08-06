@@ -14,17 +14,18 @@ interface RecentPostsProps {
     totalPages: number;
     featured: boolean;
     baseUrl?: string;
+    activeSlug?: string;
 }
 
-const RecentPosts = ({ posts, categories, currentPage, totalPages, featured, baseUrl = '/blog' }: RecentPostsProps) => {
+const RecentPosts = ({ posts, categories, currentPage, totalPages, featured, baseUrl = '/blog', activeSlug }: RecentPostsProps) => {
     // Check if this is the first page
     const isFirstPage = currentPage === 1;
 
-    // Determine featured post (only on first page)
-    const featuredPost = isFirstPage && posts.length > 0 ? posts[0] : null;
+    // Determine featured post (only on first page and when featured is enabled)
+    const featuredPost = featured && isFirstPage && posts.length > 0 ? posts[0] : null;
 
-    // Determine grid posts (exclude featured post on first page)
-    const gridPosts = isFirstPage ? posts.slice(1) : posts;
+    // Determine grid posts (exclude featured post on first page when featured is enabled)
+    const gridPosts = featured && isFirstPage ? posts.slice(1) : posts;
 
     return (
         <Section className="recent-posts-container flex  justify-center items-center flex-col gap-8 py-8">
@@ -49,7 +50,7 @@ const RecentPosts = ({ posts, categories, currentPage, totalPages, featured, bas
 
             </div>
             <div className="filter w-[100%]">
-                <CategoryTabs categories={categories} />
+                <CategoryTabs categories={categories} activeSlug={activeSlug} />
             </div>
         </Section>
     );

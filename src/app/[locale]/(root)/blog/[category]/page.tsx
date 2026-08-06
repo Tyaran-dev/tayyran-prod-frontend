@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
-import { getPostsByCategory, getCategoryBySlug, getCategories, getPostBySlug } from '@/lib/wordpress';
+import type { WPCategory } from '@/types/wordpress';
+import { getAllPostsByCategoryIds, getCategoryBySlug, getCategories, getPostBySlug } from '@/lib/wordpress';
 import { getPostCategories } from '@/lib/utils';
 import BlogHero from '@/app/components/blog/BlogHero';
 import CategoryTabs from '@/app/components/blog/CategoryTabs';
@@ -34,7 +35,6 @@ export default async function CategoryPage(props: {
   const searchParams = await props.searchParams;
   const decodedSlug = decodeURIComponent(params.category);
   const currentPage = Number(searchParams.page) || 1;
-  const perPage = 9;
 
   // Try to find a matching category first
   const category = await getCategoryBySlug(decodedSlug);
@@ -52,13 +52,38 @@ export default async function CategoryPage(props: {
     notFound();
   }
 
-  // Fetch data in parallel
-  const [postsResponse, allCategories] = await Promise.all([
-    getPostsByCategory(category.id, currentPage, perPage),
-    getCategories(),
-  ]);
+  const allCategories = await getCategories();
 
-  const { data: posts, totalPages } = postsResponse;
+  const findCategoryBySlug = (
+    categories: WPCategory[],
+    slug: string
+  ): WPCategory | null => {
+    for (const cat of categories) {
+      if (cat.slug === slug) return cat;
+      if (cat.children) {
+        const found = findCategoryBySlug(cat.children, slug);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  const collectCategoryAndDescendants = (category: WPCategory): number[] => {
+    const ids = [category.id];
+    if (category.children) {
+      for (const child of category.children) {
+        ids.push(...collectCategoryAndDescendants(child));
+      }
+    }
+    return ids;
+  };
+
+  const currentCategoryNode = findCategoryBySlug(allCategories, decodedSlug);
+  const categoryIds = currentCategoryNode
+    ? collectCategoryAndDescendants(currentCategoryNode)
+    : [category.id];
+
+  const posts = await getAllPostsByCategoryIds(categoryIds);
 
   return (
     <main className="bg-blog-bg min-h-screen pb-20">
@@ -67,7 +92,7 @@ export default async function CategoryPage(props: {
         posts={posts}
         categories={allCategories}
         currentPage={currentPage}
-        totalPages={postsResponse.totalPages}
+        totalPages={1}
         featured={false}
         baseUrl={`/blog/${decodedSlug}`}
       />

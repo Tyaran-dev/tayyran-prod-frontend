@@ -38,6 +38,7 @@ export default async function BlogPage(props: {
     { name: 'المدونة', url: 'https://tayyran.com/blog' },
   ]);
 
+
   return (
     <main className="bg-blog-bg min-h-screen pb-20">
       <script

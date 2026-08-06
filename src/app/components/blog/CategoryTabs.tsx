@@ -42,6 +42,7 @@ function NestedMenu({
   level?: number;
 }) {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   return (
     <div className={level === 0 ? 'py-1' : 'py-1'}>
@@ -49,6 +50,8 @@ function NestedMenu({
         const hasChildren = category.children && category.children.length > 0;
         const itemActive = isActive(category.slug);
         const isHovered = hoveredId === category.id;
+        const isExpanded = expandedId === category.id;
+        const showSubmenu = hasChildren && (isHovered || isExpanded);
 
         return (
           <div
@@ -57,26 +60,47 @@ function NestedMenu({
             onMouseEnter={() => hasChildren && setHoveredId(category.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
-            <Link
-              href={`${localePrefix}/blog/${category.slug}`}
-              className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium transition-colors ${
-                itemActive
-                  ? 'bg-blog-bg text-blog-primary'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-blog-primary'
-              }`}
+            <div
+              className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium transition-colors ${itemActive
+                ? 'bg-blog-bg text-blog-primary'
+                : 'text-gray-700 hover:bg-gray-50 hover:text-blog-primary'
+                }`}
             >
-              <span className="truncate">{category.name}</span>
+              <Link
+                href={`${localePrefix}/blog/${category.slug}`}
+                className="truncate"
+              >
+                {category.name}
+              </Link>
+
               {hasChildren && (
-                <ChevronRightIcon size={14} className="shrink-0 opacity-60" />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setExpandedId(isExpanded ? null : category.id);
+                  }}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 ${itemActive
+                    ? 'bg-blog-bg text-blog-primary'
+                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+                    }`}
+                  aria-label={isExpanded ? 'Collapse submenu' : 'Expand submenu'}
+                >
+                  <ChevronRightIcon
+                    size={14}
+                    className={`transition-transform duration-200 ${showSubmenu ? 'rotate-90' : ''}`}
+                  />
+                </button>
               )}
-            </Link>
+            </div>
 
             {/* Fly-out sub-menu */}
-            {hasChildren && isHovered && (
+            {hasChildren && showSubmenu && (
               <div
-                className={`absolute z-50 w-52 bg-white rounded-xl shadow-xl border border-gray-100 animate-fadeInSlow ${
-                  level === 0 ? 'left-full top-0 ml-0.5' : 'left-full top-0 ml-1'
-                }`}
+                className="absolute right-full top-0 ml-1 min-w-[200px] bg-white rounded-xl shadow-xl border border-gray-100"
+                onMouseEnter={() => setHoveredId(category.id)}
+                onMouseLeave={() => setHoveredId(null)}
               >
                 <NestedMenu
                   categories={category.children!}
@@ -95,8 +119,8 @@ function NestedMenu({
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Main component — horizontal scrollable tabs
-   ═══════════════════════════════════════════════════════════════ */
+      Main component — horizontal scrollable tabs
+      ═══════════════════════════════════════════════════════════════ */
 export default function CategoryTabs({
   categories,
   activeSlug,
@@ -178,22 +202,19 @@ export default function CategoryTabs({
         >
           {/* ── Left fade + arrow ── */}
           <div
-            className={`absolute left-0 top-0 bottom-0 w-16 rounded-l-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-r from-white to-transparent ${
-              canScrollLeft ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute left-0 top-0 bottom-0 w-16 rounded-l-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-r from-white to-transparent ${canScrollLeft ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <button
             onClick={() => scrollTrack('left')}
             aria-label="Scroll left"
-            className={`absolute left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${
-              hasOverflow
+            className={`absolute left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${hasOverflow
                 ? 'opacity-100'
                 : 'opacity-0 pointer-events-none'
-            } ${
-              canScrollLeft
+              } ${canScrollLeft
                 ? 'text-gray-600 hover:text-gray-900 hover:shadow-md'
                 : 'text-gray-300 cursor-default'
-            }`}
+              }`}
           >
             <ChevronLeft size={16} />
           </button>
@@ -207,11 +228,10 @@ export default function CategoryTabs({
             {/* "All" tab */}
             <Link
               href={`${localePrefix}/blog`}
-              className={`shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                !activeSlug
-                  ? 'bg-blog-bg text-blog-primary shadow-sm'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-              }`}
+              className={`shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${!activeSlug
+                ? 'bg-blog-bg text-blog-primary shadow-sm'
+                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
             >
               {allLabel}
             </Link>
@@ -222,39 +242,44 @@ export default function CategoryTabs({
               const categoryActive = isActive(category.slug);
 
               return (
-                <div key={category.id} className="relative shrink-0">
-                  {hasChildren ? (
-                    <button
-                      onMouseEnter={(e) =>
-                        openDropdown(category.id, e.currentTarget)
-                      }
-                      onMouseLeave={scheduleClose}
-                      className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                        categoryActive
-                          ? 'bg-blog-bg text-blog-primary shadow-sm'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                      }`}
-                    >
-                      {category.name}
-                      <ChevronDown
-                        size={14}
-                        className={`transition-transform duration-200 ${
-                          dropdown?.id === category.id ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
-                  ) : (
+                <div
+                  key={category.id}
+                  className="relative shrink-0"
+                  onMouseLeave={hasChildren ? scheduleClose : undefined}
+                >
+                  <div className="flex items-center gap-1.5 rounded-xl overflow-hidden border border-transparent hover:border-gray-200">
                     <Link
                       href={`${localePrefix}/blog/${category.slug}`}
-                      className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                        categoryActive
-                          ? 'bg-blog-bg text-blog-primary shadow-sm'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                      }`}
+                      onMouseEnter={(e) =>
+                        hasChildren && openDropdown(category.id, e.currentTarget)
+                      }
+                      className={`flex items-center px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${categoryActive
+                        ? 'bg-blog-bg text-blog-primary shadow-sm'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
                     >
                       {category.name}
                     </Link>
-                  )}
+                    {hasChildren && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          openDropdown(category.id, e.currentTarget);
+                        }}
+                        onMouseEnter={(e) => openDropdown(category.id, e.currentTarget)}
+                        className={`flex h-full items-center justify-center px-3 transition-colors duration-200 ${categoryActive
+                          ? 'bg-blog-bg text-blog-primary'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          }`}
+                      >
+                        <ChevronDown
+                          size={14}
+                          className={`transition-transform duration-200 ${dropdown?.id === category.id ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -262,22 +287,19 @@ export default function CategoryTabs({
 
           {/* ── Right fade + arrow ── */}
           <div
-            className={`absolute right-0 top-0 bottom-0 w-16 rounded-r-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-l from-white to-transparent ${
-              canScrollRight ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute right-0 top-0 bottom-0 w-16 rounded-r-2xl pointer-events-none z-10 transition-opacity duration-200 bg-gradient-to-l from-white to-transparent ${canScrollRight ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <button
             onClick={() => scrollTrack('right')}
             aria-label="Scroll right"
-            className={`absolute right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${
-              hasOverflow
+            className={`absolute right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-200 pointer-events-auto ${hasOverflow
                 ? 'opacity-100'
                 : 'opacity-0 pointer-events-none'
-            } ${
-              canScrollRight
+              } ${canScrollRight
                 ? 'text-gray-600 hover:text-gray-900 hover:shadow-md'
                 : 'text-gray-300 cursor-default'
-            }`}
+              }`}
           >
             <ChevronRight size={16} />
           </button>
@@ -288,9 +310,12 @@ export default function CategoryTabs({
             <div
               className="absolute top-full mt-1 z-50 w-56 bg-white rounded-xl shadow-xl border border-gray-100 animate-fadeInSlow"
               style={{
-                left: Math.min(
-                  dropdown.left,
-                  (outerRef.current?.clientWidth || 0) - 224 // keep inside right edge
+                left: Math.max(
+                  0,
+                  Math.min(
+                    dropdown.left,
+                    (outerRef.current?.clientWidth || 0) - 240
+                  )
                 ),
               }}
               onMouseEnter={cancelClose}

@@ -13,10 +13,11 @@ export default function CategoryPostsSection({
     categoryId,
     posts,
 }: CategoryPostsSectionProps) {
-    const visiblePosts = posts.slice(0, 6);
+    const visiblePosts = posts.slice(0, 8);
     const categoryName = category?.name || `التصنيف ${categoryId}`;
     const categorySlug = category?.slug || `category-${categoryId}`;
     const categoryHref = `/blog/${categorySlug}`;
+
 
     if (visiblePosts.length === 0) {
         return null;
