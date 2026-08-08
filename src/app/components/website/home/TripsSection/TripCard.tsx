@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { Star, Clock3, Plane } from 'lucide-react';
+import { decodeHtml } from '@/lib/decodeHtml';
 
 interface TripCardProps {
   id: number;
@@ -65,7 +66,7 @@ export default function TripCard({
 
 
         <h3 className="font-bold text-lg line-clamp-2 mb-3">
-          {title}
+          {decodeHtml(title)}
         </h3>
 
         <div className="flex items-center gap-2 mb-4 text-sm text-white/80">

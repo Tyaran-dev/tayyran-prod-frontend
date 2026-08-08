@@ -17,6 +17,7 @@ import {
   ChevronRight,
   Images,
 } from 'lucide-react';
+import { decodeHtml } from '@/lib/decodeHtml';
 
 
 
@@ -277,7 +278,7 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
                   </>
                 )}
               </div>
-              <h1 className="mt-2 text-3xl font-bold md:text-4xl">{trip.title}</h1>
+              <h1 className="mt-2 text-3xl font-bold md:text-4xl">{decodeHtml(trip.title)}</h1>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-md text-slate-100">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 backdrop-blur-sm">
