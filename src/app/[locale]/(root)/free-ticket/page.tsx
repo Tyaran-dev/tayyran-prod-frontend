@@ -21,7 +21,7 @@ export default function FreeTicketPage() {
     const BOOKED_TICKETS = 10;
     const REMAINING_TICKETS = TOTAL_TICKETS - BOOKED_TICKETS;
 
-    const terms = Array.from({ length: 13 }, (_, i) => ({
+    const terms = Array.from({ length: 14 }, (_, i) => ({
         n: i + 1,
         text: t(`terms.${i + 1}`)
     }));

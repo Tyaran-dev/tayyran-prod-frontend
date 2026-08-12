@@ -74,6 +74,8 @@ export default function RootLayout({
 
   const dir = getDirection(locale);
 
+  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
   return (
     <html
       lang={locale}
@@ -82,6 +84,18 @@ export default function RootLayout({
     >
 
       <head>
+        {/* Google Tag Manager */}
+        {GTM_ID && (
+          <Script id="google-tag-manager" strategy="beforeInteractive">
+            {`
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+            `}
+          </Script>
+        )}
         <Script src="/langs/lang-config.js" strategy="beforeInteractive" />
         <Script src="/langs/translation.js" strategy="beforeInteractive" />
         <Script src="//translate.google.com/translate_a/element.js?cb=TranslateInit" strategy="afterInteractive" />
@@ -101,6 +115,20 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Google Tag Manager (noscript) */}
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{
+                display: "none",
+                visibility: "hidden",
+              }}
+            />
+          </noscript>
+        )}
         <Suspense>
           <AuthProvider>
             <StoreProvider>
