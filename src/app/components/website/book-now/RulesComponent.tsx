@@ -23,10 +23,10 @@ const RulesComponent = ({
     const presentageCommission = useSelector(
         (state: any) => state.flightData.presentageCommission || 5
     );
+    console.log(flightFullData,"fareRules 8888")
 
     // ✅ Dynamic Fare Rules
-    const fareRules =
-        flightFullData?.fare_rules || flightFullData?.originalResponse?.fareRules?.rules || [];
+    const fareRules = flightData?.fare_rules || flightData?.originalResponse?.fareRules?.rules || flightData?.fareRules?.rules || flightFullData?.fare_rules || flightFullData?.originalResponse?.fareRules?.rules || [];
 
     const dynamicRules = fareRules.map((rule: any) => {
         const { category, maxPenaltyAmount, notApplicable } = rule;
@@ -43,8 +43,6 @@ const RulesComponent = ({
         };
     });
 
-    console.log(flightData, "flightData flightData pricing");
-    console.log(flightFullData, "flightFullData flightFullData full data")
 
     const Cards = [
         { img: paypalCard },
@@ -142,8 +140,8 @@ const RulesComponent = ({
                     </h2>
                 </div>
 
-                {/* Payment */}
-                <MyFatoorahIframe amount={finalPrice} />
+                {/* Payment
+                <MyFatoorahIframe amount={finalPrice} /> */}
             </div>
 
             {/* Cards */}

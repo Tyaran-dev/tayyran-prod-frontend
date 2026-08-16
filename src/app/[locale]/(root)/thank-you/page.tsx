@@ -47,41 +47,88 @@ export default function ThankYouPage() {
 
 
   // ✅ Separate effect — runs only after order is set and email not sent yet
-  useEffect(() => {
-    if (
-      status === "CONFIRMED" &&
-      order &&
-      order?.order.orderData?.data?.travelers?.[0]?.contact?.emailAddress &&
-      !emailSent
-    ) {
-      const sendEmail = async () => {
-        try {
-          const to =
-            order?.order.orderData?.data?.travelers?.[0]?.contact?.emailAddress;
+ useEffect(() => {
+  if (status !== "CONFIRMED" || !order || emailSent) {
+    return;
+  }
 
-          await axios.post(`${FrontEndUrl}/api/flights-email`, {
-            ticketInfo: order.order,
-            to,
-          });
+  const sendEmail = async () => {
+    try {
+      // =========================
+      // FLIGHT BOOKING
+      // =========================
+      if (bookingType === "flight") {
+        const to =
+          order?.order?.orderData?.data?.travelers?.[0]?.contact
+            ?.emailAddress;
 
-          setEmailSent(true);
-        } catch (err) {
-          console.error("Error sending email:", err);
+        if (!to) {
+          console.error("Flight customer email not found");
+          return;
         }
-      };
 
-      sendEmail();
-    } else {
-      console.log(
-        "error",
-        status,
-        order,
-        order?.order.orderData?.data?.travelers?.[0]?.contact?.emailAddress,
-        emailSent
-      );
+        await axios.post(`${FrontEndUrl}/api/flights-email`, {
+          ticketInfo: order.order,
+          to,
+        });
+
+        console.log("Flight booking email sent successfully");
+        setEmailSent(true);
+        return;
+      }
+
+      // =========================
+      // HOTEL BOOKING
+      // =========================
+      if (bookingType === "hotel") {
+        await axios.post(`${baseUrl}/hotels/send-booking-email`, {
+          bookingData: {
+            order: {
+              status: "CONFIRMED",
+              invoiceId: "INV-12345",
+              InvoiceValue: 550.0,
+
+              bookingPayload: {
+                hotelData: {
+                  EmailId: "hashimsalahalden5@gmail.com",
+                  PhoneNumber: "+966 50 123 4567",
+                  CustomerDetails: [
+                    {
+                      CustomerNames: [
+                        {
+                          Title: "Mr.",
+                          FirstName: "John",
+                          LastName: "Doe",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+
+              orderData: {
+                data: {
+                  ConfirmationNumber: "CONF-9876",
+                  ClientReferenceId: "REF-5555",
+                },
+              },
+            },
+          },
+        });
+
+        console.log("Hotel booking email sent successfully");
+        setEmailSent(true);
+        return;
+      }
+
+      console.warn("Unknown booking type:", bookingType);
+    } catch (err) {
+      console.error("Error sending booking email:", err);
     }
-  }, [status, order, FrontEndUrl, emailSent]);
+  };
 
+  sendEmail();
+}, [status, order, bookingType, emailSent, FrontEndUrl, baseUrl]);
   return (
     <div className="text-center min-h-svh">
       {status === "PENDING" && <OrderProgress />}

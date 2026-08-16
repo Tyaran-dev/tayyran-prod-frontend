@@ -26,22 +26,29 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
   onTravelerUpdate,
 }) => {
   const { user, logout } = useAuthContext();
-  console.log(user, "user")
-  console.log(travelers, "travelers props")
+
+  console.log(travelers, "travelers")
 
   useEffect(() => {
     if (user) {
+      const defaultPhoneCode =
+        countryCodesOptions.find(
+          (country) =>
+            country.code === "+966" ||
+            country.code === "966"
+        )?.code || "+966";
+
       onTravelerUpdate(0, {
         ...travelers[0],
         email: user.email || "",
         phoneNumber: user.personalInfo?.contact.phoneNumber || "",
-        phoneCode: user.personalInfo?.contact.phoneCode || "",
+        phoneCode: user.personalInfo?.contact.phoneCode || defaultPhoneCode,
         firstName: user.first_name || "",
         lastName: user.last_name || "",
-        dateOfBirth:{
-          day: user.personalInfo?.dateOfBirth.day || "",
-          month: user.personalInfo?.dateOfBirth.month.toString() || "",
-          year: user.personalInfo?.dateOfBirth.year || "",
+        dateOfBirth: {
+          day: user.personalInfo?.dateOfBirth?.day || "",
+          month: user.personalInfo?.dateOfBirth?.month.toString() || "",
+          year: user.personalInfo?.dateOfBirth?.year || "",
         },
         nationality: user.personalInfo?.nationality || "",
         title: user.personalInfo?.title || "",
@@ -531,7 +538,7 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
                         {t("contactDetails.phoneCode")}
                       </label>
                       <CustomSelect
-                        value={traveler.phoneCode}
+                        value={traveler.phoneCode || "+966"}
                         required={true}
                         onChange={(value) =>
                           updateTravelerData(index, "phoneCode", value)
@@ -543,7 +550,7 @@ const TravelerAccordion: React.FC<TravelerAccordionProps> = ({
                               ? `${country.country} ${country.code}`
                               : `${country.arabicName} ${country.code}`,
                         }))}
-                        placeholder="+1"
+                        placeholder="+966"
                         searchable={true}
                       />
                     </div>

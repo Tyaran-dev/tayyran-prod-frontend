@@ -1338,6 +1338,52 @@
     "logout": "تسجيل الخروج",
     "notProvided": "غير متوفر"
   },
+  "Bookings": {
+    "title": "حجوزاتي",
+    "subtitle_one": "لديك {{count}} حجز",
+    "subtitle_other": "لديك {{count}} حجوزات",
+    "emptyTitle": "لا توجد حجوزات",
+    "emptyMessage": "لم تقم بأي حجوزات حتى الآن. ابدأ رحلتك القادمة!",
+    "tabs": {
+      "all": "الكل",
+      "flights": "رحلات الطيران",
+      "hotels": "حجوزات الفنادق"
+    },
+    "flight": {
+      "label": "رحلة طيران",
+      "terminal": "المحطة",
+      "nonStop": "مباشر",
+      "passenger": "المسافر",
+      "bookingDetails": "تفاصيل الحجز",
+      "pnr": "رمز الحجز",
+      "ticket": "التذكرة",
+      "servicesAndBaggage": "الخدمات والأمتعة",
+      "checkedBags_one": "{{count}} حقيبة",
+      "checkedBags_other": "{{count}} حقائب",
+      "meal": "وجبة",
+      "cabin": "درجة السفر",
+      "priceBreakdown": "تفاصيل السعر",
+      "baseFare": "الأساسي",
+      "tax": "ضريبة",
+      "total": "الإجمالي",
+      "bookedOn": "تم الحجز في",
+      "invoice": "رقم الفاتورة",
+      "viewDetails": "عرض التفاصيل",
+      "hideDetails": "إخفاء التفاصيل",
+      "aircraft": "الطائرة"
+    },
+    "hotel": {
+      "label": "فندق",
+      "details": "تفاصيل الفندق",
+      "comingSoon": "تفاصيل حجز الفندق ستظهر هنا قريباً."
+    },
+    "status": {
+      "CONFIRMED": "مؤكد",
+      "PENDING": "معلق",
+      "CANCELLED": "ملغى",
+      "ISSUED": "مصدر"
+    }
+  },
   "MileCoinPage": {
     "title": "ميلكوين",
     "subtitle": "مكافأة سفرك",

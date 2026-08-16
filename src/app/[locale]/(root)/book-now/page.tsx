@@ -49,9 +49,10 @@ const Page = () => {
   const flightDataSlice = useSelector(
     (state: any) => state.flightData.slectedFlight
   );
-  const flightFullData = useSelector(
-    (state: any) => state.flightData.flights[0]
+  const FullData = useSelector(
+    (state: any) => state.flightData.fullData
   );
+
 
   const presentageCommission = useSelector(
     (state: any) => state.flightData.presentageCommission || 5
@@ -150,7 +151,7 @@ const Page = () => {
     issuanceCountry: "",
     passportExpiry: { day: "", month: "", year: "" },
     email: "",
-    phoneCode: "+1",
+    phoneCode: "+966",
     phoneNumber: "",
     isCompleted: false,
   };
@@ -191,6 +192,9 @@ const Page = () => {
   const allTravelersCompleted = travelers.every(
     (traveler) => traveler.isCompleted
   );
+
+  console.log(FullData, "fetched")
+
 
   return (
     <>
@@ -281,7 +285,7 @@ const Page = () => {
                 presentageVat={presentageVat}
                 finalPrice={finalPrice}
                 flightData={flightDataSlice[0]}
-                flightFullData={flightFullData}
+                flightFullData={FullData}
               />
             </div>
           </div>

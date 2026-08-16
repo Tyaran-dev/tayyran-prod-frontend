@@ -16,7 +16,7 @@ import { TiTick } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { AirlinesData } from "@/app/data/airlines";
 import axios from "axios";
-import { addFlightData, selectFlight, setCommission } from "@/redux/flights/flightSlice";
+import { addFlightData, selectFlight, setCommission, setFlightFullData } from "@/redux/flights/flightSlice";
 import { useTranslations, useLocale } from "next-intl";
 
 const FlightCard = ({
@@ -57,7 +57,6 @@ const FlightCard = ({
       .segments[0].carrierCode?.toLowerCase()
   );
 
-  console.log(airLineName)
 
   function getNumberOfStops(itinerary: any) {
     const stopCount = itinerary.segments.length;
@@ -117,8 +116,10 @@ const FlightCard = ({
       flight
     );
     const flightData = response.data.data.flightOffers;
+
     dispatch(addFlightData(flight));
     dispatch(selectFlight(flightData));
+    dispatch(setFlightFullData(flight));
     dispatch(
       setCommission({
         type: "presentageCommission",

@@ -1341,6 +1341,52 @@
     "logout": "Log Out",
     "notProvided": "Not provided"
   },
+  "Bookings": {
+    "title": "My Bookings",
+    "subtitle_one": "You have {{count}} booking",
+    "subtitle_other": "You have {{count}} bookings",
+    "emptyTitle": "No Bookings Yet",
+    "emptyMessage": "You haven't made any bookings yet. Start planning your next trip!",
+    "tabs": {
+      "all": "All",
+      "flights": "Flights",
+      "hotels": "Hotels"
+    },
+    "flight": {
+      "label": "Flight",
+      "terminal": "Terminal",
+      "nonStop": "Non-stop",
+      "passenger": "Passenger",
+      "bookingDetails": "Booking Details",
+      "pnr": "PNR",
+      "ticket": "Ticket",
+      "servicesAndBaggage": "Services & Baggage",
+      "checkedBags_one": "{{count}} Checked Bag",
+      "checkedBags_other": "{{count}} Checked Bags",
+      "meal": "Meal",
+      "cabin": "Cabin",
+      "priceBreakdown": "Price Breakdown",
+      "baseFare": "Base Fare",
+      "tax": "Tax",
+      "total": "Total",
+      "bookedOn": "Booked on",
+      "invoice": "Invoice",
+      "viewDetails": "View Details",
+      "hideDetails": "Hide Details",
+      "aircraft": "Aircraft"
+    },
+    "hotel": {
+      "label": "Hotel",
+      "details": "Hotel Details",
+      "comingSoon": "Hotel booking details will appear here soon."
+    },
+    "status": {
+      "CONFIRMED": "Confirmed",
+      "PENDING": "Pending",
+      "CANCELLED": "Cancelled",
+      "ISSUED": "Issued"
+    }
+  },
   "MileCoinPage": {
     "title": "MileCoin",
     "subtitle": "Rewarding Your Travels",

@@ -18,6 +18,7 @@ export const monthOptions = [
 
 // Complete list of country codes with flags
 export const countryCodesOptions = [
+    { code: '+966', country: 'Saudi Arabia', arabicName: 'المملكة العربية السعودية', flag: '🇸🇦' },
     { code: '+93', country: 'Afghanistan', arabicName: 'أفغانستان', flag: '🇦🇫' },
     { code: '+355', country: 'Albania', arabicName: 'ألبانيا', flag: '🇦🇱' },
     { code: '+213', country: 'Algeria', arabicName: 'الجزائر', flag: '🇩🇿' },

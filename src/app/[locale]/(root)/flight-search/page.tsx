@@ -48,8 +48,6 @@ const Page: React.FC = () => {
     hasHydrated
   } = useSearchflights();
 
-  console.log(carriers,"carriers zeft")
-
 
   const locale = useLocale();
   const t = useTranslations("filters");
@@ -71,6 +69,12 @@ const Page: React.FC = () => {
     airlines: [],
     departureTime: "any",
   });
+
+  const flightFullData = useSelector(
+    (state: any) => state.flightFullData
+  );
+
+  console.log(flightFullData, "new test from flight-search")
 
   // Update the departure time filter handler
   const onDepartureTimeChange = (newTime: string) => {

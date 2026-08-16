@@ -36,6 +36,7 @@ export type TripType = 'oneway' | 'roundtrip' | 'multiCities';
 interface FlightDataState {
   flights: Flight[]; // This is where the flight data will be stored
   slectedFlight: Flight[] | null;
+  fullData: Flight[] | null,
   searchParamsData: FlightFormData | null,
   tripType: string;
   loading: 'pending' | 'succeeded' | 'failed' | null;
@@ -48,6 +49,7 @@ interface FlightDataState {
 const initialState: FlightDataState = {
   flights: [],
   slectedFlight: null,
+  fullData: null,
   searchParamsData: null,
   tripType: 'oneway',
   loading: null,
@@ -86,6 +88,12 @@ export const flightDataSlice = createSlice({
       state.slectedFlight = null;
       state.slectedFlight = action.payload;
     },
+    setFlightFullData: (state, action: PayloadAction<Flight[]>) => {
+      state.fullData = null;
+      state.fullData = action.payload;
+
+
+    },
     removeFlightData: (state, action: PayloadAction<number>) => {
       state.flights.splice(action.payload, 1); // Remove the flight at the given index
     },
@@ -117,5 +125,5 @@ export const flightDataSlice = createSlice({
   },
 });
 
-export const { setCommission, addFlightData, selectFlight, clearFlightData, removeFlightData, changeTripType, setSearchData, clearFlightSearch } = flightDataSlice.actions;
+export const { setCommission, addFlightData, selectFlight, setFlightFullData, clearFlightData, removeFlightData, changeTripType, setSearchData, clearFlightSearch } = flightDataSlice.actions;
 export default flightDataSlice.reducer;
