@@ -27,7 +27,6 @@ const RoomChoices = ({ rooms, presentageCommission }: { rooms: Room[], presentag
     room.MealType?.toLowerCase().replace(/_/g, " ").includes("breakfast")
   );
 
-  console.log(allRooms, "allRooms")
 
   // Get rooms for current tab
   const getCurrentRooms = () => {

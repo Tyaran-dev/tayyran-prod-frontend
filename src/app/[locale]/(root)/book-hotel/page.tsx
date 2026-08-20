@@ -42,6 +42,12 @@ export interface CustomerDetail {
   CustomerNames: CustomerName[];
 }
 
+export interface HotelBookingDetails {
+  hotel: unknown;
+  room: unknown;
+  searchParams?: PaxRoom[];
+}
+
 export interface BookingPayload {
   BookingCode: string;
   CustomerDetails: CustomerDetail[];
@@ -52,6 +58,9 @@ export interface BookingPayload {
   PhoneNumber: string;
   BookingType: BookingType;
   PaymentMode: PaymentMode;
+
+  hotelDetails: HotelBookingDetails;
+
   Supplements?: {
     SuppID: number;
     SuppChargeType: "Mandatory" | "Optional";
@@ -223,7 +232,6 @@ export default function BookingPage() {
   const { user, logout } = useAuthContext();
 
 
-
   // Redux state
   const { selectedRoom, hotel, searchParamsData } = useAppSelector(
     (state) => state.hotelData
@@ -236,7 +244,9 @@ export default function BookingPage() {
   const commision = Number((totalPrice * presentageCommission) / 100);
   const vat = Number((commision * presentageVat) / 100);
   const finalPrice = totalFare + tax + commision + vat;
-  const hotelCode = hotel?.data?.hotel?.[0].HotelCode;
+  const hotelCode = hotel?.data?.hotel?.HotelDetails[0];
+
+
 
   // ✅ Top-level guard: no hotel data (similar to flight booking)
   if (!selectedRoom || !hotel) {
@@ -557,18 +567,29 @@ export default function BookingPage() {
 
   const formatGuestDataForAPI = useCallback((): BookingPayload => {
     const leadGuest = roomsGuestData[0]?.adults[0];
-    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+
+    const dateStr = new Date()
+      .toISOString()
+      .slice(0, 10)
+      .replace(/-/g, "");
+
     const randomNum = Math.floor(Math.random() * 1000);
 
     const formattedPhoneNumber =
       leadGuest?.phoneCode && leadGuest?.phone
-        ? `+${leadGuest.phoneCode}${leadGuest.phone}`
+        ? `${leadGuest.phoneCode}${leadGuest.phone}`
         : leadGuest?.phone || "";
 
     return {
+      // ============================================
+      // TBO BOOKING DATA
+      // ============================================
+
       BookingCode: selectedRoom?.BookingCode || "",
+
       CustomerDetails: roomsGuestData.map((room, idx) => ({
         RoomIndex: idx,
+
         CustomerNames: [
           ...room.adults.map((adult) => ({
             Title: adult.title as Title,
@@ -576,6 +597,7 @@ export default function BookingPage() {
             LastName: adult.lastName,
             Type: "Adult" as CustomerType,
           })),
+
           ...room.children.map((child) => ({
             Title: child.title as Title,
             FirstName: child.firstName,
@@ -584,15 +606,38 @@ export default function BookingPage() {
           })),
         ],
       })),
+
       ClientReferenceId: `BOOK-${dateStr}${randomNum}`,
+
       BookingReferenceId: `TBO-BOOK-${dateStr}${randomNum}`,
+
       TotalFare: selectedRoom?.TotalFare || 0,
+
       EmailId: leadGuest?.email || "",
-      PhoneNumber: formattedPhoneNumber,
+
+      PhoneNumber: formattedPhoneNumber || "",
+
       BookingType: "Voucher",
+
       PaymentMode: "Limit",
+
+      // ============================================
+      // HOTEL DATA FOR YOUR DATABASE
+      // ============================================
+
+      hotelDetails: {
+        hotel: hotel?.data?.hotel?.HotelDetails[0] || null,
+
+        room: preBookedRoom || null,
+        searchParams: searchParamsData?.PaxRooms || [],
+      },
     };
-  }, [roomsGuestData, selectedRoom]);
+  }, [
+    roomsGuestData,
+    selectedRoom,
+    hotel,
+    searchParamsData,
+  ]);
 
 
   const handleSubmitBooking = useBookingHandler(
@@ -656,7 +701,7 @@ export default function BookingPage() {
                 lastName: user.last_name || "",
                 email: user.email || "",
                 phone: user.personalInfo?.contact.phoneNumber || "",
-                phoneCode: user.personalInfo?.contact.phoneCode || "",
+                phoneCode: user.personalInfo?.contact.phoneCode || "+966",
                 isCompleted: true,
               }
               : adult
@@ -907,13 +952,16 @@ export default function BookingPage() {
                         value={options.find(
                           (opt) => opt.value === guest.phoneCode
                         )}
+                        defaultValue={options.find(
+                          (opt) => opt.value === "+966"
+                        )}
                         onChange={(selected) => {
                           updateGuestData(
                             roomIndex,
                             guestType,
                             guestIndex,
                             "phoneCode",
-                            selected?.value || ""
+                            selected?.value || "+966"
                           );
                         }}
                         placeholder="Select code"

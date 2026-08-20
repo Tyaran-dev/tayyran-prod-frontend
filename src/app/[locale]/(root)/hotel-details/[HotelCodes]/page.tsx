@@ -50,11 +50,9 @@ export default function HotelPage() {
   );
 
 
-  const hotelData: Hotel | undefined = hotel?.data?.hotel?.[0];
+  const hotelData: Hotel | undefined = hotel?.data?.hotel?.HotelDetails[0];
   const availableRooms = hotel?.data?.availableRooms ?? [];
   const presentageCommission = hotel?.data.presentageCommission;
-
-  console.log(hotel?.data, "here hashim")
 
 
 

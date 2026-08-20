@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bed, ChevronDown, ChevronUp, Users } from "lucide-react";
 import Button from "./Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setSelectedRoom } from "@/redux/hotels/hotelsSlice";
 import Image from "next/image";
@@ -49,6 +49,9 @@ const RoomListing = ({
   const locale = useLocale();
   const t = useTranslations('RoomListing');
 
+  const selectedRoom = useSelector((state: any) => state.hotelData.searchParamsData);
+
+  console.log(selectedRoom, "selectedRoom 55")
   // Helper function to safely handle RoomPromotion
   const getRoomPromotions = (room: Room): string[] => {
     if (!room.RoomPromotion) return [];

@@ -19,6 +19,7 @@ export default function ThankYouPage() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const FrontEndUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
+
   useEffect(() => {
     if (!paymentId) return;
 
@@ -47,88 +48,57 @@ export default function ThankYouPage() {
 
 
   // ✅ Separate effect — runs only after order is set and email not sent yet
- useEffect(() => {
-  if (status !== "CONFIRMED" || !order || emailSent) {
-    return;
-  }
+  useEffect(() => {
+    if (status !== "CONFIRMED" || !order || emailSent) {
+      return;
+    }
 
-  const sendEmail = async () => {
-    try {
-      // =========================
-      // FLIGHT BOOKING
-      // =========================
-      if (bookingType === "flight") {
-        const to =
-          order?.order?.orderData?.data?.travelers?.[0]?.contact
-            ?.emailAddress;
+    const sendEmail = async () => {
+      try {
+        // =========================
+        // FLIGHT BOOKING
+        // =========================
+        if (bookingType === "flight") {
+          const to =
+            order?.order?.orderData?.data?.travelers?.[0]?.contact
+              ?.emailAddress;
 
-        if (!to) {
-          console.error("Flight customer email not found");
+          if (!to) {
+            console.error("Flight customer email not found");
+            return;
+          }
+
+          await axios.post(`${FrontEndUrl}/api/flights-email`, {
+            ticketInfo: order.order,
+            to,
+          });
+
+          console.log("Flight booking email sent successfully");
+          setEmailSent(true);
           return;
         }
 
-        await axios.post(`${FrontEndUrl}/api/flights-email`, {
-          ticketInfo: order.order,
-          to,
-        });
+        // =========================
+        // HOTEL BOOKING
+        // =========================
+        if (bookingType === "hotel") {
+          await axios.post(`${baseUrl}/hotels/send-booking-email`, {
+            invoiceId: order.order.invoiceId
+          });
 
-        console.log("Flight booking email sent successfully");
-        setEmailSent(true);
-        return;
+          console.log("Hotel booking email sent successfully");
+          setEmailSent(true);
+          return;
+        }
+
+        console.warn("Unknown booking type:", bookingType);
+      } catch (err) {
+        console.error("Error sending booking email:", err);
       }
+    };
 
-      // =========================
-      // HOTEL BOOKING
-      // =========================
-      if (bookingType === "hotel") {
-        await axios.post(`${baseUrl}/hotels/send-booking-email`, {
-          bookingData: {
-            order: {
-              status: "CONFIRMED",
-              invoiceId: "INV-12345",
-              InvoiceValue: 550.0,
-
-              bookingPayload: {
-                hotelData: {
-                  EmailId: "hashimsalahalden5@gmail.com",
-                  PhoneNumber: "+966 50 123 4567",
-                  CustomerDetails: [
-                    {
-                      CustomerNames: [
-                        {
-                          Title: "Mr.",
-                          FirstName: "John",
-                          LastName: "Doe",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-
-              orderData: {
-                data: {
-                  ConfirmationNumber: "CONF-9876",
-                  ClientReferenceId: "REF-5555",
-                },
-              },
-            },
-          },
-        });
-
-        console.log("Hotel booking email sent successfully");
-        setEmailSent(true);
-        return;
-      }
-
-      console.warn("Unknown booking type:", bookingType);
-    } catch (err) {
-      console.error("Error sending booking email:", err);
-    }
-  };
-
-  sendEmail();
-}, [status, order, bookingType, emailSent, FrontEndUrl, baseUrl]);
+    sendEmail();
+  }, [status, order, bookingType, emailSent, FrontEndUrl, baseUrl]);
   return (
     <div className="text-center min-h-svh">
       {status === "PENDING" && <OrderProgress />}

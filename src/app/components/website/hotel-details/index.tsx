@@ -23,6 +23,8 @@ interface HotelDetailsProps {
   presentageCommission: number | undefined
 }
 
+
+
 const HotelDetails = ({ hotel, availableRooms, presentageCommission }: HotelDetailsProps) => {
   const data = {
     airline: "Ramada Plaza by Wyndham Istanbul City Center Adults Only",
@@ -33,7 +35,6 @@ const HotelDetails = ({ hotel, availableRooms, presentageCommission }: HotelDeta
     images: [i1, i2, i3, i4, i5],
     // featureImages: [f1, f2, f3, f4, f5, f6, f1, f2, f3, f4, f5, f6, f1, f2, f3, f4, f5, f6, f1, f2, f3, f4, f5, f6],
   };
-
   const tabs = [
     { id: "photos", label: "Photos" },
     { id: "room-choices", label: "Room Choices" },
