@@ -363,7 +363,7 @@ const Navbar = () => {
                     </Link>
 
                     <Link
-                      href="/bookings"
+                      href="/my-bookings"
                       onClick={() => setIsModalOpen(false)}
                       className="flex items-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 active:scale-[0.98] transition-all"
                     >

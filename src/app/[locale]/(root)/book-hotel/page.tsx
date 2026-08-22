@@ -536,34 +536,7 @@ export default function BookingPage() {
     [updateGuestData]
   );
 
-  const handlePhoneCodeChange = useCallback(
-    (
-      roomIndex: number,
-      guestType: "adults" | "children",
-      guestIndex: number,
-      selectedValue: string
-    ) => {
-      const onlyNumbers = selectedValue.replace(/[^0-9]/g, "");
-      updateGuestData(
-        roomIndex,
-        guestType,
-        guestIndex,
-        "phoneCode",
-        onlyNumbers
-      );
-
-      if (hasAttemptedSubmit) {
-        validateField(
-          roomIndex,
-          guestType,
-          guestIndex,
-          "phoneCode",
-          onlyNumbers
-        );
-      }
-    },
-    [updateGuestData, hasAttemptedSubmit, validateField]
-  );
+  console.log(searchParamsData, "searchParamsData hereeeeee")
 
   const formatGuestDataForAPI = useCallback((): BookingPayload => {
     const leadGuest = roomsGuestData[0]?.adults[0];
@@ -627,9 +600,10 @@ export default function BookingPage() {
 
       hotelDetails: {
         hotel: hotel?.data?.hotel?.HotelDetails[0] || null,
-
         room: preBookedRoom || null,
         searchParams: searchParamsData?.PaxRooms || [],
+        CheckIn: searchParamsData?.CheckIn || "",
+        CheckOut: searchParamsData?.CheckOut || "",
       },
     };
   }, [

@@ -444,6 +444,14 @@ const HotelBookingCard = ({
 
   const [expanded, setExpanded] = useState(false);
 
+  const formatStayDate = (date?: string) => {
+    if (!date) return "-";
+
+    return formatDate(
+      date,
+      isRTL ? "ar" : "en"
+    );
+  };
   // ============================================
   // HOTEL BOOKING DATA
   // ============================================
@@ -456,11 +464,13 @@ const HotelBookingCard = ({
 
   const rooms = roomData?.Rooms || [];
 
-  const rateConditions =
-    roomData?.RateConditions || [];
-
   const searchParams =
     hotelData?.hotelDetails?.searchParams || [];
+
+  const checkInDate = hotelData?.hotelDetails?.CheckIn;
+  const checkOutDate = hotelData?.hotelDetails?.CheckOut;
+
+  console.log(checkInDate, checkOutDate); 
 
   // ============================================
   // HELPERS
@@ -532,24 +542,6 @@ const HotelBookingCard = ({
   // ============================================
   // PRICE
   // ============================================
-
-  const totalFare =
-    hotelData?.TotalFare ??
-    roomData?.Rooms?.reduce(
-      (sum: number, room: any) =>
-        sum + Number(room.TotalFare || 0),
-      0
-    ) ??
-    booking.InvoiceValue ??
-    0;
-
-  const totalTax =
-    roomData?.Rooms?.reduce(
-      (sum: number, room: any) =>
-        sum + Number(room.TotalTax || 0),
-      0
-    ) ?? 0;
-
   const currency =
     roomData?.Currency ||
     "SAR";
@@ -563,13 +555,6 @@ const HotelBookingCard = ({
     hotel?.Images?.[0] ||
     "";
 
-  // ============================================
-  // HOTEL DESCRIPTION
-  // ============================================
-
-  const hotelDescription = stripHtml(
-    hotel?.Description
-  );
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
@@ -723,13 +708,7 @@ const HotelBookingCard = ({
               {currency}
             </p>
 
-            {totalTax > 0 && (
-              <p className="text-xs text-slate-400 mt-1">
-                {t("hotel.tax")}:{" "}
-                {Number(totalTax).toFixed(2)}{" "}
-                {currency}
-              </p>
-            )}
+
 
           </div>
 
@@ -860,33 +839,13 @@ const HotelBookingCard = ({
 
                       </div>
 
-                      <div className="text-left sm:text-right">
 
-                        <p className="font-bold text-blue-700">
-                          {Number(
-                            room.TotalFare || 0
-                          ).toFixed(2)}{" "}
-                          {currency}
-                        </p>
-
-                        {Number(room.TotalTax || 0) >
-                          0 && (
-                            <p className="text-xs text-slate-400">
-                              {t("hotel.tax")}:{" "}
-                              {Number(
-                                room.TotalTax
-                              ).toFixed(2)}{" "}
-                              {currency}
-                            </p>
-                          )}
-
-                      </div>
 
                     </div>
 
                   </div>
 
-                  <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 
                     {/* Refundable */}
 
@@ -935,17 +894,7 @@ const HotelBookingCard = ({
                       </p>
                     </div>
 
-                    {/* Booking code */}
 
-                    <div>
-                      <p className="text-xs text-slate-400">
-                        {t("hotel.bookingCode")}
-                      </p>
-
-                      <p className="text-xs font-mono text-slate-700 break-all">
-                        {room.BookingCode || "-"}
-                      </p>
-                    </div>
 
                   </div>
 
@@ -1090,35 +1039,6 @@ const HotelBookingCard = ({
                   </p>
                 </div>
 
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.postalCode")}
-                  </p>
-
-                  <p className="text-sm font-medium text-slate-800">
-                    {hotel?.PinCode || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.phone")}
-                  </p>
-
-                  <p className="text-sm font-medium text-slate-800">
-                    {hotel?.PhoneNumber || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.email")}
-                  </p>
-
-                  <p className="text-sm font-medium text-slate-800 break-all">
-                    {hotel?.Email || "-"}
-                  </p>
-                </div>
 
               </div>
 
@@ -1136,6 +1056,7 @@ const HotelBookingCard = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
+                {/* Check In */}
                 <div className="bg-slate-50 rounded-lg p-4">
 
                   <div className="flex items-center gap-2 mb-2">
@@ -1147,11 +1068,19 @@ const HotelBookingCard = ({
                   </div>
 
                   <p className="font-semibold text-slate-800">
-                    {hotel?.CheckInTime || "-"}
+                    {formatStayDate(checkInDate)}
                   </p>
+
+                  {/* Hotel check-in time */}
+                  {hotel?.CheckInTime && (
+                    <p className="text-xs text-slate-500 mt-1">
+                      {hotel.CheckInTime}
+                    </p>
+                  )}
 
                 </div>
 
+                {/* Check Out */}
                 <div className="bg-slate-50 rounded-lg p-4">
 
                   <div className="flex items-center gap-2 mb-2">
@@ -1163,16 +1092,19 @@ const HotelBookingCard = ({
                   </div>
 
                   <p className="font-semibold text-slate-800">
-                    {hotel?.CheckOutTime || "-"}
+                    {formatStayDate(checkOutDate)}
                   </p>
+
+                  {/* Hotel check-out time */}
+                  {hotel?.CheckOutTime && (
+                    <p className="text-xs text-slate-500 mt-1">
+                      {hotel.CheckOutTime}
+                    </p>
+                  )}
 
                 </div>
 
               </div>
-
-              <p className="text-xs text-amber-600 mt-3">
-                {t("hotel.stayDatesNotAvailable")}
-              </p>
 
             </div>
 
@@ -1457,16 +1389,6 @@ const HotelBookingCard = ({
 
                 <div>
                   <p className="text-xs text-slate-400">
-                    {t("hotel.bookingCode")}
-                  </p>
-
-                  <p className="font-mono text-xs text-slate-700 break-all">
-                    {hotelData?.BookingCode || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
                     {t("hotel.invoiceId")}
                   </p>
 
@@ -1492,16 +1414,6 @@ const HotelBookingCard = ({
 
                   <p className="font-medium text-sm text-slate-800">
                     {hotelData?.PaymentMode || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.bookingType")}
-                  </p>
-
-                  <p className="font-medium text-sm text-slate-800">
-                    {hotelData?.BookingType || "-"}
                   </p>
                 </div>
 
@@ -1551,26 +1463,6 @@ const HotelBookingCard = ({
 
                   <p className="text-sm font-medium text-slate-800">
                     {hotelData?.PhoneNumber || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.hotelPhone")}
-                  </p>
-
-                  <p className="text-sm font-medium text-slate-800">
-                    {hotel?.PhoneNumber || "-"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-slate-400">
-                    {t("hotel.hotelEmail")}
-                  </p>
-
-                  <p className="text-sm font-medium text-slate-800 break-all">
-                    {hotel?.Email || "-"}
                   </p>
                 </div>
 
