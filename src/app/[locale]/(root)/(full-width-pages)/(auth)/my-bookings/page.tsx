@@ -719,7 +719,7 @@ const HotelBookingCard = ({
             </p>
 
             <p className="text-2xl font-bold text-blue-700">
-              {Number(totalFare).toFixed(2)}{" "}
+              {Number(booking.InvoiceValue).toFixed(2)}{" "}
               {currency}
             </p>
 
