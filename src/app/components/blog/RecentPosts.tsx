@@ -41,11 +41,11 @@ const RecentPosts = ({ posts, categories, currentPage, totalPages, featured, bas
                         />
                     )}
 
-                    {/* <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    baseUrl={baseUrl}
-                /> */}
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        baseUrl={baseUrl}
+                    />
                 </div>
 
             </div>

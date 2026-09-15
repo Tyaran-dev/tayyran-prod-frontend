@@ -10,6 +10,9 @@ import Pagination from '@/app/components/blog/Pagination';
 import Newsletter from '@/app/components/blog/Newsletter';
 import RecentPosts from '@/app/components/blog/RecentPosts';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function generateMetadata(props: {
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {

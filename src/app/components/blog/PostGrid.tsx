@@ -10,6 +10,8 @@ interface PostGridProps {
 
 export default function PostGrid({ posts, title }: PostGridProps) {
   const t = useTranslations('blog');
+
+  console.log(posts, "posts  5555")
   if (!posts || posts.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
