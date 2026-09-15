@@ -85,6 +85,9 @@ export default function EditPassportDialog({
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() + i);
 
+
+  console.log(days, "days  5555")
+
   const months = [
     { value: "1", key: "january" },
     { value: "2", key: "february" },
@@ -227,7 +230,7 @@ export default function EditPassportDialog({
                         dir="ltr"
                       >
                         <option value="">{t("day")}</option>
-                        {days.map((day) => (
+                        {days?.map((day) => (
                           <option key={day} value={day.toString()}>
                             {day}
                           </option>

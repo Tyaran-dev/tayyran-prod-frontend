@@ -249,13 +249,15 @@ const FlightBookingCard = ({
             <p className="text-2xl font-bold text-slate-800">
               {formatTime(segment.departure.at)}
             </p>
-            <p className="text-sm font-medium text-slate-600 mt-1">
-              {depAirport?.city?.[isRTL ? "ar" : "en"] ||
-                segment.departure.iataCode}
-            </p>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {t("flight.terminal")} {segment.departure.terminal || "-"}
-            </p>
+            <div className="text-sm font-medium text-slate-600 mt-1">
+              <p className="text-sm text-slate-400">
+                {isRTL ? "من" : "From"}
+              </p>
+              <p className="text-base">
+                {depAirport?.city?.[isRTL ? "ar" : "en"] ||
+                  segment.departure.iataCode}
+              </p>
+            </div>
           </div>
 
           <div className="flex-1 flex flex-col items-center px-2">
@@ -285,13 +287,19 @@ const FlightBookingCard = ({
             <p className="text-2xl font-bold text-slate-800">
               {formatTime(segment.arrival.at)}
             </p>
-            <p className="text-sm font-medium text-slate-600 mt-1">
-              {arrAirport?.city?.[isRTL ? "ar" : "en"] ||
-                segment.arrival.iataCode}
-            </p>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {t("flight.terminal")} {segment.arrival.terminal || "-"}
-            </p>
+            <div className="text-sm font-medium text-slate-600 mt-1">
+
+              <p className="text-sm text-slate-400">
+                {isRTL ? "إلى" : "To"}
+              </p>
+
+              <p className="text-base">
+                {arrAirport?.city?.[isRTL ? "ar" : "en"] ||
+                  segment.arrival.iataCode}
+              </p>
+
+            </div>
+
           </div>
         </div>
 
@@ -470,7 +478,7 @@ const HotelBookingCard = ({
   const checkInDate = hotelData?.hotelDetails?.CheckIn;
   const checkOutDate = hotelData?.hotelDetails?.CheckOut;
 
-  console.log(checkInDate, checkOutDate); 
+  console.log(checkInDate, checkOutDate);
 
   // ============================================
   // HELPERS

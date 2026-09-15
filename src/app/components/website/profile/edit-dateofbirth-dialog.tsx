@@ -125,7 +125,7 @@ export default function EditDateOfBirthDialog({
                         dir="ltr"
                       >
                         <option value="">{t("day") || "Day"}</option>
-                        {days.map((day) => (
+                        {days?.map((day) => (
                           <option key={day} value={day.toString()}>
                             {day}
                           </option>

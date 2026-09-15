@@ -391,7 +391,7 @@ export default function TripPdfDocument({ trip, images }: {
           )}
 
           <Text style={styles.sectionTitle} break>يوميات الرحلة</Text>
-          {days.map((d, i) => (
+          {days?.map((d, i) => (
             <View key={`day-${i}`} style={styles.dayBlock} wrap={false}>
               <View style={styles.dayTitleRow}>
                 <Text style={styles.dayNumberBadge}>{i + 1}</Text>

@@ -98,12 +98,12 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
   const tripCode = trip.acf.trip_code || '';
   const includeItems = trip.acf.advantages ?? [];
   const excludeItems = trip.acf.disadvantages ?? [];
-  const days = trip.acf.days ?? [];
+  const days = trip.acf.days || [];
   const hotels = trip.acf['suggested-hotels'] ?? [];
   const tripType = trip.acf['trip-type'] || 'رحلة جماعية';
 
 
-  console.log(countries, "countries")
+  console.log(days, "days")
 
   const openLightbox = useCallback((index: number) => setLightboxIndex(index), []);
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
@@ -458,7 +458,8 @@ export default function TripDetailClient({ trip }: TripDetailClientProps) {
               </div>
 
               <div className="mt-6 space-y-4">
-                {days.map((item, index) => {
+
+                {days?.map((item, index) => {
                   const isOpen = activeDay === index;
                   return (
                     <div
